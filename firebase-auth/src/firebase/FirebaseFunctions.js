@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import firebaseApp from './Firebase'
 
-let db  = firebase.firestore();
+let db  = firebaseApp.firestore();
 
 async function doCreateUserWithEmailAndPassword(email, password, firstName , lastName) {
 	await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -9,7 +10,12 @@ async function doCreateUserWithEmailAndPassword(email, password, firstName , las
 	let data = {
 		firstName: firstName,
 		lastName : lastName,
-		email : email
+		email : email,
+		dob : new Date(),
+		collegeId : '',
+		status : '',
+		photoURL : '',
+		posts : []
 	  };
 	  let setDoc = await db.collection('users').doc(user.uid).set(data);	
 	  console.log(setDoc)	  
