@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Account from './Account';
 import Home from './Home';
 import Landing from './Landing';
+import Unidata from './Unidata';
 import Navigation from './Navigation';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -19,12 +20,13 @@ function App() {
 					</header>
 				</div>
 				<Route exact path='/' component={Landing} />
+				<Route path='/unidata/:id' exact component={Unidata} />
 				<PrivateRoute path='/home' component={Home} />
 				<PrivateRoute path='/account' component={Account} />
 				<Route path='/signin' component={SignIn} />
 				<Route path='/signup' component={SignUp} />
 			</Router>
-		</AuthProvider>
+		</AuthProvider> 
 	);
 }
 

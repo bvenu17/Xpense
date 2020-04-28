@@ -4,27 +4,28 @@ import firebaseApp from './Firebase'
 
 let db  = firebaseApp.firestore();
 
-async function updateUser(userObject) {
-    await db.collection('users').doc(uid).set(userObject)
-};
+// async function updateUser(userObject) {
+//     await db.collection('users').doc(uid).set(userObject)
+// };
 
-async function addPosts(postObject) {
+async function addPosts(uid, postObject) {
     await db.collection('posts').doc(uid).set(postObject);
     await db.collection('users').doc(uid).update({
         posts : firebase.firestore.FieldValue.arrayUnion(postObject)
     });
 };
 
-async function deletePosts(userObject) {
-    const removeObj = db.collection('posts').doc(uid).delete()
-    await db.collection('users').doc(uid).update({
-        posts : firebase.firestore.FieldValue.arrayUnion(postObject)
-    });
-};
+// async function deletePosts(userObject) {
+//     const removeObj = db.collection('posts').doc(uid).delete()
+//     await db.collection('users').doc(uid).update({
+//         // posts : firebase.firestore.FieldValue.arrayUnion(postObject)
+//         posts : firebase.firestore.FieldValue.arrayUnion(userObject)
+//     });
+// };
 
 
 async function getUser(uid) {
-    let userRef = await db.collection('user').doc(uid);
+    let userRef = await db.collection('users').doc(uid);
     let getDoc = userRef.get()
       .then(doc => {
         if (!doc.exists) {
@@ -32,6 +33,7 @@ async function getUser(uid) {
         } else 
         {
           //console.log('Document data:', doc.data());
+          console.log("Inside firestore functions: ", doc.data())
           return doc.data();
         }
       })
@@ -42,7 +44,7 @@ async function getUser(uid) {
 
 
 async function getPost(uid) {
-let postRef = await db.collection('post').doc(uid);
+let postRef = await db.collection('posts').doc(uid);
 let getDoc = postRef.get()
   .then(doc => {
     if (!doc.exists) {
@@ -60,7 +62,7 @@ let getDoc = postRef.get()
 
 async function getAllPosts(collegeID){
     let postsRef = db.collection('posts');
-    allPosts = []
+    let allPosts = []
     let query = postsRef.where('collegeID', '==', collegeID).get()
     .then(snapshot => {
         if (snapshot.empty) {
@@ -80,9 +82,9 @@ async function getAllPosts(collegeID){
 };
 
 export {
-    updateUser,
+    // updateUser,
     addPosts,
-    deletePosts,
+    // deletePosts,
     getAllPosts,
     getUser,
     getPost
