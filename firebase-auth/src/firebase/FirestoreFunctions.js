@@ -40,6 +40,7 @@ async function getUser(uid) {
       .catch(err => {
         console.log('Error getting document', err);
       });
+     return getDoc
     };
 
 
@@ -57,6 +58,7 @@ let getDoc = postRef.get()
   .catch(err => {
     console.log('Error getting document', err);
   });
+  return getDoc
 };
 
 

@@ -36,11 +36,27 @@ async function doSignInWithEmailAndPassword(email, password) {
 async function doSocialSignIn(provider) {
 	let socialProvider = null;
 	if (provider === 'google') {
-		socialProvider = new firebase.auth.GoogleAuthProvider();
+		socialProvider = new firebase.auth.GoogleAuthProvider()
 	} else if (provider === 'facebook') {
 		socialProvider = new firebase.auth.FacebookAuthProvider();
 	}
-	await firebase.auth().signInWithPopup(socialProvider);
+	await firebase.auth().signInWithPopup(socialProvider).then(function(result) {
+		console.log(result)
+		const displayName = result.user.displayName.split(" ")
+		let data = {
+			firstName: displayName[0],
+			lastName : displayName[1],
+			email : result.user.email,
+			dob : new Date(),
+			collegeId : '',
+			status : '',
+			photoURL : '',
+			posts : []
+		  };
+		  db.collection('users').doc(result.user.uid).set(data);	
+	  }).catch(function(error) {
+		console.log(error.message)
+	  });
 }
 
 async function doPasswordReset(email) {
