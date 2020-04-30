@@ -40,6 +40,7 @@ async function getUser(uid) {
       .catch(err => {
         console.log('Error getting document', err);
       });
+     return getDoc
     };
 
 
@@ -57,6 +58,7 @@ let getDoc = postRef.get()
   .catch(err => {
     console.log('Error getting document', err);
   });
+  return getDoc
 };
 
 
@@ -81,9 +83,15 @@ async function getAllPosts(collegeID){
     return query;
 };
 
+async function getAllColleges(){
+  const snapshot = await firebase.firestore().collection('colleges').get()
+    return snapshot.docs.map(doc => doc.data());
+};
+
 export {
     // updateUser,
     addPosts,
+    getAllColleges,
     // deletePosts,
     getAllPosts,
     getUser,

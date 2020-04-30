@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect } from 'react';
 import '../App.css';
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
-import {addPosts, getUser, getAllPosts} from '../firebase/FirestoreFunctions';
+import {addPosts, getUser , getAllColleges} from '../firebase/FirestoreFunctions';
 
 
 
@@ -10,44 +10,54 @@ import {addPosts, getUser, getAllPosts} from '../firebase/FirestoreFunctions';
 function Home() {	
 	const {currentUser} = useContext(AuthContext)
 	const [user, setUser] = useState();
-	const [posts, setPosts] = useState();
+	const [colleges, setCollege] = useState();
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getData() {
 		try{
-			// const u = await getUser("zxFz2S5WM9QWqzkFJZVtdfux7O12");
-			const u = await getUser(currentUser.uid);
-			const p = await getAllPosts(currentUser.collegeId)
-
+			let collegeList = await getAllColleges();
+			console.log(collegeList)
+			let u = await getUser(currentUser.uid);
+			setLoading(false)
 			setUser(u);
-			setPosts(p);
+			setCollege(collegeList)
 		}catch(e){
 			console.log(e)
 	}
 }
 		getData();
-		console.log(posts)
-	}, [user, posts])
-// }
+	}, [currentUser])
 
 	const handlePosts = async (event) => {
 			event.preventDefault();
-			// let { title, authorId, description, category } = event.target.elements;
-			let post = event.target.elements;
+			let { title, value ,  description, category } = event.target.elements;
+			let post ={title:title.value, authorId:currentUser.uid, value:value.value ,description:description.value, category: category.value};
 	
 			try {
-				await addPosts(currentUser.uid, post.value);
+				await addPosts(currentUser.uid, post);
 			} catch (error) {
 				alert(error);
 			}
 		};
-
+	if(loading === false)
+	{
 	return (
 		<div className='home'>
 			<h2>This is the Home page</h2>
-			{user ? (<p>{user.firstName}</p>) : (<p>NOT GETTING USER DATA</p>)}
-			{posts ? (<p>{posts}</p>) : (<p>NOT GETTING POSTS</p>)}
+			{user ? (<p>{user.firstName}  {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+			{user && user ? (<p>{user.posts.map((item) => {
+				return (<div>
+							<p>{item.title} : {item.value}</p>
+							<p>{item.description}</p>
+						</div>)
+			})}</p>) : (<p>NOT GETTING USER DATA</p>)}
 
+			{colleges && colleges ? (<p>{colleges.map((item) => {
+				return (<div>
+							<p>{item.name}</p>
+						</div>)
+			})}</p>) : (<p>NOT GETTING College DATA</p>)}
 			<p> ADD YOUR POSTS BELOW </p>
 			<form onSubmit={handlePosts}>
 					<div className='form-group'>
@@ -63,15 +73,15 @@ function Home() {
 								/>
 						</label>
 						<label>
-							AuthorId:
+							Value:
 							<input
 								className='form-control'
-								name='authorId'
-								id='authorId'
-								type='text'
-								placeholder='AuthorId'
+								name='value'
+								id='value'
+								type='textarea'
+								placeholder='Value'
 								required
-								/>
+							/>
 						</label>
 						<label>
 							Description:
@@ -105,11 +115,24 @@ function Home() {
 						</select>
 					</div>
 					<button type='submit'> Post </button>
-	
 				</form> 
+				{/* <select id='college' name='college'>
+						{colleges.map(item => (
+							<option key={item.uid} value={item.name}>
+								{item.name}
+							</option>
+						))}	
+						</select> */}
 
 		</div>
-	);
+	)}
+	else{
+		return(
+            <div>
+                    <p>Loading....</p>
+            </div>
+            )
+	}
 
 }
 
