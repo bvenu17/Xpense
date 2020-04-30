@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect } from 'react';
 import '../App.css';
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
-import {addPosts, getUser} from '../firebase/FirestoreFunctions';
+import {addPosts, getUser , getAllColleges} from '../firebase/FirestoreFunctions';
 
 
 
@@ -10,21 +10,23 @@ import {addPosts, getUser} from '../firebase/FirestoreFunctions';
 function Home() {	
 	const {currentUser} = useContext(AuthContext)
 	const [user, setUser] = useState();
+	const [colleges, setCollege] = useState();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getData() {
 		try{
+			let collegeList = await getAllColleges();
+			console.log(collegeList)
 			let u = await getUser(currentUser.uid);
-			console.log(u)
 			setLoading(false)
 			setUser(u);
+			setCollege(collegeList)
 		}catch(e){
 			console.log(e)
 	}
 }
 		getData();
-		console.log(user)
 	}, [currentUser])
 
 	const handlePosts = async (event) => {
@@ -50,6 +52,12 @@ function Home() {
 							<p>{item.description}</p>
 						</div>)
 			})}</p>) : (<p>NOT GETTING USER DATA</p>)}
+
+			{colleges && colleges ? (<p>{colleges.map((item) => {
+				return (<div>
+							<p>{item.name}</p>
+						</div>)
+			})}</p>) : (<p>NOT GETTING College DATA</p>)}
 			<p> ADD YOUR POSTS BELOW </p>
 			<form onSubmit={handlePosts}>
 					<div className='form-group'>
@@ -107,8 +115,14 @@ function Home() {
 						</select>
 					</div>
 					<button type='submit'> Post </button>
-	
 				</form> 
+				{/* <select id='college' name='college'>
+						{colleges.map(item => (
+							<option key={item.uid} value={item.name}>
+								{item.name}
+							</option>
+						))}	
+						</select> */}
 
 		</div>
 	)}

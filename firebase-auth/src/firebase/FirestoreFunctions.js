@@ -83,9 +83,15 @@ async function getAllPosts(collegeID){
     return query;
 };
 
+async function getAllColleges(){
+  const snapshot = await firebase.firestore().collection('colleges').get()
+    return snapshot.docs.map(doc => doc.data());
+};
+
 export {
     // updateUser,
     addPosts,
+    getAllColleges,
     // deletePosts,
     getAllPosts,
     getUser,
