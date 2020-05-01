@@ -1,10 +1,10 @@
 import React from 'react';
 import '../App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Account from './Account';
+import Profile from './Profile';
 import Home from './Home';
 import Landing from './Landing';
-import Unidata from './Unidata';
+import University from './University';
 import Navigation from './Navigation';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -20,9 +20,9 @@ function App() {
 					</header>
 				</div>
 				<Route exact path='/' component={Landing} />
-				<Route path='/unidata/:id' exact component={Unidata} />
+				<Route path='/unversity/:id' exact component={University} />
 				<PrivateRoute path='/home' component={Home} />
-				<PrivateRoute path='/account' component={Account} />
+				<PrivateRoute path='/profile' component={Profile} />
 				<Route path='/signin' component={SignIn} />
 				<Route path='/signup' component={SignUp} />
 			</Router>
