@@ -14,11 +14,6 @@ const NavigationAuth = () => {
 		<nav className='navigation'>
 			<ul>
 				<li>
-					<NavLink exact to='/' activeClassName='active'>
-						Landing
-					</NavLink>
-				</li>
-				<li>
 					<NavLink exact to='/home' activeClassName='active'>
 						Home
 					</NavLink>

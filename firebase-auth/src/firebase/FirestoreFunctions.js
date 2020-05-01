@@ -62,7 +62,7 @@ let getDoc = postRef.get()
 };
 
 
-async function getAllPosts(collegeID){
+async function getAllPostsforCollege(collegeID){
     let postsRef = db.collection('posts');
     let allPosts = []
     let query = postsRef.where('collegeID', '==', collegeID).get()
@@ -83,6 +83,11 @@ async function getAllPosts(collegeID){
     return query;
 };
 
+async function getAllPosts(){
+  const snapshot = await firebase.firestore().collection('posts').get()
+    return snapshot.docs.map(doc => doc.data());
+};
+
 async function getAllColleges(){
   const snapshot = await firebase.firestore().collection('colleges').get()
     return snapshot.docs.map(doc => doc.data());
@@ -94,6 +99,7 @@ export {
     getAllColleges,
     // deletePosts,
     getAllPosts,
+    getAllPostsforCollege,
     getUser,
     getPost
 };
