@@ -3,14 +3,14 @@ import SignOutButton from './SignOut';
 import '../App.css';
 import ChangePassword from './ChangePassword';
 
-function Account() {
+function Profile() {
 	return (
 		<div>
-			<h2>Account Page</h2>
+			<h2>Profile Page</h2>
 			<ChangePassword />
 			<SignOutButton />
 		</div>
 	);
 }
 
-export default Account;
+export default Profile;
