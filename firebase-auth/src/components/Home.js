@@ -4,6 +4,8 @@ import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
 import {addPosts, getUser , getCollege, getAllColleges} from '../firebase/FirestoreFunctions';
 
+const defcollogo = require('../assets/college-logo.jpg')
+
 
 
 function Home() {	
@@ -12,6 +14,7 @@ function Home() {
 	const [college, setCollege] = useState();
 	const [collegeList, setCollegeList] = useState();
 	const [postList, setPostList] = useState();
+	const [collegePic, setCollegePic] = useState(defcollogo);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -25,12 +28,15 @@ function Home() {
 			setLoading(false)
 			setUser(u);
 			setCollege(collegeDetails)
+			if(college.logo !== ""){
+				setCollegePic(college.logo)
+			}
 		}catch(e){
 			console.log(e)
 	}
 }
 		getData();
-	}, [currentUser])
+	}, [currentUser, collegePic])
 
 	const handlePosts = async (event) => {
 			// event.preventDefault();
@@ -61,7 +67,7 @@ function Home() {
 
 			YOUR COLLEGE DATA !!!
 			{ college && college ? (<div>
-									<p>Logo: {college.logo}</p>
+									<p>Logo: {collegePic ? (<img src={collegePic} alt='collegepic' height="42" widht="42" />) : (<img src={collegePic} alt='defaultpic' height="42" width="42" />)}</p>
 									<p>Name: {college.name}</p>
 									<p>City: {college.city}</p>
 									<p>Average Expenses: {college.avgExpense}</p>
@@ -83,7 +89,7 @@ function Home() {
 			{collegeList && collegeList ? (<div>{collegeList.map((item) => {
 				return (<div key={item.name}>
 							<p>College Name: {item.name}</p>
-							<p>College Logo: {item.logo}</p>
+							<p>College Logo: {item.logo === "" ? (<img src={item.logo} alt='collegepic' height="42" widht="42"/>) : (<img src={collegePic} alt='defaultpic' height="42" widht="42" />)}</p>
 						</div>
 						)
 					
