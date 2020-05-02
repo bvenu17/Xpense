@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext , useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Modal from 'react-modal'
 import { AuthContext } from '../firebase/Auth';
 import SignOutButton from './SignOut';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import '../App.css';
 
 const Navigation = () => {
@@ -32,6 +35,8 @@ const NavigationAuth = () => {
 };
 
 const NavigationNonAuth = () => {
+	const [loginmodal, setModalLogin] = useState();
+	const [signUpmodal, setModalsignUp] = useState();
 	return (
 		<nav className='navigation'>
 			<ul>
@@ -41,15 +46,19 @@ const NavigationNonAuth = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink exact to='/signup' activeClassName='active'>
-						Sign-up
-					</NavLink>
+				<button onClick={()=> setModalsignUp(true)}>SignUp</button>
+						<Modal isOpen={signUpmodal} onRequestClose = {()=> setModalsignUp(false)}>
+							<SignUp></SignUp>
+							<button onClick={()=> setModalsignUp(false)}>Close</button>
+            			</Modal>
 				</li>
 
 				<li>
-					<NavLink exact to='/signin' activeClassName='active'>
-						Sign-In
-					</NavLink>
+						<button onClick={()=> setModalLogin(true)}>Login</button>
+						<Modal isOpen={loginmodal} onRequestClose = {()=> setModalLogin(false)}>
+							<SignIn></SignIn>
+							<button onClick={()=> setModalLogin(false)}>Close</button>
+            			</Modal>
 				</li>
 			</ul>
 		</nav>
