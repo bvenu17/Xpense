@@ -93,10 +93,28 @@ async function getAllColleges(){
     return snapshot.docs.map(doc => doc.data());
 };
 
+async function getCollege(uid) {
+  let collegeRef = await db.collection('colleges').doc(uid);
+  let getDoc = collegeRef.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+      } else 
+      {
+        return doc.data()
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+    return getDoc
+  };
+
 export {
     // updateUser,
     addPosts,
     getAllColleges,
+    getCollege,
     // deletePosts,
     getAllPosts,
     getAllPostsforCollege,
