@@ -23,8 +23,8 @@ function App() {
 				<Route path='/unversity/:id' exact component={University} />
 				<PrivateRoute path='/home' component={Home} />
 				<PrivateRoute path='/profile' component={Profile} />
-				<Route path='/signin' component={SignIn} />
-				<Route path='/signup' component={SignUp} />
+				{/* <Route path='/signin' component={SignIn} /> */}
+				{/* <Route path='/signup' component={SignUp} /> */}
 			</Router>
 		</AuthProvider> 
 	);
