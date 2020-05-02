@@ -35,9 +35,9 @@ const NavigationAuth = () => {
 };
 
 const NavigationNonAuth = () => {
-	const [loginmodal, setModalLogin] = useState();
-	const [signUpmodal, setModalsignUp] = useState();
-	return (
+	const [modal, setModal] = useState();
+	const [button,setButton] = useState("Signup");
+ 	return (
 		<nav className='navigation'>
 			<ul>
 				<li>
@@ -46,20 +46,14 @@ const NavigationNonAuth = () => {
 					</NavLink>
 				</li>
 				<li>
-				<button onClick={()=> setModalsignUp(true)}>SignUp</button>
-						<Modal isOpen={signUpmodal} onRequestClose = {()=> setModalsignUp(false)}>
-							<SignUp></SignUp>
-							<button onClick={()=> setModalsignUp(false)}>Close</button>
+				<button onClick={()=> setModal(true)}>Login/SignUp</button>
+						<Modal isOpen={modal} onRequestClose = {()=> setModal(false)}>
+							<button onClick={()=> button==="Login"? setButton("Signup") : setButton("Login")}>{button}</button>
+							{button === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+							<button onClick={()=> setModal(false)}>Close</button>
             			</Modal>
 				</li>
 
-				<li>
-						<button onClick={()=> setModalLogin(true)}>Login</button>
-						<Modal isOpen={loginmodal} onRequestClose = {()=> setModalLogin(false)}>
-							<SignIn></SignIn>
-							<button onClick={()=> setModalLogin(false)}>Close</button>
-            			</Modal>
-				</li>
 			</ul>
 		</nav>
 	);
