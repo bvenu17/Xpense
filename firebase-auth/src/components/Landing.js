@@ -39,7 +39,8 @@ function Landing() {
 			if(loading === false)
 			{
 			return (
-				<div className='Landing'>
+
+				<div class = "container">
 					<h2>This is the Landing page</h2>
 					<p>COLLEGES: </p>
 					{colleges && colleges ? (<p>{colleges.map((item) => {
@@ -51,7 +52,7 @@ function Landing() {
 					<p>POSTS: </p>
 					{allPosts && allPosts ? (<p>{allPosts.map((item) => {
 						return (<div>
-									<p>{item.category}</p>
+									<p>{item.category} <br></br></p>
 								</div>)
 					})}</p>) : (<p>NOT GETTING Post DATA</p>)}
 					<p> Login to post anything</p>
