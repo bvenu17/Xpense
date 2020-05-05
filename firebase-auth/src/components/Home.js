@@ -22,15 +22,15 @@ function Home() {
 		try{
 			let collegeList = await getAllColleges();
 			setCollegeList(collegeList)
-			let u = await getUser(currentUser.uid);
-			let collegeDetails = await getCollege(u.collegeId);
-			setPostList(collegeDetails.posts);
+			//let u = await getUser(currentUser.uid);
+			//let collegeDetails = await getCollege(u.collegeId);
+		//	setPostList(collegeDetails.posts);
 			setLoading(false)
-			setUser(u);
-			setCollege(collegeDetails)
-			if(college.logo !== ""){
-				setCollegePic(college.logo)
-			}
+		//	setUser(u);
+			//setCollege(collegeDetails)
+			// if(college.logo !== ""){
+			// 	setCollegePic(college.logo)
+			// }
 		}catch(e){
 			console.log(e)
 	}
@@ -39,7 +39,7 @@ function Home() {
 	}, [currentUser, collegePic])
 
 	const handlePosts = async (event) => {
-			// event.preventDefault();
+			 event.preventDefault();
 			let { title, value ,  description, category } = event.target.elements;
 			let post ={title:title.value, authorId:currentUser.uid, value:value.value ,description:description.value, category: category.value};
 	
