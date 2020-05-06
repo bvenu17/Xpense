@@ -45,17 +45,25 @@ async function getUser(uid) {
 async function updateProfilePic(uid,imageUrl) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update profile pic');
-  let updatedDoc = await db.collection("users").doc(uid).update({
+   let updatePic= await db.collection("users").doc(uid).update({
     "photoURL": imageUrl,
   })
     .then(function () {
       console.log("profile pic was updated!");
     });
-
-
-
 }
 
+async function updateAccountInfo(uid,firstName,lastName) {
+  // let userRef = await db.collection('users').doc(uid);
+  console.log('enter update account info ');
+   let updateInfo = await db.collection("users").doc(uid).update({
+    "firstName": firstName,
+    "lastName":lastName
+  })
+    .then(function () {
+      console.log("profile pic was updated!");
+    });
+}
 async function getPost(uid) {
   let postRef = await db.collection('posts').doc(uid);
   let getDoc = postRef.get()
@@ -130,7 +138,8 @@ export {
   getAllPostsforCollege,
   getUser,
   getPost,
-  updateProfilePic
+  updateProfilePic,
+  updateAccountInfo
 };
 
 
