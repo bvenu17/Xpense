@@ -42,6 +42,7 @@ function Profile() {
 	}, [currentUser, profPicUrl, formSubmit]);
 
 
+
 	//onChange handler for input field of profile picture
 	const handleChange = async (event) => {
 		event.preventDefault();
