@@ -22,15 +22,15 @@ function Home() {
 		try{
 			let collegeList = await getAllColleges();
 			setCollegeList(collegeList)
-			//let u = await getUser(currentUser.uid);
-			//let collegeDetails = await getCollege(u.collegeId);
-		//	setPostList(collegeDetails.posts);
+			let u = await getUser(currentUser.uid);
+			let collegeDetails = await getCollege(u.collegeId);
+			setPostList(collegeDetails.posts);
 			setLoading(false)
-		//	setUser(u);
-			//setCollege(collegeDetails)
-			// if(college.logo !== ""){
-			// 	setCollegePic(college.logo)
-			// }
+			setUser(u);
+			setCollege(collegeDetails)
+			if(college.logo !== ""){
+				setCollegePic(college.logo)
+			}
 		}catch(e){
 			console.log(e)
 	}

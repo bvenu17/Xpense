@@ -11,16 +11,13 @@ import { getUser, updateProfilePic, updateAccountInfo } from '../firebase/Firest
 const defpic = require('../assets/default-avatar.png')
 
 function Profile() {
-	const allInputs = { imgUrl: '' }
-
 	const { currentUser } = useContext(AuthContext);
 	const [user, setUser] = useState();
 	const [loading, setLoading] = useState(true);
 	const [change, setChange] = useState(false);
 	const [profPic, setProfPic] = useState();
 	const [profPicUrl, setProfPicUrl] = useState();
-	// const [firstName, setFirstName] = useState();
-	// const [lastName, setLastName] = useState();
+	const [formSubmit, setFormSubmit] = useState(false);
 
 	useEffect(() => {
 
@@ -36,15 +33,13 @@ function Profile() {
 				console.log(profPicUrl);
 
 				console.log("enter useeffect after getting user")
-				if (profPicUrl !== null || profPicUrl !== undefined) {
-					await updateProfilePic(currentUser.uid, profPicUrl);
-				}
+
 			} catch (e) {
 				console.log(e)
 			}
 		}
 		getData();
-	}, [currentUser,user]);
+	}, [currentUser, profPicUrl, formSubmit]);
 
 
 	//onChange handler for input field of profile picture
@@ -83,25 +78,21 @@ function Profile() {
 					.then(fireBaseUrl => {
 						//setProfPicUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
 						setProfPicUrl(fireBaseUrl);
-						console.log(profPicUrl);
+						try {
+							updateProfilePic(currentUser.uid, fireBaseUrl);
+						} catch (error) {
+							alert(error);
+						}
+						console.log('firebase url i s' + fireBaseUrl);
 					})
 
 			})
+
 	}
 
-
-	//
-	// const accountInfoChange = async (event) => {
-	// 	if (event.target.name == 'firstName') {
-	// 		setFirstName(event.target.value);
-	// 	}
-	// 	if (event.target.name == 'lastName') {
-	// 		setLastName(event.target.value);
-	// 	}
-	// }
-
-	const updateAccountInfo = async (event) => {
-			event.preventDefault();
+	//function to update account details of the user
+	const handleAccountUpdate = async (event) => {
+		event.preventDefault();
 		console.log('entering update acc func');
 		//await updateAccountInfo(currentUser.uid,firstName,lastName);
 		let { firstName, lastName } = event.target.elements;
@@ -111,13 +102,14 @@ function Profile() {
 		if (first && last) {
 			try {
 				await updateAccountInfo(currentUser.uid, first, last);
+				setFormSubmit(true);
 			} catch (error) {
 				alert(error);
 			}
 		} else alert('enter all info');
 	};
 
-
+	//component code
 	if (!loading) {
 		return (
 			<div className="container">
@@ -128,6 +120,8 @@ function Profile() {
 					<form onSubmit={handleUpload}>
 						<input type='file' onChange={handleChange} />
 						<button style={{ border: '3px solid black' }}>Change profile picture</button>
+
+
 					</form>
 					{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
 					{user && user.posts ? (<div>MY POSTS: {user.posts.map((item) => {
@@ -139,9 +133,9 @@ function Profile() {
 				</div>
 
 				<h2>Edit account info</h2>
-				<form onSubmit={updateAccountInfo} >
+				<form onSubmit={handleAccountUpdate}>
 					<label for="firstName">First Name:</label>
-					<input type="text" id="firstName"  name="firstName" placeholder="Enter your first name" />
+					<input type="text" id="firstName" name="firstName" placeholder="Enter your first name" />
 					<br></br>
 					<label for="lastName">Last Name:</label>
 					<input type="text" id="lastName" name="lastName" placeholder="Enter your last name" />
