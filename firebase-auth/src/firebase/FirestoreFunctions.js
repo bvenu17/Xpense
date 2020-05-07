@@ -42,6 +42,7 @@ async function getUser(uid) {
   return getDoc
 };
 
+//function to add/update profile pic of the user
 async function updateProfilePic(uid,imageUrl) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update profile pic');
@@ -53,6 +54,7 @@ async function updateProfilePic(uid,imageUrl) {
     });
 }
 
+//function to update account details of the user
 async function updateAccountInfo(uid,firstName,lastName) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
