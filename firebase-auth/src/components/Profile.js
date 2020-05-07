@@ -44,7 +44,7 @@ function Profile() {
 			}
 		}
 		getData();
-	}, [currentUser,user]);
+	}, [currentUser]);
 
 
 	//onChange handler for input field of profile picture
