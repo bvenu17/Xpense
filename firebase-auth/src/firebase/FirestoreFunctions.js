@@ -114,6 +114,7 @@ async function getAllPosts() {
 };
 
 async function getAllColleges() {
+  console.log("getting all colleges");
   const snapshot = await firebase.firestore().collection('colleges').get()
   return snapshot.docs.map(doc => doc.data());
 };
