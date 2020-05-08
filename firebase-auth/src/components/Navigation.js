@@ -19,9 +19,9 @@ const NavigationAuth = () => {
 
 
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div class = "container">
-  <a class="navbar-brand" href="">xPense</a>
+  <a class="navbar-brand brand" href="">xPense</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -31,7 +31,7 @@ const NavigationAuth = () => {
       <li class="nav-item active">
 
 	  <NavLink exact to='/home' class = "nav-link">
-						Home
+	  <span className = "activeLink">Home</span>	
 					</NavLink>
 
         {/* <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> */}
@@ -76,7 +76,7 @@ const NavigationAuth = () => {
 	<ul class="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
 		<li class = "nav-item">
-		<NavLink exact to='/profile'>
+		<NavLink exact to='/profile' class="nav-link">
 						Account
 					</NavLink>
 		</li>
@@ -121,9 +121,10 @@ const NavigationNonAuth = () => {
 
 
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light navStyle">
 		
 		<div class = "container">
+<<<<<<< Updated upstream
 		<a class="navbar-brand" href="">xPense</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -171,6 +172,69 @@ const NavigationNonAuth = () => {
 							{button === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
 							<button onClick={()=> setModal(false)}>Close</button>
             			</Modal>
+=======
+		<a class="navbar-brand brand" href="">xPense</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
+      <li class="nav-item">
+	  <NavLink exact to='/' class =  "nav-link">
+					<span className = "activeLink">Landing</span>	
+					</NavLink>
+      </li>
+
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Universities
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Location
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Rent
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+			<ul class="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
+				<li class = "nav-item">
+					<Button variant="primary" className = "loginButt" onClick={handleShow}>
+						Login/SignUp
+					</Button>
+
+					<Modal show={show} onHide={handleClose} animation={false}>
+							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+								{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+							</Button>
+							<div className = "modalContent">
+							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+							</div>
+						
+					</Modal>
+>>>>>>> Stashed changes
 				</li>
 
 			</ul> */

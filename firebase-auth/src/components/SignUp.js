@@ -27,58 +27,66 @@ function SignUp() {
 
 	return (
 		<div>
-			<h1>Sign up</h1>
+			<h1 className = "loginRegHeader">Sign up</h1>
 			{pwMatch && <h4 className='error'>{pwMatch}</h4>}
 			<form onSubmit={handleSignUp}>
 				<div className='form-group'>
-					<label>
-						First Name:
-						<input className='form-control' required name='firstName' type='text' placeholder='First Name' />
-					</label>
+					<label for = "firstName">
+						First Name
+						</label>
+						<input className='form-control' required name='firstName' type='text' placeholder='Tell us your first name' />
+				
 				</div>
 				<div className='form-group'>
-					<label>
-						Last Name:
-						<input className='form-control' required name='lastName' type='text' placeholder='Last Name' />
-					</label>
+					<label for = "lastName">
+						Last Name
+						</label>
+						<input className='form-control' required name='lastName' type='text' placeholder='Tell us your last name' />
+					
 				</div>
 				<div className='form-group'>
-					<label>
-						Email:
-						<input className='form-control' required name='email' type='email' placeholder='Email' />
-					</label>
+					<label for = "email">
+						Email
+						</label>
+						<input className='form-control' required name='email' type='email' placeholder='What is your email id?' />
+				
 				</div>
 				<div className='form-group'>
-					<label>
-						Password:
+					<label for = "passwordOne">
+						Password
+						</label>
 						<input
 							className='form-control'
 							id='passwordOne'
 							name='passwordOne'
 							type='password'
-							placeholder='Password'
+							placeholder='Set a Password (strong one please!)'
 							required
 						/>
-					</label>
+				
 				</div>
 				<div className='form-group'>
-					<label>
-						Confirm Password:
+					<label for = "passwordTwo">
+						Confirm Password
+						</label>
 						<input
 							className='form-control'
 							name='passwordTwo'
 							type='password'
-							placeholder='Confirm Password'
+							placeholder='Confirm Password (just to be sure!)'
 							required
 						/>
-					</label>
+					
 				</div>
-				<button id='submitButton' name='submitButton' type='submit'>
-					Sign Up
+				<div class = " logSignButt">
+				<button id='submitButton' name='submitButton' className = "loginButt loginButt2" type='submit'>
+					SIGN UP
 				</button>
+				</div>
+				
 			</form>
 			<br />
-			<SocialSignIn />
+			{/* <SocialSignIn /> */}
 		</div>
 	);
 }

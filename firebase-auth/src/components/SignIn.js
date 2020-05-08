@@ -32,24 +32,26 @@ function SignIn() {
 	}
 	return (
 		<div>
-			<h1>Log in</h1>
+			<h1 className = "loginRegHeader">Log in</h1>
 			<form onSubmit={handleLogin}>
 				<div className='form-group'>
-					<label>
-						Email:
+					<label for = "email" name = "email">
+						Email
+						</label>
 						<input
-							className='form-control'
+							className='form-control inp'
 							name='email'
 							id='email'
 							type='email'
 							placeholder='Email'
 							required
 						/>
-					</label>
+					
 				</div>
 				<div className='form-group'>
-					<label>
-						Password:
+					<label for = "password" name = "password">
+						Password
+						</label>
 						<input
 							className='form-control'
 							name='password'
@@ -57,13 +59,18 @@ function SignIn() {
 							placeholder='Password'
 							required
 						/>
-					</label>
-				</div>
-				<button type='submit'>Log in</button>
-
-				<button className='forgotPassword' onClick={passwordReset}>
-					Forgot Password
+						<button className='forgotPassword' onClick={passwordReset}>
+					Forgot Password?
 				</button>
+					
+				</div>
+				<div class = " logSignButt">
+				<button type='submit' class = "loginButt loginButt2">LOGIN</button>	
+				</div>
+				
+			
+
+				
 			</form>
 
 			<br />
