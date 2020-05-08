@@ -130,11 +130,16 @@ async function getCollege(uid) {
   return getDoc
 };
 
+async function addCollege(element) {
+  await db.collection('colleges').add(element);
+};
+
 export {
   // updateUser,
   addPosts,
   getAllColleges,
   getCollege,
+  addCollege,
   // deletePosts,
   getAllPosts,
   getAllPostsforCollege,
