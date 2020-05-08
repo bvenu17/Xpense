@@ -44,16 +44,12 @@ function Landing() {
 					<h2>This is the Landing page</h2>
 					<p>COLLEGES: </p>
 					{colleges && colleges ? (<p>{colleges.map((item) => {
-						return (<div>
-									<p>{item.name}</p>
-								</div>)
+						return (<p>{item.name}</p>)
 					})}</p>) : (<p>NOT GETTING College DATA</p>)}
 					
 					<p>POSTS: </p>
 					{allPosts && allPosts ? (<p>{allPosts.map((item) => {
-						return (<div>
-									<p>{item.category} <br></br></p>
-								</div>)
+						return (<p>{item.category} <br></br></p>)
 					})}</p>) : (<p>NOT GETTING Post DATA</p>)}
 					<p> Login to post anything</p>
 				</div>
