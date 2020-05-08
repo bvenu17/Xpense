@@ -9,7 +9,10 @@ let db = firebaseApp.firestore();
 // };
 
 async function addPosts(uid, postObject) {
-  await db.collection('posts').doc(uid).set(postObject);
+    
+  await db.collection('posts').doc(uid).update({
+    userPosts:firebase.firestore.FieldValue.arrayUnion(postObject)
+  });
   await db.collection('users').doc(uid).update({
     posts: firebase.firestore.FieldValue.arrayUnion(postObject)
   });
@@ -43,10 +46,10 @@ async function getUser(uid) {
 };
 
 //function to add/update profile pic of the user
-async function updateProfilePic(uid,imageUrl) {
+async function updateProfilePic(uid, imageUrl) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update profile pic');
-   let updatePic= await db.collection("users").doc(uid).update({
+  let updatePic = await db.collection("users").doc(uid).update({
     "photoURL": imageUrl,
   })
     .then(function () {
@@ -55,15 +58,16 @@ async function updateProfilePic(uid,imageUrl) {
 }
 
 //function to update account details of the user
-async function updateAccountInfo(uid,firstName,lastName) {
+async function updateAccountInfo(uid, firstName, lastName, dateOfBirth) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
-   let updateInfo = await db.collection("users").doc(uid).update({
+  let updateInfo = await db.collection("users").doc(uid).update({
     "firstName": firstName,
-    "lastName":lastName
+    "lastName": lastName,
+    "dob": dateOfBirth
   })
     .then(function () {
-      console.log("profile pic was updated!");
+      console.log("account info was updated!");
     });
 }
 async function getPost(uid) {
