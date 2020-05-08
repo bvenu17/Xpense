@@ -5,9 +5,8 @@ import SignOutButton from './SignOut';
 import '../App.css';
 import ChangePassword from './ChangePassword';
 import { AuthContext } from "../firebase/Auth";
-import { useEffect, useContext, useState,useRef } from 'react';
-import { getUser, updateProfilePic, updateAccountInfo } from '../firebase/FirestoreFunctions';
-//const userForm = useRef();
+import { useEffect, useContext, useState } from 'react';
+import { getUser, updateProfilePic, updateAccountInfo,getAllColleges } from '../firebase/FirestoreFunctions';
 
 //datepicker imports
 import 'date-fns';
@@ -36,22 +35,21 @@ function Profile() {
 	const [formSubmit, setFormSubmit] = useState(false);
 	const [dob, setDob] = useState();
 	const [currentStudent, setCurrentStudent] = useState(false);
+	const [collegeList,setCollegeList] = useState();
 
 	useEffect(() => {
 
 		async function getData() {
 			try {
+				console.log("enter useeffect func")
 				let u = await getUser(currentUser.uid);
-
 				setLoading(false)
-
 				setUser(u);
-
-
-				console.log(profPicUrl);
-
-				console.log("enter useeffect after getting user")
-
+				console.log("fetched user details")
+				let allColleges = await getAllColleges();
+				setCollegeList(collegeList);
+				console.log('fetched college list');
+				console.log(allColleges);
 			} catch (e) {
 				console.log(e)
 			}
@@ -153,8 +151,6 @@ function Profile() {
 					<form onSubmit={handleUpload}>
 						<input type='file' onChange={handleChange} />
 						<button style={{ border: '3px solid black' }}>Change profile picture</button>
-
-
 					</form>
 					{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
 					{user && user.posts ? (<div>MY POSTS: {user.posts.map((item) => {
@@ -201,9 +197,6 @@ function Profile() {
 					{/*Todo: input field for college name if user is a current student */}
 					<button type='submit'>Apply changes</button>
 				</form>
-
-
-
 				<br></br>
 				{change ? <div><ChangePassword /> <button onClick={() => setChange(!change)}>Hide</button></div> : <button onClick={() => setChange(!change)}>Click to Change Password</button>} <br />
 				<SignOutButton />
