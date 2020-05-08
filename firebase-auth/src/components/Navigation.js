@@ -90,6 +90,8 @@ const NavigationNonAuth = () => {
 	const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const setLogin = () => setlogSign("Login")
+	const setSignup = () => setlogSign("SignUp")
 	// const [modal, setModal] = useState();
 	// const [button,setButton] = useState("Signup");
  	return (
@@ -120,28 +122,12 @@ const NavigationNonAuth = () => {
 					</Button>
 
 					<Modal show={show} onHide={handleClose} animation={false}>
-						<Modal.Header closeButton>
-							<Modal.Title>{logSign}</Modal.Title>
-						</Modal.Header>
-						<Modal.Body>{logSign === "Signup"?<SignUp/>:<SignIn/>}</Modal.Body>
-						<Modal.Footer>
-						<Button variant="secondary" onClick={handleClose}>
-							Close
-						</Button>
-						{/* <Button variant="primary" onClick={logSign==="Login"? setlogSign("Signup") : setlogSign("Login")}>
-							Create Account
-						</Button> */}
-						</Modal.Footer>
+							<Button variant="primary" onClick={logSign==="Login"? setSignup : setLogin}>
+								{logSign==="Login"? "Create Account" : "Login Here"}
+							</Button>
+							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
 					</Modal>
 				</li>
-				{/* <li>
-				<button onClick={()=> setModal(true)}>Login/SignUp</button>
-						<Modal isOpen={modal} onRequestClose = {()=> setModal(false)}>
-							<button onClick={()=> button==="Login"? setButton("Signup") : setButton("Login")}>{button}</button>
-							{button === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-							<button onClick={()=> setModal(false)}>Close</button>
-            			</Modal>
-				</li> */}
 			</ul>
   				</div>
 		</div>
