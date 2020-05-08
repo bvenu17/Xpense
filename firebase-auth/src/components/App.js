@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useContext} from 'react';
 import '../App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Profile from './Profile';
@@ -7,8 +7,10 @@ import Landing from './Landing';
 import University from './University';
 import Navigation from './Navigation';
 import { AuthProvider } from '../firebase/Auth';
+import { AuthContext } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
 function App() {
+	const { currentUser } = useContext(AuthContext);
 	return (
 		<AuthProvider>
 			<Router>
@@ -18,6 +20,7 @@ function App() {
 					</header>
 				</div>
 				<Route exact path='/' component={Landing} />
+				<Route path='*' component={currentUser?Home:Landing} />
 				<Route path='/unversity/:id' exact component={University} />
 				<PrivateRoute path='/home' component={Home} />
 				<PrivateRoute path='/profile' component={Profile} />

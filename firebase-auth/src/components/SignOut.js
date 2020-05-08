@@ -3,9 +3,11 @@ import { doSignOut } from '../firebase/FirebaseFunctions';
 
 const SignOutButton = () => {
 	return (
-		<button type='button' onClick={doSignOut}>
+		<div>
+		<button type='button' onClick={doSignOut} href="/">
 			Sign Out
 		</button>
+		</div>
 	);
 };
 
