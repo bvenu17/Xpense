@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 // import * as firestore from '../firebase/FirestoreFunctions'
 import '../App.css';
-import {getAllPosts} from '../firebase/FirestoreFunctions'
+import {getPost, getAllPostsforCollege, getAllColleges} from '../firebase/FirestoreFunctions'
 
 
 let collegeData=[
@@ -81,32 +81,37 @@ const Unidata = (props) => {
     const [Id, setId] = useState(undefined);
     const [details, setDetails] = useState(undefined);
     const [posts, setPosts] = useState(undefined);
+    const [collegeList, setCollegeList] = useState();
 
-    useEffect(
-        () => {
+    useEffect(() => {
             setId(parseInt(props.match.params.id));
             async function getData() {
-                try {
-                    for(let i=0;i<collegeData.length;i++){
-                        if(collegeData[i].id === Id){
-                            let d = collegeData[i]
-                            setDetails(d);
-                            const c = await getAllPosts(d.id);
-                            setPosts(c);
-                            break;
+                try {      
+                    let clist = await getAllColleges();
+                    setCollegeList(clist);
+
+                    clist.map(async(item) =>{
+                        if(item.id === props.match.params.id){
+                            setDetails(item);
+                            const p = await getAllPostsforCollege(item.id);
+                                if(p){
+                                    setPosts(p);
+                            }
                         }
-                    }
+                    });
                 } catch (e) {
                     console.log(e);
                 }
             }
+            console.log(posts)
             getData();
-        }, [Id,props.match.params.id,details,posts]
+        }, []
     )
     return (
         <div className='unidetails'>
-        {!details ? (<p status={404}> ERROR</p>):(
-            <div> {/* details of the college */}
+        <div>
+        {details && details ? (
+            <div>
             {details.id}<br/>
             {details.name}<br/>
             {details.street}<br/>
@@ -116,13 +121,21 @@ const Unidata = (props) => {
             {details.zip}<br/>
             {details.tution}<br/>
             </div>
-        )}
-        {!posts ? (<p status={404}> ERROR </p>) : (
-            <div>
-                {posts}  {/* list of posts of the college */}
+        ) : (<p status={404}> COLLEGE ERROR</p>)}
             </div>
-        )}
-
+            
+            <div>
+            {posts && posts ? (<div>{posts.map((item) => {
+                return(
+                <div key={item.authorId}>
+                        TITLE: {item.Title}<br/>
+                        AUTHOR ID: {item.authorId}<br/>
+                        COMMENTS: {item.comments}<br/>
+                        CATEGORY: {item.category}<br/>
+                        DESCRIPTION: {item.description}<br/>
+                </div>)
+            })}</div>) : (<p status={404}> NO POSTS </p>)}
+        </div>
         </div>
     )
 }

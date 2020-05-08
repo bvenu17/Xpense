@@ -86,7 +86,8 @@ async function getPost(uid) {
 async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
   let allPosts = []
-  let query = postsRef.where('collegeID', '==', collegeID).get()
+  collegeID = parseInt(collegeID);
+  let query = postsRef.where('authorId', '==', collegeID).get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -94,7 +95,7 @@ async function getAllPostsforCollege(collegeID) {
       }
       snapshot.forEach(doc => {
         //console.log(doc.id, '=>', doc.data());
-        allPosts.add(doc.data())
+        allPosts.push(doc.data())
       });
       return allPosts
     })
@@ -106,6 +107,12 @@ async function getAllPostsforCollege(collegeID) {
 
 async function getAllPosts() {
   const snapshot = await firebase.firestore().collection('posts').get()
+  .then(snapshot =>{
+    if(snapshot.empty){
+      console.log("No matching docs");
+      return
+    }
+  })
   return snapshot.docs.map(doc => doc.data());
 };
 

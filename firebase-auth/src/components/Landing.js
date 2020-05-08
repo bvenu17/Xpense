@@ -18,15 +18,16 @@ function Landing() {
 		async function getData() {
 		try{
 			let collegeList = await getAllColleges();
-			console.log(collegeList)
-			let allPost = await getAllPosts()
+			// console.log(collegeList)
+			// let allPost = await getAllPosts()
 			setLoading(false)
 			setCollege(collegeList)
-			setallPosts(allPost)
+			// setallPosts(allPost)
 		}catch(e){
 			console.log(e)
 	}
 }
+console.log("LANDING",allPosts)
 		getData();
 	}, [])
 
@@ -40,18 +41,18 @@ function Landing() {
 			{
 			return (
 
-				<div class = "container">
+				<div className = "container">
 					<h2>This is the Landing page</h2>
 					<p>COLLEGES: </p>
-					{colleges && colleges ? (<p>{colleges.map((item) => {
-						return (<div>
+					{colleges && colleges ? (<div>{colleges.map((item) => {
+						return (<div key={item.id}>
 									<p>{item.name}</p>
 								</div>)
-					})}</p>) : (<p>NOT GETTING College DATA</p>)}
+					})}</div>) : (<p>NOT GETTING College DATA</p>)}
 					
 					<p>POSTS: </p>
 					{allPosts && allPosts ? (<p>{allPosts.map((item) => {
-						return (<div>
+						return (<div key="">
 									<p>{item.category} <br></br></p>
 								</div>)
 					})}</p>) : (<p>NOT GETTING Post DATA</p>)}
