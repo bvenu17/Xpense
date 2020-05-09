@@ -18,11 +18,9 @@ function App() {
 					</header>
 				</div>
 				<Route exact path='/' component={Landing} />
-				<Route path='/unversity/:id' exact component={University} />
+				<Route path='/unversity/:id' component={University} />
 				<PrivateRoute path='/home' component={Home} />
 				<PrivateRoute path='/profile' component={Profile} />
-				{/* <Route path='/signin' component={SignIn} /> */}
-				{/* <Route path='/signup' component={SignUp} /> */}
 			</Router>
 		</AuthProvider> 
 	);
