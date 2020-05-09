@@ -166,6 +166,7 @@ function Profile() {
 	if (!loading) {
 		return (
 			<div className="container">
+				<a href="/university">TESTTSGG</a>
 				<h2>Profile Page</h2>
 				<div className="profile">
 					{/* <img src={defaultPic} height="100" widht="100"/> */}
@@ -274,7 +275,7 @@ function Profile() {
 	} else {
 		return (
 			<div>
-				<p> Loading...</p>
+				<p>Profile Loading...</p>
 			</div>
 		)
 	}
