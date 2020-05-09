@@ -1,6 +1,8 @@
 import React from 'react';
 import '../App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+
+//import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Profile from './Profile';
 import Home from './Home';
 import Landing from './Landing';
@@ -16,15 +18,17 @@ function App() {
 					<header>
 						<Navigation />
 					</header>
+					<Switch>
+						<Route exact path='/' component={Landing} />
+						<Route path='/university/:id' exact component={University} />
+						<PrivateRoute path='/home' component={Home} />
+						<PrivateRoute path='/profile' component={Profile} />
+						{/* <Route path='/signin' component={SignIn} /> */}
+						{/* <Route path='/signup' component={SignUp} /> */}
+					</Switch>
 				</div>
-				<Route exact path='/' component={Landing} />
-				<Route path='/unversity/:id' exact component={University} />
-				<PrivateRoute path='/home' component={Home} />
-				<PrivateRoute path='/profile' component={Profile} />
-				{/* <Route path='/signin' component={SignIn} /> */}
-				{/* <Route path='/signup' component={SignUp} /> */}
 			</Router>
-		</AuthProvider> 
+		</AuthProvider>
 	);
 }
 
