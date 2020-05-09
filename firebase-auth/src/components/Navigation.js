@@ -1,6 +1,6 @@
 import React, { useContext , useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Modal from 'react-modal'
+import {Button, Modal} from 'react-bootstrap';
 import { AuthContext } from '../firebase/Auth';
 import SignOutButton from './SignOut';
 import SignIn from './SignIn';
@@ -114,6 +114,12 @@ const NavigationAuth = () => {
 const NavigationNonAuth = () => {
 	const [modal, setModal] = useState();
 	const [button,setButton] = useState("Signup");
+	const [logSign,setlogSign] = useState("Signup");
+	const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+	const setLogin = () => setlogSign("Login");
+	const setSignup = () => setlogSign("SignUp");
  	return (
 	
 
@@ -124,55 +130,6 @@ const NavigationNonAuth = () => {
 <nav class="navbar sticky-top navbar-expand-lg navbar-light navStyle">
 		
 		<div class = "container">
-<<<<<<< Updated upstream
-		<a class="navbar-brand" href="">xPense</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-	  <ul>
-
-	  </ul>
-	  <ul class="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
-
-				<button onClick={()=> setModal(true)}>Login/SignUp</button>
-						<Modal className = "container modalContent" isOpen={modal} onRequestClose = {()=> setModal(false)}>
-							
-							<button onClick={()=> button==="Login"? setButton("Signup") : setButton("Login")}>{button}</button>
-							{button === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-							<br></br>
-							<button onClick={()=> setModal(false)}>Close</button>
-							
-						
-            			</Modal>
-	
-	</ul>
-
-	
-  </div>
-
-		</div>
-  
-</nav>
-
-
-
-/* 
-			<ul>
-				<li>
-					<NavLink exact to='/' activeClassName='active'>
-						Landing
-					</NavLink>
-				</li>
-				<li>
-				<button onClick={()=> setModal(true)}>Login/SignUp</button>
-						<Modal isOpen={modal} onRequestClose = {()=> setModal(false)}>
-							<button onClick={()=> button==="Login"? setButton("Signup") : setButton("Login")}>{button}</button>
-							{button === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-							<button onClick={()=> setModal(false)}>Close</button>
-            			</Modal>
-=======
 		<a class="navbar-brand brand" href="">xPense</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -234,10 +191,13 @@ const NavigationNonAuth = () => {
 							</div>
 						
 					</Modal>
->>>>>>> Stashed changes
+
 				</li>
 
-			</ul> */
+			</ul> 
+			</div>
+			</div>
+			</nav>
 		
 	);
 };
