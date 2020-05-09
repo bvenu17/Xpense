@@ -37,6 +37,7 @@ const University = (props) => {
         <div>
         {details && details ? (
             <div>
+            <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" height="42" widht="42"></img><br />
             {details.id}<br/>
             {details.name}<br/>
             {details.street}<br/>
