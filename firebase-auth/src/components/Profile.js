@@ -6,7 +6,7 @@ import '../App.css';
 import ChangePassword from './ChangePassword';
 import { AuthContext } from "../firebase/Auth";
 import { useEffect, useContext, useState } from 'react';
-import { getUser, updateProfilePic, updateAccountInfo,getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 
 //datepicker imports
 import 'date-fns';
@@ -21,6 +21,15 @@ import {
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+//import for dropdown material ui
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { FormLabel } from 'react-bootstrap';
+//import { stat } from 'fs-extra';
+
 
 
 const defpic = require('../assets/default-avatar.png')
@@ -35,7 +44,8 @@ function Profile() {
 	const [formSubmit, setFormSubmit] = useState(false);
 	const [dob, setDob] = useState();
 	const [currentStudent, setCurrentStudent] = useState(false);
-	const [collegeList,setCollegeList] = useState();
+	const [collegeList, setCollegeList] = useState();
+	const [collegeSelected, setCollegeSelected] = useState();
 
 	useEffect(() => {
 
@@ -47,7 +57,7 @@ function Profile() {
 				setUser(u);
 				console.log("fetched user details")
 				let allColleges = await getAllColleges();
-				setCollegeList(collegeList);
+				setCollegeList(allColleges);
 				console.log('fetched college list');
 				console.log(allColleges);
 			} catch (e) {
@@ -100,7 +110,7 @@ function Profile() {
 						} catch (error) {
 							alert(error);
 						}
-						console.log('firebase url i s' + fireBaseUrl);
+						console.log('firebase url is' + fireBaseUrl);
 					})
 
 			})
@@ -117,27 +127,39 @@ function Profile() {
 	const handleToggleChange = async (event) => {
 		setCurrentStudent(!currentStudent);
 	}
+	//change handler for college list dropdown  button
+	const handleDropdownChange = async (event) => {
+		setCollegeSelected(event.target.value);
+	}
 
 	//function to update account details of the user
 	const handleAccountUpdate = async (event) => {
 		event.preventDefault();
 		console.log('entering update acc func');
 		//await updateAccountInfo(currentUser.uid,firstName,lastName);
-		let { firstName, lastName, dob } = event.target.elements;
+		let { firstName, lastName, dob, collegeSelect } = event.target.elements;
 		const first = firstName.value;
 		const last = lastName.value;
 		const dateOfBirth = dob.value;
+		//let selectedCollegeId=collegeSelect.value;
+		let selectedCollegeId;
+		if(!currentStudent) {
+			selectedCollegeId='';
+		} else {
+		 selectedCollegeId = collegeSelect.value
+		}
+		let status=currentStudent;
 		//console.log(accountInfoForm)
-		console.log("form data " + first + "  " + last + dateOfBirth);
+		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
 		if (first && last) {
 			try {
-				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth);
+				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId,status);
 				setFormSubmit(true);
 			} catch (error) {
 				alert(error);
 			}
 		} else alert('enter all info');
-			
+
 	};
 
 	//component code
@@ -162,7 +184,7 @@ function Profile() {
 				</div>
 
 				<h2>Edit account info</h2>
-				<form id="accountInfoForm"  name="accountInfoForm" onSubmit={handleAccountUpdate}>
+				<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
 					<label for="firstName">First Name:</label>
 					<input required type="text" id="firstName" name="firstName" placeholder="Enter your first name" />
 					<br></br>
@@ -188,15 +210,62 @@ function Profile() {
 							/>
 						</Grid>
 					</MuiPickersUtilsProvider>
-					<FormGroup row>
-						<FormControlLabel
-							control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-							label="Yes" labelPlacement="end"
-						/>
-					</FormGroup>
+
+
+
+
 					{/*Todo: input field for college name if user is a current student */}
+
+					{currentStudent ? (
+						<div>
+							<FormControl component="fieldset">
+								<FormLabel component="legend">Are you a current student</FormLabel>
+
+								<FormGroup row>
+									<FormControlLabel
+										control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+										label="Yes" labelPlacement="end"
+									/>
+								</FormGroup>
+							</FormControl>
+
+							<FormControl>
+								<FormGroup  row>
+								<InputLabel id="collegeListDropdown">Select your college</InputLabel>
+								<Select
+								style={{ width: '300px' }}
+									labelId="collegeListDropdown"
+									id="collegeSelect"
+									name="collegeSelect"
+									autoWidth="true"
+									onChange={handleDropdownChange}
+								>
+									{collegeList && collegeList.map((item) => {
+										return (
+											<MenuItem value={item.id}>{item.name}</MenuItem>
+										)
+									})}
+								</Select>
+								</FormGroup>
+							</FormControl>
+						</div>
+					) : (
+							<FormControl component="fieldset">
+								<FormLabel component="legend">Are you a current student</FormLabel>
+
+								<FormGroup row>
+									<FormControlLabel
+										control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+										label="Yes" labelPlacement="end"
+									/>
+								</FormGroup>
+							</FormControl>)}
+
+					<br></br>
+					<br></br>
 					<button type='submit'>Apply changes</button>
 				</form>
+				
 				<br></br>
 				{change ? <div><ChangePassword /> <button onClick={() => setChange(!change)}>Hide</button></div> : <button onClick={() => setChange(!change)}>Click to Change Password</button>} <br />
 				<SignOutButton />
