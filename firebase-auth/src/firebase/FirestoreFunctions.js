@@ -58,13 +58,15 @@ async function updateProfilePic(uid, imageUrl) {
 }
 
 //function to update account details of the user
-async function updateAccountInfo(uid, firstName, lastName, dateOfBirth) {
+async function updateAccountInfo(uid, firstName, lastName, dateOfBirth,selectedCollegeId,status) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
   let updateInfo = await db.collection("users").doc(uid).update({
     "firstName": firstName,
     "lastName": lastName,
-    "dob": dateOfBirth
+    "dob": dateOfBirth,
+    "collegeId":selectedCollegeId,
+    "currentStudent":status
   })
     .then(function () {
       console.log("account info was updated!");

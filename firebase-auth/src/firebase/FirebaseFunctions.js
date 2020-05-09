@@ -13,7 +13,7 @@ async function doCreateUserWithEmailAndPassword(email, password, firstName , las
 		email : email,
 		dob : new Date(),
 		collegeId : '',
-		status : '',
+		currentStudent : '',
 		photoURL : '',
 		posts : []
 	  };
