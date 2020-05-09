@@ -14,11 +14,6 @@ const Navigation = () => {
 
 const NavigationAuth = () => {
 	return (
-		// <nav className='navigation'>
-
-
-
-
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
   <div class = "container">
   <a class="navbar-brand" href="">xPense</a>
