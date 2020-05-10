@@ -31,10 +31,10 @@ const NavigationAuth = () => {
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
 						<span className="activeLink">Home</span>
-					</NavLink>
+	  </NavLink>
       </li>
 
-	  <li className="nav-item dropdown">
+	  <li className="nav-item active dropdown">
         <a className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Universities
         </a>
@@ -56,6 +56,13 @@ const NavigationAuth = () => {
 			<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 		</div>
       </li>
+
+	  <li className="nav-item active">
+	  <NavLink exact to='/home' className = "nav-link">
+						<span className="activeLink">About</span>
+	  </NavLink>
+      </li>
+
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
@@ -105,7 +112,7 @@ const NavigationNonAuth = () => {
 					</NavLink>
 				</li>
 
-				<li className="nav-item dropdown">
+				<li className="nav-item active dropdown">
 					<a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Universities
 					</a>
@@ -126,6 +133,12 @@ const NavigationNonAuth = () => {
 					<a className="dropdown-item" href = "/university/14">Hamilton College</a>
 					<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 					</div>
+				</li>
+
+				<li className="nav-item active">
+				<NavLink exact to='/' className = "nav-link">
+									<span className="activeLink">About</span>
+				</NavLink>
 				</li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
