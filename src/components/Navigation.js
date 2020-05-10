@@ -56,28 +56,6 @@ const NavigationAuth = () => {
 			<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 		</div>
       </li>
-
-	  <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Location
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-
-	  <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Rent
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
@@ -149,28 +127,6 @@ const NavigationNonAuth = () => {
 					<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 					</div>
 				</li>
-
-				<li className="nav-item dropdown">
-					<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Location
-					</a>
-					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a className="dropdown-item" href="#">Action</a>
-					<a className="dropdown-item" href="#">Another action</a>
-					<a className="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li>
-
-				<li className="nav-item dropdown">
-					<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Rent
-					</a>
-					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a className="dropdown-item" href="#">Action</a>
-					<a className="dropdown-item" href="#">Another action</a>
-					<a className="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
@@ -180,13 +136,13 @@ const NavigationNonAuth = () => {
 					</Button>
 
 					<Modal show={show} onHide={handleClose} animation={false}>
+							
+							<div className = "modalContent">
+							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+							</div>
 							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
 								{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
 							</Button>
-							<div className = "modalContent">
-							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-
-							</div>
 					</Modal>
 				</li>
 			</ul>
