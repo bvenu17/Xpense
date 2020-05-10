@@ -1,0 +1,356 @@
+.App {
+	text-align: center;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	height: 150px;
+	padding: 20px;
+	color: white;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.navigation {
+	background: #282c34;
+}
+
+.navigation ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.navigation a:link,
+.navigation a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.active {
+	font-weight: bold;
+	color: red !important;
+}
+
+.error {
+	font-weight: bold;
+	color: red !important;
+}
+
+
+.landingPage{
+	text-align:center;
+}
+
+.unidetails{
+	text-align:center;
+}
+
+/* .home{
+	text-align: center;
+} */
+
+/* ROHAN STYLE */
+
+body 
+{
+	font-family: 'Montserrat', sans-serif;
+	background: #E9EBEE;
+}
+
+/* NAVIGATION */
+.navStyle
+{
+	background: #2ecc71;
+	padding: 0%;
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
+}
+
+li 
+{
+
+	margin-left: 1.5rem;
+}
+.brand 
+{
+	font-weight: 900;
+	font-size: 2.0rem;
+}
+
+.nav-item 
+{
+	font-weight: 700;
+	color: #232323;
+}
+
+.activeLink
+{
+	font-weight: 900;
+	color: #232323;
+}
+
+.modalContent
+{
+margin: 0 auto;
+width: 20.0rem;
+
+
+}
+
+.modalHeader 
+{
+	background: #2ecc71;
+	color: #232323;
+	font-weight: 500;
+	border: none;
+	outline: none;
+}
+.modalHeader:hover
+{
+	color: #2ecc71;
+	background: white;
+}
+
+.loginButt
+{
+background: #232323;
+color: white;
+font-weight: 500;
+border-radius: 1.0rem;
+outline: none;
+border: none;
+}
+.loginButt:hover
+{
+background: white;
+color: #232323;
+outline: none;
+border: none;
+}
+
+
+.loginButt2{
+	background: #2ecc71;
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
+	border-radius: 2.0rem;
+	font-weight: 700;
+}
+
+.loginRegHeader
+{
+	text-align: center;
+	font-weight: 700;
+	font-size: 3.0rem;
+	margin:1.0rem;
+}
+.logSignButt 
+{
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-align: center;
+	align-self: center;
+
+}
+
+.ssign
+{
+	text-align: center;
+	margin: 0 auto;
+}
+
+
+.forgotPassword {
+	background: none !important;
+	border: none !important;
+	color: #2ecc71;
+	font-size: 0.8rem;
+	font-weight: 700;
+}
+
+.forgotPassword:hover {
+	text-decoration: none;
+	color: #069;
+}
+
+.container1
+{
+	margin-top:5.0rem;
+}
+
+label
+{
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	letter-spacing: 0.2rem;
+	margin-bottom: 0em;
+}
+
+.form-control{
+	border-radius: 1.0rem;
+	width: 20.0rem;
+	outline-width: 0px;
+
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+.form-control:focus
+{
+	border: 1px solid #2ecc71;
+	outline: none !important;
+	outline-width: 0px;
+	
+}
+
+/* POSTS */
+.post 
+{
+	width: 100%;
+	background: white;
+	padding: 1.0rem;
+	box-shadow: 0px 12px 22px rgba(82, 87, 104, 0.1), 0px -12px 22px rgba(82, 87, 104, 0.05);
+	border-radius: 1.0rem;
+	text-align: left;
+	margin-bottom: 1.0rem;
+}
+
+.avatarSide 
+{
+	float: left;
+	width: 11%;
+}
+.personal
+{
+	float: left;
+	width: 89%;
+	margin-left: 1.0rem;
+}
+.avatarPic
+{
+	width: 4.0rem;
+}
+.author
+{
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-bottom: 0%;
+	line-height: 1.3rem;
+	padding-top: 0.5rem;
+	color: #2ecc71;
+}
+.college
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	font-weight: 400;
+}
+.time 
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 0.7rem;
+	font-weight: 400;	
+
+}
+
+.icons 
+{
+	color: #2ecc71;
+	width: 1.5rem;
+}
+h2 
+{
+	font-size: 1.5rem;
+}
+
+/*SEE MORE */
+
+#module {
+	font-size: 1rem;
+	line-height: 1.5;
+  }
+  
+  
+  #module #collapseExample.collapse:not(.show) {
+	display: block;
+	height: 3rem;
+	overflow: hidden;
+  }
+  
+  #module #collapseExample.collapsing {
+	height: 3rem;
+  }
+  
+  #module a.collapsed::after {
+	content: '+ Show More';
+  }
+  
+  #module a:not(.collapsed)::after {
+	content: '- Show Less';
+  }
+
+  /* UNIVERSITIES */
+
+  .univ{
+	  background: #2ecc71;
+	  margin-top: 0%;
+	  
+  }
+
+  .hRule
+  {
+	  margin-top:-2.0rem;
+
+  }
+
+  .univLogo
+  {
+	  width: 8.0rem;
+	  height: 8.0rem;
+	  border-radius: 50%;
+  }
+  .uniName
+  {
+	  font-size:3.0rem;
+	  font-weight: 800;
+	  line-height: 3.0rem;
+	  margin-bottom: 1.0rem;
+	  margin-top:0.5rem;
+  }
+  .icons2
+  {
+	  margin-right: 0.3rem;
+  }
+  .tut 
+  {
+	  font-weight: 700;
+  }
