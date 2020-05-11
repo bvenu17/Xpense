@@ -58,7 +58,7 @@ const NavigationAuth = () => {
       </li>
 
 	  <li className="nav-item active">
-	  <NavLink exact to='/home' className = "nav-link">
+	  <NavLink exact to='/about' className = "nav-link">
 						<span className="activeLink">About</span>
 	  </NavLink>
       </li>
@@ -136,7 +136,7 @@ const NavigationNonAuth = () => {
 				</li>
 
 				<li className="nav-item active">
-				<NavLink exact to='/' className = "nav-link">
+				<NavLink exact to='/about' className = "nav-link">
 									<span className="activeLink">About</span>
 				</NavLink>
 				</li>
