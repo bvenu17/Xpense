@@ -10,6 +10,8 @@ import University from './University';
 import Navigation from './Navigation';
 import { AuthProvider } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
+import About from './About';
+
 function App() {
 	return (
 		<AuthProvider>
@@ -20,6 +22,7 @@ function App() {
 					</header>
 					<Switch>
 						<Route exact path='/' component={Landing} />
+						<Route exact path = '/about' component = {About}/>
 						<Route path='/university/:id' exact component={University} />
 						<PrivateRoute path='/home' component={Home} />
 						<PrivateRoute path='/profile' component={Profile} />
