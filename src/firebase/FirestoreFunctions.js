@@ -29,7 +29,6 @@ async function addPosts(uid, postObject) {
     });
 };
 
-
 async function getUser(uid) {
   let userRef = await db.collection('users').doc(uid);
   let getDoc = userRef.get()
@@ -62,6 +61,7 @@ async function updateProfilePic(uid, imageUrl) {
 
 //function to update account details of the user
 async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selectedCollegeId, status) {
+
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
   let updateInfo = await db.collection("users").doc(uid).update({
@@ -70,6 +70,7 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
     "dob": dateOfBirth,
     "collegeId": selectedCollegeId,
     "currentStudent": status
+
   })
     .then(function () {
       console.log("account info was updated!");
@@ -90,6 +91,7 @@ async function getPost(uid) {
     });
   return getDoc
 };
+
 
 async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');

@@ -23,6 +23,7 @@
 	text-align:center;
 }
 
+
 .App-link {
 	color: #61dafb;
 }
@@ -95,6 +96,7 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 
+
 } */
 
 /* ROHAN STYLE */
@@ -111,6 +113,9 @@ body
 {
 	background: #2ecc71;
 	padding: 0%;
+
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
 }
 
 li 
@@ -260,7 +265,10 @@ button:focus {
 	background: white;
 	padding: 1.0rem;
 	box-shadow: 0px 12px 22px rgba(82, 87, 104, 0.1), 0px -12px 22px rgba(82, 87, 104, 0.05);
-    border-radius: 1.0rem;
+
+	border-radius: 1.0rem;
+	text-align: left;
+	margin-bottom: 1.0rem;
 }
 
 .avatarSide 
@@ -272,6 +280,8 @@ button:focus {
 {
 	float: left;
 	width: 89%;
+
+	margin-left: 1.0rem;
 }
 .avatarPic
 {
@@ -339,39 +349,40 @@ h2
 	content: '- Show Less';
   }
 
-/* UNIVERSITIES */
 
-.univ{
-	background: #2ecc71;
-	margin-top: 0%;
-	
-}
+  /* UNIVERSITIES */
 
-.hRule
-{
-	margin-top:-2.0rem;
+  .univ{
+	  background: #2ecc71;
+	  margin-top: 0%;
+	  
+  }
 
-}
+  .hRule
+  {
+	  margin-top:-2.0rem;
 
-.univLogo
-{
-	width: 8.0rem;
-	height: 8.0rem;
-	border-radius: 50%;
-}
-.uniName
-{
-	font-size:3.0rem;
-	font-weight: 800;
-	line-height: 3.0rem;
-	margin-bottom: 1.0rem;
-	margin-top:0.5rem;
-}
-.icons2
-{
-	margin-right: 0.3rem;
-}
-.tut 
-{
-	font-weight: 700;
-}
+  }
+
+  .univLogo
+  {
+	  width: 8.0rem;
+	  height: 8.0rem;
+	  border-radius: 50%;
+  }
+  .uniName
+  {
+	  font-size:3.0rem;
+	  font-weight: 800;
+	  line-height: 3.0rem;
+	  margin-bottom: 1.0rem;
+	  margin-top:0.5rem;
+  }
+  .icons2
+  {
+	  margin-right: 0.3rem;
+  }
+  .tut 
+  {
+	  font-weight: 700;
+  }

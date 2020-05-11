@@ -34,6 +34,7 @@ const About = () => {
             <br></br>
             <br></br>
             <p>Venugopal Balaji</p>
+
             </div>
         </div>
     )

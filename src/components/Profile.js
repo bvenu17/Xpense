@@ -155,7 +155,6 @@ function Profile() {
 				alert(error);
 			}
 		} else alert('enter all info');
-
 	};
 
 	//component code
