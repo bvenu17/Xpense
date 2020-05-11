@@ -1,6 +1,5 @@
 import React, { useContext , useState } from 'react';
 import { NavLink } from 'react-router-dom';
-//import Modal from 'react-modal'
 import {Button, Modal} from 'react-bootstrap'
 import { AuthContext } from '../firebase/Auth';
 import SignOutButton from './SignOut';
@@ -32,10 +31,10 @@ const NavigationAuth = () => {
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
 						<span className="activeLink">Home</span>
-					</NavLink>
+	  </NavLink>
       </li>
 
-	  <li className="nav-item dropdown">
+	  <li className="nav-item active dropdown">
         <a className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Universities
         </a>
@@ -58,32 +57,17 @@ const NavigationAuth = () => {
 		</div>
       </li>
 
-	  <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Location
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a>
-        </div>
+	  <li className="nav-item active">
+	  <NavLink exact to='/about' className = "nav-link">
+						<span className="activeLink">About</span>
+	  </NavLink>
       </li>
 
-	  <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Rent
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
 		<li className = "nav-item">
-		<NavLink exact to='/profile'>
+		<NavLink exact to='/profile' class="nav-link">
 						Account
 					</NavLink>
 		</li>
@@ -122,13 +106,13 @@ const NavigationNonAuth = () => {
 
 			<div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
-				<li className="nav-link">
-					<NavLink exact to='/' activeClassName='active'>
-						Landing
+				<li className="nav-item">
+					<NavLink exact to='/' class = "nav-link">
+					<span className = "activeLink">Landing</span>	
 					</NavLink>
 				</li>
 
-				<li className="nav-item dropdown">
+				<li className="nav-item active dropdown">
 					<a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Universities
 					</a>
@@ -151,26 +135,10 @@ const NavigationNonAuth = () => {
 					</div>
 				</li>
 
-				<li className="nav-item dropdown">
-					<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Location
-					</a>
-					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a className="dropdown-item" href="#">Action</a>
-					<a className="dropdown-item" href="#">Another action</a>
-					<a className="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li>
-
-				<li className="nav-item dropdown">
-					<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Rent
-					</a>
-					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a className="dropdown-item" href="#">Action</a>
-					<a className="dropdown-item" href="#">Another action</a>
-					<a className="dropdown-item" href="#">Something else here</a>
-					</div>
+				<li className="nav-item active">
+				<NavLink exact to='/about' className = "nav-link">
+									<span className="activeLink">About</span>
+				</NavLink>
 				</li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
@@ -181,13 +149,13 @@ const NavigationNonAuth = () => {
 					</Button>
 
 					<Modal show={show} onHide={handleClose} animation={false}>
-							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-								{logSign==="Login"? "Create Account" : "Login Here"}
-							</Button>
+							
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-
 							</div>
+							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+								{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+							</Button>
 					</Modal>
 				</li>
 			</ul>

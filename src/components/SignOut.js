@@ -1,13 +1,12 @@
 import React from 'react';
 import { doSignOut } from '../firebase/FirebaseFunctions';
+import {Button, Modal} from 'react-bootstrap'
 
 const SignOutButton = () => {
 	return (
-		<div>
-		<button type='button' onClick={doSignOut} href="/">
+		<Button variant="primary" className = "loginButt" onClick={doSignOut}>
 			Sign Out
-		</button>
-		</div>
+		</Button>
 	);
 };
 

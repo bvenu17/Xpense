@@ -339,4 +339,39 @@ h2
 	content: '- Show Less';
   }
 
+/* UNIVERSITIES */
 
+.univ{
+	background: #2ecc71;
+	margin-top: 0%;
+	
+}
+
+.hRule
+{
+	margin-top:-2.0rem;
+
+}
+
+.univLogo
+{
+	width: 8.0rem;
+	height: 8.0rem;
+	border-radius: 50%;
+}
+.uniName
+{
+	font-size:3.0rem;
+	font-weight: 800;
+	line-height: 3.0rem;
+	margin-bottom: 1.0rem;
+	margin-top:0.5rem;
+}
+.icons2
+{
+	margin-right: 0.3rem;
+}
+.tut 
+{
+	font-weight: 700;
+}

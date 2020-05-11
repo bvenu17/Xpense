@@ -41,11 +41,6 @@ function Landing() {
 			return (
 
 				<div class = "container">
-					<h2>This is the Landing page</h2>
-					<p>COLLEGES: </p>
-					{colleges && colleges ? (<p>{colleges.map((item) => {
-						return (<p>{item.name}</p>)
-					})}</p>) : (<p>NOT GETTING College DATA</p>)}
 					
 					<p>POSTS: </p>
 					{allPosts && allPosts ? (<p>{allPosts.map((item) => {
@@ -65,4 +60,3 @@ function Landing() {
 }
 
 export default Landing;
-
