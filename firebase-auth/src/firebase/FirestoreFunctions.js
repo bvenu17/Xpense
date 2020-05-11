@@ -4,27 +4,30 @@ import firebaseApp from './Firebase'
 
 let db = firebaseApp.firestore();
 
-// async function updateUser(userObject) {
-//     await db.collection('users').doc(uid).set(userObject)
-// };
-
 async function addPosts(uid, postObject) {
-    
-  await db.collection('posts').doc(uid).update({
-    userPosts:firebase.firestore.FieldValue.arrayUnion(postObject)
-  });
+//func to add post to db
+  await db.collection("posts").add(postObject)
+    .then(function (docRef) {
+      postObject.postId = docRef.id;
+      console.log("Post written with ID: ", docRef.id);
+    })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
+    });
+  console.log('post object which needs to be added to the user collection is');
+  console.log(postObject);
+//func to add the post to user db
   await db.collection('users').doc(uid).update({
     posts: firebase.firestore.FieldValue.arrayUnion(postObject)
-  });
+  })
+    .then(function () {
+      console.log("Post in User Document successfully updated!");
+    })
+    .catch(function (error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
 };
-
-// async function deletePosts(userObject) {
-//     const removeObj = db.collection('posts').doc(uid).delete()
-//     await db.collection('users').doc(uid).update({
-//         // posts : firebase.firestore.FieldValue.arrayUnion(postObject)
-//         posts : firebase.firestore.FieldValue.arrayUnion(userObject)
-//     });
-// };
 
 
 async function getUser(uid) {
@@ -58,15 +61,15 @@ async function updateProfilePic(uid, imageUrl) {
 }
 
 //function to update account details of the user
-async function updateAccountInfo(uid, firstName, lastName, dateOfBirth,selectedCollegeId,status) {
+async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selectedCollegeId, status) {
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
   let updateInfo = await db.collection("users").doc(uid).update({
     "firstName": firstName,
     "lastName": lastName,
     "dob": dateOfBirth,
-    "collegeId":selectedCollegeId,
-    "currentStudent":status
+    "collegeId": selectedCollegeId,
+    "currentStudent": status
   })
     .then(function () {
       console.log("account info was updated!");
@@ -87,7 +90,6 @@ async function getPost(uid) {
     });
   return getDoc
 };
-
 
 async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
