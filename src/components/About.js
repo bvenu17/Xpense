@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 
 const About = () => {
@@ -34,7 +33,8 @@ const About = () => {
             <p>Rohan Shah</p>
             <br></br>
             <br></br>
-            <p>Srinivasna Trichipalli Yekeparampir Perambdur Chinnaswami Muttuswami VENUGOPAL IYER</p>
+            <p>Venugopal Balaji</p>
+
             </div>
         </div>
     )

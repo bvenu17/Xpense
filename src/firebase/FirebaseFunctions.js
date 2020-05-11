@@ -18,11 +18,9 @@ async function doCreateUserWithEmailAndPassword(email, password, firstName , las
 		posts : []
 	  };
 	  let setDoc = await db.collection('users').doc(user.uid).set(data);
-	 let postDoc = await db.collection('posts').doc(user.uid).set({
-		userPosts:[]
-	  });	
+	 	
 	  console.log(setDoc)	  
-	  console.log(postDoc)	  
+	 // console.log(postDoc)	  
 
 	firebase.auth().currentUser.updateProfile({ displayName: String(firstName)+" "+String(lastName) });
 }

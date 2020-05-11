@@ -10,6 +10,7 @@ import University from './University';
 import Navigation from './Navigation';
 import { AuthProvider } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
+
 import About from './About'
 function App() {
 	return (
@@ -33,5 +34,6 @@ function App() {
 		</AuthProvider>
 	);
 }
+
 
 export default App;

@@ -117,7 +117,7 @@ const NavigationNonAuth = () => {
 					Universities
 					</a>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a className="dropdown-item" href = {`/university/${1}`}>Princeton University</a>
+					<a className="dropdown-item" href = "/university/1">Princeton University</a>
 					<a className="dropdown-item" href = "/university/2">Stevens Institute of Technology</a>
 					<a className="dropdown-item" href = "/university/3">Rutgers University - New Brunswick</a>
 					<a className="dropdown-item" href = "/university/4">The College of New Jersey</a>
@@ -154,7 +154,7 @@ const NavigationNonAuth = () => {
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
 							</div>
 							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-								{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
 							</Button>
 					</Modal>
 				</li>
@@ -166,5 +166,6 @@ const NavigationNonAuth = () => {
 		
 	);
 };
+
 
 export default Navigation;
