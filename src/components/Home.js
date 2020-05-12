@@ -288,7 +288,7 @@ function Home() {
 
 				
 				{/* Testing with all posts and comment*/}
-				<h1>ALl Posts</h1>
+				<h1>All Posts</h1>
 
 				{postList && postList.map((item) => {
 					return (
