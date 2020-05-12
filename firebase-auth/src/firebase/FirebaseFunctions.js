@@ -13,12 +13,15 @@ async function doCreateUserWithEmailAndPassword(email, password, firstName , las
 		email : email,
 		dob : new Date(),
 		collegeId : '',
-		status : '',
+		currentStudent : '',
 		photoURL : '',
 		posts : []
 	  };
-	  let setDoc = await db.collection('users').doc(user.uid).set(data);	
+	  let setDoc = await db.collection('users').doc(user.uid).set(data);
+	 	
 	  console.log(setDoc)	  
+	 // console.log(postDoc)	  
+
 	firebase.auth().currentUser.updateProfile({ displayName: String(firstName)+" "+String(lastName) });
 }
 

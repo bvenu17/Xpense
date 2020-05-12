@@ -1,83 +1,8 @@
 import React, {useState, useEffect} from 'react';
-// import * as firestore from '../firebase/FirestoreFunctions'
 import '../App.css';
 import {getPost, getAllPostsforCollege, getAllColleges} from '../firebase/FirestoreFunctions'
 
-
-let collegeData=[
-    {
-        "id": 1,
-        "name": "Princeton University",
-        "street": "1 Nassau Hall",
-        "city": "Princeton",
-        "state": "NJ",
-        "zip": "08544",
-        "tuition": 16192,
-        "posts": [],
-        "preferredAreas": [], 
-        "avgExpense": 0,
-        "logo": "Princeton.png",
-        "url": "princeton.edu"
-    },
-    {
-        "id": 2,
-        "name": "Stevens Institute of Technology",
-        "street": "1 Castle Point Terrace",
-        "city": "Hoboken",
-        "state": "NJ",
-        "zip": "08822",
-        "tuition": 39862,
-        "posts": [],
-        "preferredAreas": [], 
-        "avgExpense": 0,
-        "logo": "stevens.png",
-        "url": "stevens.edu"
-    },
-    {
-        "id": 3,
-        "name": "Rutgers University - New Brunswick",
-        "street": "100 Sutphen Road",
-        "city": "Piscataway",
-        "state": "NJ",
-        "zip": "08854",
-        "tuition": 16295,
-        "posts": [],
-        "preferredAreas": [], 
-        "avgExpense": 0,
-        "logo": "rutgers.png",
-        "url": "newbrunswick.rutgers.edu"
-    },
-    {
-        "id": 4,
-        "name": "The College of New Jersey",
-        "street": "2000 Pennington Road",
-        "city": "Ewing",
-        "state": "NJ",
-        "zip": "08628",
-        "tuition": 23414,
-        "posts": [],
-        "preferredAreas": [], 
-        "avgExpense": 0,
-        "logo": "rutgers.png",
-        "url": "tcnj.edu"
-    },
-    {
-        "id": 5,
-        "name": "Rutgers University - Newark",
-        "street": "249 University Avenue, Blumenthal Hall",
-        "city": "Newark",
-        "state": "NJ",
-        "zip": "07102",
-        "tuition": 11301,
-        "posts": [],
-        "preferredAreas": [], 
-        "avgExpense": 0,
-        "logo": "rutgers.png",
-        "url": "newark.rutgers.edu"
-    }
-]
-
-const Unidata = (props) => {
+const University = (props) => {
     const [Id, setId] = useState(undefined);
     const [details, setDetails] = useState(undefined);
     const [posts, setPosts] = useState(undefined);
@@ -108,23 +33,62 @@ const Unidata = (props) => {
         }, []
     )
     return (
-        <div className='unidetails'>
+
+
+
+
+
         <div>
+        <div class = "post univ">       
+        <div class = "container container1">
+        <hr class = "hRule"></hr>
+
         {details && details ? (
-            <div>
-            {details.id}<br/>
-            {details.name}<br/>
-            {details.street}<br/>
-            {details.street}<br/>
-            {details.city}<br/>
-            {details.state}<br/>
-            {details.zip}<br/>
-            {details.tution}<br/>
+
+            <div class = "row">
+            <div class = "col-lg-2 col-md-2 col-sm-12">
+            <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" class = "univLogo"></img><br />
+                </div>
+                <div class = "col-lg-10 col-md-10 col-sm-12">
+
+                <div class = "row">
+                    <div class = "col-lg-12 col-md-12 col-sm-12 uniName">
+                    {details.name}<br/>
+                    </div>
+
+                    <div class = "col-lg-6 col-md-6 col-sm-12">
+                    <i class="fas fa-map-marker-alt icons2" title = "Address"></i> {details.street},
+            {details.city},
+            {details.state},
+            {details.zip}
+                        </div>
+                        <div class = "col-lg-6 col-md-6 col-sm-12">
+                        <i class="fas fa-link icons2" title ="Website"></i>{details.url}
+                            </div>
+                            <div class = "col-lg-6 col-md-6 col-sm-12">
+                                <span class = "tut">Tuition:</span> ${details.tuition} per year
+                                </div>
+                            <div class = "col-lg-6 col-md-6 col-sm-12">
+                            <span class = "tut">Average Expenses:</span> ${details.avgExpense} per month
+                                </div>
+
+
+
+
+                    </div>   
+            <br/>
+                </div>
+
+
             </div>
+          
+       
+
         ) : (<p status={404}> COLLEGE ERROR</p>)}
             </div>
-            
-            <div>
+            </div> 
+
+            <div class = "container container1">
             {posts && posts ? (<div>{posts.map((item) => {
                 return(
                 <div key={item.authorId}>
@@ -134,11 +98,12 @@ const Unidata = (props) => {
                         CATEGORY: {item.category}<br/>
                         DESCRIPTION: {item.description}<br/>
                 </div>)
-            })}</div>) : (<p status={404}> NO POSTS </p>)}
+            })}</div>) : (<h2 status={404}> NO POSTS </h2>)}
         </div>
         </div>
     )
 }
 
 
-export default Unidata;
+
+export default University;
