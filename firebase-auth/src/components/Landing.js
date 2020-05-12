@@ -61,7 +61,7 @@ function Landing() {
 													<br></br>
 														Category : {item.category}
 													<br></br>
-														Expense : ${item.expenses}
+														{/* Expense : ${item.expenses} */}
 													<br></br>
 													<img width="100px" src={item.postPicture} alt="img-post" />
 												</p>
