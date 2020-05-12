@@ -8,7 +8,7 @@ import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
 import firebase from "firebase/app";
 import "firebase/storage";
-import { addPosts, getUser, getCollege, getAllColleges } from '../firebase/FirestoreFunctions';
+import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
 //static files import
 const defcollogo = require('../assets/college-logo.jpg')
 
@@ -24,9 +24,11 @@ function Home() {
 	//post states
 	const [postList, setPostList] = useState();
 	const [postPic, setPostPic] = useState();
+	const [postId, setPostId] = useState();
 	const [postPicUrl, setPostPicUrl] = useState();
 	//loading data state
 	const [loading, setLoading] = useState(true);
+	const [formSubmit, setFormSubmit] = useState(false);
 
 	//lifecycle method
 	useEffect(() => {
@@ -43,26 +45,19 @@ function Home() {
 				setCollegeList(allColleges)
 				console.log("fetched college list")
 				console.log(allColleges)
-				// if (college.logo !== "") {
-				// 	setCollegePic(college.logo)
-				// }
-
-				//check if user has college id, if yes get info of that college
-				// let collegeDetails;
-				// if (u.collegeId !== '') {
-				// 	collegeDetails = await getCollege(u.collegeId);
-				// 	setPostList(collegeDetails.posts);
-				// 	console.log("fetched user's college info");
-				// 	console.log(collegeDetails);
-				// }
-
+				//fetch all posts from db
+				let p = await getAllPosts();
+				setPostList(p);
+				console.log("fetched all posts from db");
+				console.log(p);
+				//change loading state
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
 			}
 		}
 		getData();
-	}, [currentUser, collegePic])
+	}, [currentUser, formSubmit])
 
 	//onChange handler for input field of profile picture
 	const handleImageChange = async (event) => {
@@ -73,11 +68,12 @@ function Home() {
 		}
 	}
 
+	//submit form for post
 	const handlePosts = async (event) => {
 		event.preventDefault();
 		//get all elements from form
 		let { title, expenses, description, category, collegeSelect } = event.target.elements;
-		console.log("College id is the foll " + collegeSelect.value )
+		console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
 		const storage = firebase.storage();
 		const uploadTask = storage.ref(`/postImages/${postPic.name}`).put(postPic);
@@ -100,16 +96,50 @@ function Home() {
 						setPostPicUrl(fireBaseUrl);
 
 						//retrieve values from the elements and add to db
-						let post = { title: title.value, authorId: currentUser.uid, collegeId: collegeSelect.value,
-							expenses: expenses.value, description: description.value, category: category.value, postPicture: fireBaseUrl };
+						let d = new Date();
+						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+						let month = months[d.getMonth()];
+						let year=d.getFullYear();
+						let day=d.getDate();
+						let postDate=day+ ' ' + month + ' ' + year;
+						let postTime = d.getHours() + ':' + (d.getMinutes()<10?'0':'')+ d.getMinutes();
+						let post = {
+							title: title.value,
+							authorId: currentUser.uid,
+							authorName: user.firstName + " " + user.lastName,
+							collegeId: collegeSelect.value, comments: [],
+							expenses: expenses.value,
+							description: description.value,
+							category: category.value,
+							postPicture: fireBaseUrl,
+							date: postDate,
+							time:postTime
+						};
 						try {
+							//add the post to the db
 							addPosts(currentUser.uid, post);
+							setFormSubmit(true);
 						} catch (error) {
 							alert(error);
 						}
 					})
 			})
 	};
+
+
+	//submit form for comments
+	const handleCommentSubmit = async (event) => {
+		event.preventDefault();
+		const { comment } = event.target.elements;
+		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
+		try {
+			//add comment to the post db
+			await addCommentToPost(postId, user.firstName, comment.value)
+			setFormSubmit(true);
+		} catch (error) {
+			alert(error);
+		}
+	}
 
 	//component code
 	if (loading === false) {
@@ -213,7 +243,7 @@ function Home() {
 										{collegeList && collegeList.map((item) => {
 											return <option value={item.id}>{item.name}</option>
 										})}
-										
+
 									</select>
 									<label for="post-image">Upload Media</label>
 									<input required type="file" id="post-image" onChange={handleImageChange} /> <br></br>
@@ -239,6 +269,8 @@ function Home() {
 								</div>
 								<div className="logSignButt">
 									<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+
+
 								</div>
 							</form>
 						</div>
@@ -254,53 +286,45 @@ function Home() {
 
 				{/* Rohan code ends again */}
 
+				
+				{/* Testing with all posts and comment*/}
+				<h1>ALl Posts</h1>
 
+				{postList && postList.map((item) => {
+					return (
+						<div className="postContent" style={{ border: '3px solid black', margin: '30px' }}>
 
+							<p>
+								Title: {item.title}
+								<br></br>
+								Author Name: {item.authorName}
+								<br></br>
+								Description: {item.description}
+								<br></br>
+								Date: {item.date}
+								<br></br>
+								Time:{item.time}
+								<br></br>
+								Category: {item.category}
+								<br></br>
+								Expense: ${item.expenses}
+								<br></br>
+								<img width="100px" src={item.postPicture} alt="img-post" />
 
+							</p>
+							<form onSubmit={handleCommentSubmit}>
+								<input name="comment" id="comment" type="text" placeholder="enter comment" />
 
-				{/* <h2>This is the Home page</h2>
-				YOUR DETAILS !!!
-			{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
-				{user && user ? (<div> POSTS BY USER: {user.posts.map((item) => {
-					return (<div key="1">
-						<p>Post Detail: {item.title} : {item.value}</p>
-						<p>Post Description: {item.description}</p>
-					</div>
-					)
-				})}</div>) : (<p>NOT GETTING USER DATA</p>)} */}
-
-
-				{/* YOUR COLLEGE DATA !!!
-			{college && college ? (<div>
-					<p>Logo: {collegePic ? (<img src={collegePic} alt='collegepic' height="42" widht="42" />) : (<img src={collegePic} alt='defaultpic' height="42" width="42" />)}</p>
-					<p>Name: {college.name}</p>
-					<p>City: {college.city}</p>
-					<p>Average Expenses: {college.avgExpense}</p>
-					<div>POSTS ABOUT COLLEGE: {postList ? postList.map((post) => {
-						return (<div key="1">
-							<p>Post Title: {post.Title}</p>
-							<p>Post Category: {post.Category}</p>
-							<p>Post Description: {post.Description}</p>
+								{currentUser && currentUser ? (
+									<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+								) : (
+										<p>Login to add a comment</p>
+									)}
+							</form>
 						</div>
-						)
-					}) : (<p>NO POSTS</p>)
-					}
-					</div>
-
-				</div>) : null}
- */}
-
-{/* 
-				LIST OF COLLEGES !!!
-			{collegeList && collegeList ? (<div>{collegeList.map((item) => {
-					return (<div key={item.name}>
-						<p>College Name: {item.name}</p>
-						<p>College Logo: {item.logo === "" ? (<img src={item.logo} alt='collegepic' height="42" widht="42" />) : (<img src={collegePic} alt='defaultpic' height="42" widht="42" />)}</p>
-					</div>
 					)
-
-				})}</div>) : (<p>NOT GETTING College DATA</p>)}
- */}
+				})}
+				{/* testing ends */}
 			</div>
 
 		)
