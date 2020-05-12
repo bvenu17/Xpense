@@ -148,7 +148,7 @@ function Home() {
 				{/* Rohan Static Content */}
 				<div className="row">
 					<div className="col-lg-8 col-md-12 col-sm-12">
-						<div className="post">
+						{/* <div className="post">
 							<div className="headerPost">
 								<div className="avatarSide">
 									<img src='/imgs/profile.png' className="avatarPic"></img>
@@ -189,8 +189,43 @@ function Home() {
 								<br></br>
 								<h2>COMMENTS GO HERE</h2>
 							</div>
+						</div> */}
+								{postList && postList.map((item) => {
+									return (
+										<div className="post">
+										<div className="postContent">
+											<p>
+													Title : {item.title}
+												<br></br>
+													Author Name : {item.authorName}
+												<br></br>
+													Description : {item.description}
+												<br></br>
+													Date : {item.date}
+												<br></br>
+													Time:{item.time}
+												<br></br>
+													Category : {item.category}
+												<br></br>
+													Expense : ${item.expenses}
+												<br></br>
+												<img width="100px" src={item.postPicture} alt="img-post" />
+											</p>
+											
+											<div className="comments">
+	
+									<br></br>
+									<h2>COMMENTS GO HERE</h2>
+									<form onSubmit={handleCommentSubmit}>
+										<input name="comment" id="comment" type="text" placeholder="enter comment" />
+										<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+									</form>
+								</div>
+								</div>
+								</div>
+								)
+							})}
 						</div>
-					</div>
 					{/* Rohan static copntent ends */}
 					{/* Rohan code once again */}
 
@@ -288,7 +323,9 @@ function Home() {
 
 				
 				{/* Testing with all posts and comment*/}
-				<h1>ALl Posts</h1>
+
+
+				{/* <h1>All Posts</h1>
 
 				{postList && postList.map((item) => {
 					return (
@@ -323,7 +360,7 @@ function Home() {
 							</form>
 						</div>
 					)
-				})}
+				})} */}
 				{/* testing ends */}
 			</div>
 
