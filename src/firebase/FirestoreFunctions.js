@@ -95,12 +95,17 @@ async function getPost(uid) {
 
 async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
+<<<<<<< HEAD:src/firebase/FirestoreFunctions.js
 <<<<<<< HEAD:firebase-auth/src/firebase/FirestoreFunctions.js
   let allPosts = []
 =======
   let allPosts = [];
   let x;
 >>>>>>> 07f4d3824692010f5dc9604aa2b3fb9097acf6bc:src/firebase/FirestoreFunctions.js
+=======
+  let allPosts = [];
+  let x;
+>>>>>>> firebase-basecode:src/firebase/FirestoreFunctions.js
   let query = postsRef.where('collegeId', '==', collegeID).get()
     .then(snapshot => {
       if (snapshot.empty) {
@@ -109,6 +114,7 @@ async function getAllPostsforCollege(collegeID) {
       }
       snapshot.forEach(doc => {
         //console.log(doc.id, '=>', doc.data());
+<<<<<<< HEAD:src/firebase/FirestoreFunctions.js
 <<<<<<< HEAD:firebase-auth/src/firebase/FirestoreFunctions.js
         allPosts.add(doc.data())
 =======
@@ -116,6 +122,11 @@ async function getAllPostsforCollege(collegeID) {
         x.id=doc.id;
         allPosts.push(x)
 >>>>>>> 07f4d3824692010f5dc9604aa2b3fb9097acf6bc:src/firebase/FirestoreFunctions.js
+=======
+        x=doc.data();
+        x.id=doc.id;
+        allPosts.push(x)
+>>>>>>> firebase-basecode:src/firebase/FirestoreFunctions.js
       });
       return allPosts
     })
