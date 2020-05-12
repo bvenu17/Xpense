@@ -59,7 +59,7 @@ function Home() {
 		getData();
 	}, [currentUser, formSubmit])
 
-	//onChange handler for input field of profile picture
+	//onChange handler for input field of post picture
 	const handleImageChange = async (event) => {
 		event.preventDefault();
 		if (event.target.files[0]) {
@@ -95,7 +95,7 @@ function Home() {
 						//setProfPicUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
 						setPostPicUrl(fireBaseUrl);
 
-						//retrieve values from the elements and add to db
+						//retrieve values from the elements and add to post db
 						let d = new Date();
 						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 						let month = months[d.getMonth()];
