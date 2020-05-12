@@ -21,7 +21,7 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
-  <a className="navbar-brand brand" href="">xPense</a>
+  <a className="navbar-brand brand" href="/home">xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -66,11 +66,12 @@ const NavigationAuth = () => {
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
-		<li className = "nav-item">
+		<li className = "nav-item active">
 		<NavLink exact to='/profile' class="nav-link">
-						Account
+		<span className="activeLink">Account</span>
 					</NavLink>
 		</li>
+		<li></li>
 		<li className = "nav-item">
 		<SignOutButton />
 		</li>
@@ -97,17 +98,18 @@ const NavigationNonAuth = () => {
 
 
 
-		<nav className="navbar sticky-top navbar-expand-lg navbar-light navStyle">
+		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
-			<a className="navbar-brand brand" href="">xPense</a>
+			<a className="navbar-brand brand" href="/">xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
 
 			<div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
-				<li className="nav-item">
+				<li className="nav-item active">
 					<NavLink exact to='/' className = "nav-link">
+
 					<span className = "activeLink">Landing</span>	
 					</NavLink>
 				</li>
