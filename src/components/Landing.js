@@ -40,7 +40,7 @@ function Landing() {
 			{
 			return (
 
-				<div class = "container">
+				<div className = "container">
 					
 					<p>POSTS: </p>
 					{allPosts && allPosts ? (<p>{allPosts.map((item) => {

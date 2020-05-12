@@ -107,7 +107,7 @@ const NavigationNonAuth = () => {
 			<div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
 				<li className="nav-item">
-					<NavLink exact to='/' class = "nav-link">
+					<NavLink exact to='/' className = "nav-link">
 					<span className = "activeLink">Landing</span>	
 					</NavLink>
 				</li>
