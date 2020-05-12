@@ -5,7 +5,7 @@ import firebaseApp from './Firebase'
 let db = firebaseApp.firestore();
 
 async function addPosts(uid, postObject) {
-//func to add post to db
+  //func to add post to db
   await db.collection("posts").add(postObject)
     .then(function (docRef) {
       postObject.postId = docRef.id;
@@ -16,9 +16,9 @@ async function addPosts(uid, postObject) {
     });
   console.log('post object which needs to be added to the user collection is');
   console.log(postObject);
-//func to add the post to user db
+  //func to add the post to user db
   await db.collection('users').doc(uid).update({
-    posts: firebase.firestore.FieldValue.arrayUnion(postObject)
+    posts: firebase.firestore.FieldValue.arrayUnion({postId:postObject.postId})
   })
     .then(function () {
       console.log("Post in User Document successfully updated!");
@@ -96,7 +96,7 @@ async function getPost(uid) {
 async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
   let allPosts = []
-  let query = postsRef.where('collegeID', '==', collegeID).get()
+  let query = postsRef.where('collegeId', '==', collegeID).get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -115,8 +115,19 @@ async function getAllPostsforCollege(collegeID) {
 };
 
 async function getAllPosts() {
-  const snapshot = await firebase.firestore().collection('posts').get()
-  return snapshot.docs.map(doc => doc.data());
+  // const snapshot = await firebase.firestore().collection('posts').get()
+  // return snapshot.docs.map(doc => doc.data());
+  const markers = [];
+  let x;
+  await firebase.firestore().collection('posts').get()
+    .then(querySnapshot => {
+      querySnapshot.docs.forEach(doc => {
+        x = doc.data();
+        x.id = doc.id;
+        markers.push(x);
+      });
+    });
+  return markers;
 };
 
 async function getAllColleges() {
@@ -145,6 +156,22 @@ async function addCollege(element) {
   await db.collection('colleges').add(element);
 };
 
+
+//func to add commments for the post to db
+async function addCommentToPost(postId, userName, commentText) {
+  await db.collection('posts').doc(postId).update({
+    comments: firebase.firestore.FieldValue.arrayUnion({ username: userName, comment: commentText })
+  })
+    .then(function () {
+      console.log("Comment in Post Document successfully updated!");
+    })
+    .catch(function (error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+
+};
+
 export {
   // updateUser,
   addPosts,
@@ -157,7 +184,8 @@ export {
   getUser,
   getPost,
   updateProfilePic,
-  updateAccountInfo
+  updateAccountInfo,
+  addCommentToPost
 };
 
 
