@@ -97,7 +97,7 @@ const NavigationNonAuth = () => {
 
 
 
-		<nav className="navbar sticky-top navbar-expand-lg navbar-light navStyle">
+		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
 			<a className="navbar-brand brand" href="">xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@ const NavigationNonAuth = () => {
 
 			<div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
-				<li className="nav-item">
+				<li className="nav-item active">
 					<NavLink exact to='/' class = "nav-link">
 					<span className = "activeLink">Landing</span>	
 					</NavLink>
