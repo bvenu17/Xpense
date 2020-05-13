@@ -76,21 +76,21 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
       console.log("account info was updated!");
     });
 }
-async function getPost(uid) {
-  let postRef = await db.collection('posts').doc(uid);
-  let getDoc = postRef.get()
-    .then(doc => {
-      if (!doc.exists) {
-        console.log('No such document!');
-      } else {
-        return doc.data()
-      }
-    })
-    .catch(err => {
-      console.log('Error getting document', err);
-    });
-  return getDoc
-};
+// async function getPost(uid) {
+//   let postRef = await db.collection('posts').doc(uid);
+//   let getDoc = postRef.get()
+//     .then(doc => {
+//       if (!doc.exists) {
+//         console.log('No such document!');
+//       } else {
+//         return doc.data()
+//       }
+//     })
+//     .catch(err => {
+//       console.log('Error getting document', err);
+//     });
+//   return getDoc
+// };
 
 
 async function getAllPostsforCollege(collegeID) {
@@ -132,6 +132,30 @@ async function getAllPosts() {
       });
     });
   return markers;
+};
+
+async function getUserPosts(uid) {
+  let postsRef = db.collection('posts');
+  let allPosts = [];
+  let x;
+  let query = postsRef.where('authorId', '==', uid).get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return;
+      }
+      snapshot.forEach(doc => {
+        //console.log(doc.id, '=>', doc.data());
+        x=doc.data();
+        x.id=doc.id;
+        allPosts.push(x)
+      });
+      return allPosts
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+  return query;
 };
 
 async function getAllColleges() {
@@ -186,10 +210,11 @@ export {
   getAllPosts,
   getAllPostsforCollege,
   getUser,
-  getPost,
+  //getPost,
   updateProfilePic,
   updateAccountInfo,
-  addCommentToPost
+  addCommentToPost,
+  getUserPosts
 };
 
 
