@@ -1,5 +1,5 @@
 //basic imports
-import React,{ useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 //cloud storage imports
 import firebase from "firebase/app";
 import "firebase/storage";
@@ -8,9 +8,10 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, getUserPosts, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
+import Button from 'react-bootstrap/Button';
 //datepicker imports
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -39,6 +40,7 @@ function Profile() {
 	const [user, setUser] = useState();
 	//loading state
 	const [loading, setLoading] = useState(true);
+	const [temp, setTemp] = useState(false);
 	//database states
 	const [change, setChange] = useState(false);
 	const [profPic, setProfPic] = useState();
@@ -49,6 +51,8 @@ function Profile() {
 	//college states
 	const [collegeList, setCollegeList] = useState();
 	const [collegeSelected, setCollegeSelected] = useState();
+	//user posts state
+	const [userPosts, setUserPosts] = useState();
 
 	//lifecycle method
 	useEffect(() => {
@@ -59,12 +63,16 @@ function Profile() {
 				let u = await getUser(currentUser.uid);
 				setLoading(false)
 				setUser(u);
-				console.log("fetched user details")
+				setCurrentStudent(u.currentStudent)
+				console.log("fetched user details", u)
 				// fetch college list from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges);
-				console.log('fetched college list');
-				console.log(allColleges);
+				console.log('fetched college list', allColleges);
+				//fetch user posts from db
+				let allPostsOfUser = await getUserPosts(currentUser.uid);
+				setUserPosts(allPostsOfUser);
+				console.log("fetched user posts from db", allPostsOfUser)
 			} catch (e) {
 				console.log(e)
 			}
@@ -160,105 +168,182 @@ function Profile() {
 	//component code
 	if (!loading) {
 		return (
-			<div className="container">
+			<div className="container container1">
 				{/* Profile picture part */}
-				<h2>Profile Page</h2>
-				<div className="profile">
-					{user && user.photoURL ? (<p>Profile Picture<img src={user.photoURL} alt='profilePic' height="100" width="100" /></p>) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' height="100" width="100" /></p>)}
-					{/* form to chang profile pic */}
-					<form onSubmit={handleUpload}>
-						<input type='file' onChange={handleChange} />
-						<button style={{ border: '3px solid black' }}>Change profile picture</button>
-					</form>
-					{/* display user details from db */}
-					{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
-					{/* display user posts from db */}
-					{user && user.posts ? (<div>MY POSTS: {user.posts.map((item) => {
-						return (<div>
-							<p>Post Details: {item.title} : {item.value}</p>
-							<p>Post Description: {item.description}</p>
-						</div>)
-					})}</div>) : (<p>NOT GETTING any posts</p>)}
+				<div className="col-lg-12 col-md-12 col-sm-12">
+					<h2>Profile Page</h2>
+					<div className="post">
+						<div className="text-center">
+
+							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' style={{ borderRadius: "50%" }} height="200" width="200" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' height="100" width="100" /></p>)}
+
+							{/* form to chang profile pic */}
+
+							<form onSubmit={handleUpload}>
+								{/* <label for="profilepicfile">upload file in .jpeg or .png format</label> */}
+								<input type='file' name="porfilepicfile" id="porfilepicfile" onChange={handleChange} />
+								<br></br><br></br>
+								<button style={{ border: '3px solid black' }}>Change profile picture</button>
+							</form>
+							{/* display user details from db */}
+							{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+
+						</div>
+					</div>
 				</div>
 				{/* form to update account details */}
 				<h2>Edit account info</h2>
-				<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
-					<label for="firstName">First Name:</label>
-					<input required type="text" id="firstName" name="firstName" placeholder="Enter your first name" />
-					<br></br>
-					<label for="lastName">Last Name:</label>
-					<input required type="text" id="lastName" name="lastName" placeholder="Enter your last name" />
-					<br>
-					</br>
-					{/* material ui date picker for dob */}
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<Grid container justify="flex-start">
-							<KeyboardDatePicker
-								margin="normal"
-								id="dob"
-								name="dob"
-								label="Enter date of birth"
-								format="MM/dd/yyyy"
-								value={dob}
-								required
-								onChange={handleDateChange}
-								KeyboardButtonProps={{
-									'aria-label': 'change date',
-								}}
-							/>
-						</Grid>
-					</MuiPickersUtilsProvider>
-					{/*input field for college name if user is a current student */}
-					{currentStudent ? (
-						<div>
-							<FormControl component="fieldset">
-								<FormLabel component="legend">Are you a current student</FormLabel>
 
-								<FormGroup row>
-									<FormControlLabel
-										control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-										label="Yes" labelPlacement="end"
+				{temp ? (
+					<div>
+						{/* account form starts here */}
+						<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
+							<label for="firstName">First Name:</label>
+							<input required type="text" id="firstName" value={user.firstName} name="firstName" placeholder="Enter your first name" />
+							<br></br>
+							<label for="lastName">Last Name:</label>
+							<input required type="text" value={user.lastName} id="lastName" name="lastName" placeholder="Enter your last name" />
+							<br>
+							</br>
+							{/* material ui date picker for dob */}
+							<MuiPickersUtilsProvider utils={DateFnsUtils}>
+								<Grid container justify="center">
+									<KeyboardDatePicker
+										margin="normal"
+										id="dob"
+										name="dob"
+										label="Enter date of birth"
+										format="MM/dd/yyyy"
+										value={dob}
+										required
+										onChange={handleDateChange}
+										KeyboardButtonProps={{
+											'aria-label': 'change date',
+										}}
 									/>
-								</FormGroup>
-							</FormControl>
-							<FormControl>
-								<FormGroup row>
-									<InputLabel id="collegeListDropdown">Select your college</InputLabel>
-									<Select
-										style={{ width: '300px' }}
-										labelId="collegeListDropdown"
-										id="collegeSelect"
-										name="collegeSelect"
-										autoWidth="true"
-										onChange={handleDropdownChange}
-									>
+								</Grid>
+							</MuiPickersUtilsProvider>
+							{/*input field for college name if user is a current student */}
+							{currentStudent ? (
+								<div>
+									<FormControl component="fieldset">
+										<FormLabel component="legend">Are you a current student</FormLabel>
+
+										<FormGroup row>
+											<FormControlLabel
+												control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+												label="Yes" labelPlacement="end"
+											/>
+										</FormGroup>
+									</FormControl>
+									<br></br>
+									<select
+										className='text-center '
+										name='collegeSelect'
+										id='collegeSelect'>
 										{collegeList && collegeList.map((item) => {
 											return (
-												<MenuItem value={item.id}>{item.name}</MenuItem>
+												<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
+
 											)
 										})}
-									</Select>
-								</FormGroup>
-							</FormControl>
-						</div>
-					) : (
-							<FormControl component="fieldset">
-								<FormLabel component="legend">Are you a current student</FormLabel>
 
-								<FormGroup row>
-									<FormControlLabel
-										control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-										label="Yes" labelPlacement="end"
-									/>
-								</FormGroup>
-							</FormControl>)}
+									</select>
+								</div>
+							) : (
+									<FormControl component="fieldset">
+										<FormLabel component="legend">Are you a current student</FormLabel>
+
+										<FormGroup row>
+											<FormControlLabel
+												control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+												label="Yes" labelPlacement="end"
+											/>
+										</FormGroup>
+									</FormControl>)}
+							<br></br>
+							<br></br>
+							<button type='submit'>Apply changes</button>
+						</form>
+						<br></br><br></br>
+
+						<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2"> Cancel </Button>
+
+					</div>
+
+				) : (
+						<div>
+							<br></br>
+
+							<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2"> Edit Profile </Button>
+						</div>
+					)
+				}
+
+				{/* Get user posts */}
+				<h1>My posts</h1>
+				{userPosts && userPosts.map((item) => {
+					return (
+						<div className="post">
+							<div className="postContent">
+								<p>
+									Title : {item.title}
+									<br></br>
+													Author Name : {item.authorName}
+									<br></br>
+													Description : {item.description}
+									<br></br>
+													Date : {item.date}
+									<br></br>
+													Time:{item.time}
+									<br></br>
+													Expense : ${item.expenses}
+									<br></br>
+									<img width="100px" src={item.postPicture} alt="img-post" />
+									<br></br>
+									<i className="fas fa-shopping-cart icons" title="groceries"></i>${item.groceries} per month  GROCERIES
+
+                                    <br></br>
+									<i className="fas fa-home icons" title="rent"></i>${item.rent} per month RENT
+                                    <br></br>
+									<i className="fas fa-wifi icons" title="internet"></i>${item.wifi} per month WIFI
+                                    <br></br>
+									<i className="fas fa-bolt icons" title="electricity"></i>${item.electricity} per month ELECTRICITY
+                                    <br></br>
+									<i className="fas fa-subway icons" title="transport"></i>${item.transport} per month TRANSPORT
+                                    <br></br>
+								</p>
+
+								<div className="comments">
+
+									<br></br>
+									<h2>COMMENTS GO HERE</h2>
+									<div>
+										{item.comments ? (
+											item.comments.map((comm) => {
+												return (
+													<div style={{ border: "3px solid black", margin: "20px" }}>
+														<p>
+															<b>{comm.username} </b>
+															<br></br>
+															{comm.comment}
+														</p>
+													</div>
+												)
+											})
+										) : (<p>No comments to display</p>)}
+									</div>
+								</div>
+							</div>
+						</div>
+
+					)
+				}
+				)}
 					<br></br>
-					<br></br>
-					<button type='submit'>Apply changes</button>
-				</form>
-				<br></br>
 				{/* change password part */}
 				{change ? <div><ChangePassword /> <button onClick={() => setChange(!change)}>Hide</button></div> : <button onClick={() => setChange(!change)}>Click to Change Password</button>} <br />
+				<br></br>
 				<SignOutButton />
 			</div>
 		);
