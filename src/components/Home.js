@@ -50,12 +50,20 @@ function Home() {
 				setPostList(p);
 				console.log("fetched all posts from db");
 				console.log(p);
+				// fetch user's college
+				// while(!user){
+				// let uColg = await getCollege(currentUser.collegeId);
+				// setCollege(uColg);
+				// console.log("fetched current user's college")
+				// console.log(uColg);}
 				//change loading state
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
 			}
 		}
+		// console.log("CURR",currentUser.collegeId)
+		// console.log("COLLEGE",college)
 		getData();
 	}, [currentUser, formSubmit])
 
@@ -270,8 +278,8 @@ function Home() {
 										required
 									/>
 									<br></br>
-									<label for="collegeSelect"> Select your college</label>
-									<select
+									{/* <label for="collegeSelect"> Select your college</label> */}
+									{/* <select
 										className='form-control'
 										name='collegeSelect'
 										id='collegeSelect'>
@@ -279,14 +287,27 @@ function Home() {
 											return <option value={item.id}>{item.name}</option>
 										})}
 
-									</select>
+									</select> */}
+
+
+									<label for="college"> Your College</label>
+									{user.collegeId ? (collegeList.map((item) => {
+										if(user.collegeId === item.id){
+											return (
+												<p>{item.name}</p>
+											)
+										}
+									})) : (<p>Please provide your college name !</p>)}
+										
+
+
 									<label for="post-image">Upload Media</label>
 									<input required type="file" id="post-image" onChange={handleImageChange} /> <br></br>
 
 									<br></br>
-									<label for="category">Choose a category</label>
+									<label for="category">Choose a category</label> <br/>
 
-									<select id='category' name='category'>
+									{/* <select id='category' name='category'>
 
 										<option key='rent' value='rent'>
 											RENT
@@ -300,13 +321,28 @@ function Home() {
 										<option key='transport' value='transport'>
 											TRANSPORT
 						</option>
-									</select>
+									</select> */}
+
+								Rent: 		<input type="number" id='rent' placeholder="$"/>
+								Transport: 	<input type="text" id='transport' placeholder="Eg: NJ Transport, Port-Authority Bus..."/>
+								Houses: 	<input type="text" id='houses' placeholder="Eg: 2BHK with utilitites, 3BHK only females..."/>
+								Groceries: 	<input type="text" id='groceries' placeholder="Eg: Stop-N-Shop, Shop-rite..."/>
+
+
+
 								</div>
+								
 								<div className="logSignButt">
-									<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-
-
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if(item.id === user.collegeId)
+										return (
+											<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+										)
+									}) : (<p>You cannot Post... You have not provided your college details</p>)}
+									{/* <Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button> */}
 								</div>
+
+
 							</form>
 						</div>
 						<br></br>
