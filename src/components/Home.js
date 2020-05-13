@@ -196,6 +196,8 @@ function Home() {
 
 								<br></br>
 								<h2>COMMENTS GO HERE</h2>
+
+	
 							</div>
 						</div> */}
 								{postList && postList.map((item) => {
