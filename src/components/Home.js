@@ -38,7 +38,7 @@ function Home() {
 				//fetch user details
 				let u = await getUser(currentUser.uid);
 				setUser(u);
-				console.log("fetched user details",u)
+				console.log("fetched user details", u)
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
@@ -47,13 +47,23 @@ function Home() {
 				//fetch all posts from db
 				let p = await getAllPosts();
 				setPostList(p);
-				console.log("fetched all posts from db",p);
+
+				console.log("fetched all posts from db");
+				console.log(p);
+				// fetch user's college
+				// while(!user){
+				// let uColg = await getCollege(currentUser.collegeId);
+				// setCollege(uColg);
+				// console.log("fetched current user's college")
+				// console.log(uColg);}
 				//change loading state
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
 			}
 		}
+		// console.log("CURR",currentUser.collegeId)
+		// console.log("COLLEGE",college)
 		getData();
 	}, [currentUser, formSubmit])
 
@@ -70,8 +80,9 @@ function Home() {
 	const handlePosts = async (event) => {
 		event.preventDefault();
 		//get all elements from form
-		let { title, expenses, description, category, collegeSelect } = event.target.elements;
-		console.log("College id is the foll " + collegeSelect.value)
+		let { title, expenses, description, category, rent, groceries, transport, wifi, electricity } = event.target.elements;
+		let collegeDetails = await getCollege(user.collegeId);
+		//console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
 		const storage = firebase.storage();
 		const uploadTask = storage.ref(`/postImages/${postPic.name}`).put(postPic);
@@ -97,26 +108,33 @@ function Home() {
 						let d = new Date();
 						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 						let month = months[d.getMonth()];
-						let year=d.getFullYear();
-						let day=d.getDate();
-						let postDate=day+ ' ' + month + ' ' + year;
-						let postTime = d.getHours() + ':' + (d.getMinutes()<10?'0':'')+ d.getMinutes();
+						let year = d.getFullYear();
+						let day = d.getDate();
+						let postDate = day + ' ' + month + ' ' + year;
+						let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+
 						let post = {
 							title: title.value,
 							authorId: currentUser.uid,
 							authorName: user.firstName + " " + user.lastName,
-							collegeId: collegeSelect.value, comments: [],
+							collegeId: user.collegeId,
+							collegeName: collegeDetails.name,
+							comments: [],
 							expenses: expenses.value,
 							description: description.value,
-							category: category.value,
 							postPicture: fireBaseUrl,
 							date: postDate,
-							time:postTime
+							time: postTime,
+							rent: rent.value,
+							groceries: groceries.value,
+							transport: transport.value,
+							wifi: wifi.value,
+							electricity: electricity.value
 						};
 						try {
 							//add the post to the db
 							addPosts(currentUser.uid, post);
-							setFormSubmit(true);
+							setFormSubmit(!formSubmit);
 						} catch (error) {
 							alert(error);
 						}
@@ -133,7 +151,7 @@ function Home() {
 		try {
 			//add comment to the post db
 			await addCommentToPost(postId, user.firstName, comment.value)
-			setFormSubmit(true);
+			setFormSubmit(!formSubmit);
 		} catch (error) {
 			alert(error);
 		}
@@ -189,43 +207,68 @@ function Home() {
 
 	
 							</div>
-						</div> */}
-								{postList && postList.map((item) => {
-									return (
-										<div className="post">
-										<div className="postContent">
-											<p>
-													Title : {item.title}
-												<br></br>
+						</div>  */}
+						{postList && postList.map((item) => {
+							return (
+								<div className="post">
+									<div className="postContent">
+										<p>
+											Title : {item.title}
+											<br></br>
 													Author Name : {item.authorName}
-												<br></br>
+											<br></br>
 													Description : {item.description}
-												<br></br>
+											<br></br>
 													Date : {item.date}
-												<br></br>
+											<br></br>
 													Time:{item.time}
-												<br></br>
-													Category : {item.category}
-												<br></br>
+											<br></br>
 													Expense : ${item.expenses}
-												<br></br>
-												<img width="100px" src={item.postPicture} alt="img-post" />
-											</p>
-											
-											<div className="comments">
-	
-									<br></br>
-									<h2>COMMENTS GO HERE</h2>
-									<form onSubmit={handleCommentSubmit}>
-										<input name="comment" id="comment" type="text" placeholder="enter comment" />
-										<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
-									</form>
+											<br></br>
+											<img width="100px" src={item.postPicture} alt="img-post" />
+											<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>${item.groceries} per month  GROCERIES
+
+                                    <br></br>
+											<i className="fas fa-home icons" title="rent"></i>${item.rent} per month RENT
+                                    <br></br>
+											<i className="fas fa-wifi icons" title="internet"></i>${item.wifi} per month WIFI
+                                    <br></br>
+											<i className="fas fa-bolt icons" title="electricity"></i>${item.electricity} per month ELECTRICITY
+                                    <br></br>
+											<i className="fas fa-subway icons" title="transport"></i>${item.transport} per month TRANSPORT
+                                    <br></br>
+										</p>
+
+										<div className="comments">
+
+											<br></br>
+											<h2>COMMENTS GO HERE</h2>
+											<div>
+												{item.comments ? (
+													item.comments.map((comm) => {
+														return (
+															<div style={{ border: "3px solid black", margin: "20px" }}>
+																<p>
+																	<b>{comm.username} </b>
+																	<br></br>
+																	{comm.comment}
+																</p>
+															</div>
+														)
+													})
+												) : (<p>No comments to display</p>)}
+											</div>
+											<form onSubmit={handleCommentSubmit}>
+												<input name="comment" id="comment" type="text" placeholder="enter comment" />
+												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+											</form>
+										</div>
+									</div>
 								</div>
-								</div>
-								</div>
-								)
-							})}
-						</div>
+							)
+						})}
+					</div>
 					{/* Rohan static copntent ends */}
 					{/* Rohan code once again */}
 
@@ -247,7 +290,7 @@ function Home() {
 									/>
 									<br></br>
 									<label for="expenses">
-										Expenses
+										Monthly Expenses
 							</label>
 									<input
 										className='form-control'
@@ -270,8 +313,8 @@ function Home() {
 										required
 									/>
 									<br></br>
-									<label for="collegeSelect"> Select your college</label>
-									<select
+									{/* <label for="collegeSelect"> Select your college</label> */}
+									{/* <select
 										className='form-control'
 										name='collegeSelect'
 										id='collegeSelect'>
@@ -279,14 +322,27 @@ function Home() {
 											return <option value={item.id}>{item.name}</option>
 										})}
 
-									</select>
+									</select> */}
+
+
+									<label for="college"> Your College</label>
+									{user.collegeId ? (collegeList.map((item) => {
+										if (user.collegeId === item.id) {
+											return (
+												<p>{item.name}</p>
+											)
+										}
+									})) : (<p>Please provide your college name !</p>)}
+
+
+
 									<label for="post-image">Upload Media</label>
 									<input required type="file" id="post-image" onChange={handleImageChange} /> <br></br>
 
 									<br></br>
-									<label for="category">Choose a category</label>
+									{/* <label for="category">Choose a category</label> <br/> */}
 
-									<select id='category' name='category'>
+									{/* <select id='category' name='category'>
 
 										<option key='rent' value='rent'>
 											RENT
@@ -300,13 +356,34 @@ function Home() {
 										<option key='transport' value='transport'>
 											TRANSPORT
 						</option>
-									</select>
+									</select> */}
+
+									<label for='rent'>Rent:</label> <br />
+									<input type="number" id='rent' placeholder="$" /><br /><br />
+									<label for='transport'>Transport:</label><br />
+									<input type="number" id='transport' placeholder="$" /><br /><br />
+									<label for="electricity">Electricity:</label><br />
+									<input type="number" id='electricity' placeholder="$" /><br /><br />
+									<label for='groceries'>Groceries:</label><br />
+									<input type="number" id='groceries' placeholder="$" /><br /><br />
+									<label for='wifi'>WIFI:</label><br />
+									<input type="number" id='wifi' placeholder="$" /><br /><br />
+
+
+
 								</div>
+
 								<div className="logSignButt">
-									<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : (<p>You cannot Post... You have not provided your college details</p>)}
 
 								</div>
+
+
 							</form>
 						</div>
 						<br></br>
@@ -316,52 +393,8 @@ function Home() {
 						</div>
 					</div>
 				</div>
-
-
-
 				{/* Rohan code ends again */}
 
-				
-				{/* Testing with all posts and comment*/}
-
-
-				{/* <h1>All Posts</h1>
-
-				{postList && postList.map((item) => {
-					return (
-						<div className="postContent" style={{ border: '3px solid black', margin: '30px' }}>
-
-							<p>
-								Title: {item.title}
-								<br></br>
-								Author Name: {item.authorName}
-								<br></br>
-								Description: {item.description}
-								<br></br>
-								Date: {item.date}
-								<br></br>
-								Time:{item.time}
-								<br></br>
-								Category: {item.category}
-								<br></br>
-								Expense: ${item.expenses}
-								<br></br>
-								<img width="100px" src={item.postPicture} alt="img-post" />
-
-							</p>
-							<form onSubmit={handleCommentSubmit}>
-								<input name="comment" id="comment" type="text" placeholder="enter comment" />
-
-								{currentUser && currentUser ? (
-									<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
-								) : (
-										<p>Login to add a comment</p>
-									)}
-							</form>
-						</div>
-					)
-				})} */}
-				{/* testing ends */}
 			</div>
 
 		)
