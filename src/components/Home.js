@@ -305,7 +305,7 @@ function Home() {
 									<input required type="file" id="post-image" onChange={handleImageChange} /> <br></br>
 
 									<br></br>
-									<label for="category">Choose a category</label> <br/>
+									{/* <label for="category">Choose a category</label> <br/> */}
 
 									{/* <select id='category' name='category'>
 
@@ -323,10 +323,14 @@ function Home() {
 						</option>
 									</select> */}
 
-								Rent: 		<input type="number" id='rent' placeholder="$"/>
-								Transport: 	<input type="text" id='transport' placeholder="Eg: NJ Transport, Port-Authority Bus..."/>
-								Houses: 	<input type="text" id='houses' placeholder="Eg: 2BHK with utilitites, 3BHK only females..."/>
-								Groceries: 	<input type="text" id='groceries' placeholder="Eg: Stop-N-Shop, Shop-rite..."/>
+								<label for='rent'>Rent:</label> <br/>		
+									<input type="number" id='rent' placeholder="$"/><br/><br/>
+								<label for='transport'>Transport:</label><br/>
+									<input type="text" id='transport' placeholder="Eg: NJ Transport, Port-Authority Bus..."/><br/><br/>
+								<label for="houses">Houses:</label><br/>
+									<input type="text" id='houses' placeholder="Eg: 2BHK with utilitites, 3BHK only females..."/><br/><br/>
+								<label for='groceries'>Groceries:</label><br/>
+									<input type="text" id='groceries' placeholder="Eg: Stop-N-Shop, Shop-rite..."/><br/><br/>
 
 
 
@@ -339,7 +343,7 @@ function Home() {
 											<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
 										)
 									}) : (<p>You cannot Post... You have not provided your college details</p>)}
-									{/* <Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button> */}
+									
 								</div>
 
 
