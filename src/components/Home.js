@@ -38,8 +38,7 @@ function Home() {
 				//fetch user details
 				let u = await getUser(currentUser.uid);
 				setUser(u);
-				console.log("fetched user details")
-				console.log(u)
+				console.log("fetched user details",u)
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
@@ -48,8 +47,7 @@ function Home() {
 				//fetch all posts from db
 				let p = await getAllPosts();
 				setPostList(p);
-				console.log("fetched all posts from db");
-				console.log(p);
+				console.log("fetched all posts from db",p);
 				//change loading state
 				setLoading(false)
 			} catch (e) {
