@@ -254,18 +254,6 @@ function Home() {
 										required
 									/>
 									<br></br>
-									<label for="expenses">
-										Expenses
-							</label>
-									<input
-										className='form-control'
-										name='expenses'
-										id='expenses'
-										type='number'
-										placeholder='Value'
-										required
-									/>
-									<br></br>
 									<label for="description">
 										Description
 							</label>
