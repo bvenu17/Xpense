@@ -141,9 +141,9 @@ function Landing() {
 									<input required type="file" id="post-image"/> <br></br>
 
 									<br></br>
-									<label for="category">Choose a category</label>
+									<label for="category">Choose a category</label><br/>
 
-									<select id='category' name='category'>
+									{/* <select id='category' name='category'>
 
 										<option key='rent' value='rent'>
 											RENT
@@ -157,7 +157,12 @@ function Landing() {
 										<option key='transport' value='transport'>
 											TRANSPORT
 										</option>
-									</select>
+									</select> */}
+
+									Rent: 		<input type="number" id='rent' placeholder="$"/>
+									Transport: 	<input type="text" id='transport' placeholder="Eg: NJ Transport, Port-Authority Bus..."/>
+									Houses: 	<input type="text" id='houses' placeholder="Eg: 2BHK with utilitites, 3BHK only females..."/>
+									Groceries: 	<input type="text" id='groceries' placeholder="Eg: Stop-N-Shop, Shop-rite..."/>
 								</div>
 								<div className="logSignButt">
 									<Button variant="primary" type='submit' className="loginButt loginButt2" disabled> POST </Button>
