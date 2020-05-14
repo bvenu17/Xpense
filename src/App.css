@@ -294,7 +294,7 @@ button:focus {
 
 .locationCardRow{
   	align-items: center;
-	width: 80%;
+	width: 100%;
 }
 
 .locationCard{
@@ -303,7 +303,7 @@ button:focus {
 	padding: 0%;
 }
 
-.locationCard:hover{
+.locationCardRow:hover{
 	opacity: 0.8;
 	background :  #2ecc71;
 }
