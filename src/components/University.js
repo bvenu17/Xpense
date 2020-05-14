@@ -50,7 +50,12 @@ const University = (props) => {
                         const p = await getAllPostsforCollege(item.id);
                         console.log("All post for college is",p)
                         //sort the posts
-                        const sortedPosts = p.sort((a, b) => b.createdAt - a.createdAt)
+                        let sortedPosts;
+                        if(p){
+                         sortedPosts = p.sort((a, b) => b.createdAt - a.createdAt)
+                        } else {
+                            sortedPosts=p;
+                        }
                         //average expenses for student of selected university
                         let count = 0;
                         let sum = 0 ;
