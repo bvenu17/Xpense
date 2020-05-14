@@ -22,6 +22,8 @@ const University = (props) => {
     const [postId, setPostId] = useState();
     //state for form submission
     const [formSubmit, setFormSubmit] = useState(false);
+    //
+    const [averge , setAverage] = useState(0);
 
     //lifecycle method
     useEffect(() => {
@@ -46,11 +48,24 @@ const University = (props) => {
                         setDetails(item);
                         //retreive all the posts of the selected college
                         const p = await getAllPostsforCollege(item.id);
+                        console.log(p)
+                        let count = 0;
+                        let sum = 0 ;
                         if (p) {
+                            p.map((item) => {
+                                    sum = sum + parseInt(item.rent) + parseInt(item.utilities)
+                                    count += 1 
+                            })
+                            console.log(sum)
+                            setAverage(sum/count)
                             setPosts(p);
                         }
                     }
-                });
+                }
+                
+                );
+
+                
             } catch (e) {
                 console.log(e);
             }
@@ -106,7 +121,7 @@ const University = (props) => {
                                         <span className="tut">Tuition:</span> ${details.tuition} per year
                                 </div>
                                     <div className="col-lg-6 col-md-6 col-sm-12">
-                                        <span className="tut">Average Expenses:</span> ${details.avgExpense} per month
+                    <span className="tut">Average Expenses:</span> ${averge} per month
                                 </div>
                                 </div>
                                 <br />
@@ -121,39 +136,43 @@ const University = (props) => {
             <div className="container container1">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12">
-                        {posts && posts ? (
+                    {posts && posts ? (
                             posts.map((item) => {
                                 return (
-                                    <div key={item.id} className="post">
+                                    <div className="post">
                                         <div className="postContent">
                                             <p>
                                                 Title : {item.title}
                                                 <br></br>
-                                            Author Name : {item.authorName}
+                                                        Author Name : {item.authorName}
                                                 <br></br>
-                                            Description : {item.description}
+                                                        Description : {item.description}
                                                 <br></br>
-                                            Date : {item.date}
+                                                        Date : {item.date}
                                                 <br></br>
-                                            Time:{item.time}
+                                                        Time:{item.time}
                                                 <br></br>
-                                            Category : {item.category}
+                                                        <img width="100px" src={item.postPicture} alt="img-post" />
                                                 <br></br>
-                                            Expense : ${item.expenses}
+                                                        <i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
                                                 <br></br>
-                                                <img width="100px" src={item.postPicture} alt="img-post" />
+                                                        <i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+                                                <br></br>
+                                                        <i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+                                                <br></br>
+                                                        <i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+                                                <br></br>
                                             </p>
-
+    
                                             <div className="comments">
-
+    
                                                 <br></br>
-                                                {/* display comments of each post */}
                                                 <h2>COMMENTS GO HERE</h2>
                                                 <div>
                                                     {item.comments ? (
                                                         item.comments.map((comm) => {
                                                             return (
-                                                                <div style={{border:"3px solid black",margin:"20px"}}>
+                                                                <div style={{ border: "3px solid black", margin: "20px" }}>
                                                                     <p>
                                                                         <b>{comm.username} </b>
                                                                         <br></br>
@@ -166,6 +185,7 @@ const University = (props) => {
                                                 </div>
                                                 {currentUser ? (
                                                     <form onSubmit={handleCommentSubmit}>
+
                                                     <input name="comment" id="comment" type="text" placeholder="enter comment" />
                                                     <button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
                                                 </form>
