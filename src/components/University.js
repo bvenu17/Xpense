@@ -48,16 +48,24 @@ const University = (props) => {
                         setDetails(item);
                         //retreive all the posts of the selected college
                         const p = await getAllPostsforCollege(item.id);
-                        console.log(p)
+                        console.log("All post for college is",p)
+                        //sort the posts
+                        let sortedPosts;
+                        if(p){
+                         sortedPosts = p.sort((a, b) => b.createdAt - a.createdAt)
+                        } else {
+                            sortedPosts=p;
+                        }
+                        //average expenses for student of selected university
                         let count = 0;
                         let sum = 0 ;
-                        if (p) {
-                            p.map((item) => {
+                        if (sortedPosts) {
+                            sortedPosts.map((item) => {
                                     sum = sum + parseInt(item.rent) + parseInt(item.utilities)
                                     count += 1 
                             })
                             setAverage(sum/count)
-                            setPosts(p);
+                            setPosts(sortedPosts);
                         }
                     }
                 }

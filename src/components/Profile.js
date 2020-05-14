@@ -72,7 +72,12 @@ function Profile() {
 				console.log('fetched college list', allColleges);
 				//fetch user posts from db
 				let allPostsOfUser = await getUserPosts(currentUser.uid);
-				setUserPosts(allPostsOfUser);
+				console.log("lenght is "+allPostsOfUser.length)
+				//sort user posts
+				if(allPostsOfUser){
+				const sortedUserPosts = allPostsOfUser.sort((a, b) => b.createdAt - a.createdAt)
+				setUserPosts(sortedUserPosts);
+				}
 				console.log("fetched user posts from db", allPostsOfUser)
 			} catch (e) {
 				console.log(e)

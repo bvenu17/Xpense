@@ -18,7 +18,7 @@ function Home() {
 	const { currentUser } = useContext(AuthContext)
 	const [user, setUser] = useState();
 	//college states
-	const [college, setCollege] = useState();
+	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
 	const [collegePic, setCollegePic] = useState(defcollogo);
 	//post states
@@ -39,6 +39,11 @@ function Home() {
 				let u = await getUser(currentUser.uid);
 				setUser(u);
 				console.log("fetched user details", u)
+				//fetch college name of the user
+				if(u.collegeId) {
+					let cname = await getCollege(u.collegeId);
+					setCollegeName(cname.name);
+				}
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
@@ -128,7 +133,8 @@ function Home() {
 							groceries: groceries.value,
 							transport: transport.value,
 							utilities : utilities.value,
-							userProfilePic:user.photoURL
+							userProfilePic:user.photoURL,
+							collegeName:collegeName
 						};
 						try {
 							//add the post to the db
@@ -211,6 +217,7 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
+										<p>User profile pic</p>
 										<img src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
@@ -222,6 +229,10 @@ function Home() {
 													Date : {item.date}
 											<br></br>
 													Time:{item.time}
+													<br></br>
+													CollegeName: {item.collegeName}
+													<br></br>
+
 											<br></br>
 													<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>

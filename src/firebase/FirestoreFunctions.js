@@ -6,6 +6,8 @@ let db = firebaseApp.firestore();
 
 async function addPosts(uid, postObject) {
   //func to add post to db
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+postObject.createdAt=timestamp();
   await db.collection("posts").add(postObject)
     .then(function (docRef) {
       postObject.postId = docRef.id;
@@ -97,7 +99,7 @@ async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
   let allPosts = [];
   let x;
-  let query = postsRef.where('collegeId', '==', collegeID).get()
+  let query = postsRef.where('collegeId', '<=', collegeID).get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -123,7 +125,7 @@ async function getAllPosts() {
   // return snapshot.docs.map(doc => doc.data());
   const markers = [];
   let x;
-  await firebase.firestore().collection('posts').get()
+  await firebase.firestore().collection('posts').orderBy("createdAt","desc").get()
     .then(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         x = doc.data();
