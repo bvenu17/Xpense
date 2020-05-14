@@ -22,6 +22,8 @@ const University = (props) => {
     const [postId, setPostId] = useState();
     //state for form submission
     const [formSubmit, setFormSubmit] = useState(false);
+    //
+    const [averge , setAverage] = useState(0);
 
     //lifecycle method
     useEffect(() => {
@@ -44,11 +46,24 @@ const University = (props) => {
                         setDetails(item);
                         //retreive all the posts of the selected college
                         const p = await getAllPostsforCollege(item.id);
+                        console.log(p)
+                        let count = 0;
+                        let sum = 0 ;
                         if (p) {
+                            p.map((item) => {
+                                    sum = sum + parseInt(item.rent) + parseInt(item.utilities)
+                                    count += 1 
+                            })
+                            console.log(sum)
+                            setAverage(sum/count)
                             setPosts(p);
                         }
                     }
-                });
+                }
+                
+                );
+
+                
             } catch (e) {
                 console.log(e);
             }
@@ -103,7 +118,7 @@ const University = (props) => {
                                         <span className="tut">Tuition:</span> ${details.tuition} per year
                                 </div>
                                     <div className="col-lg-6 col-md-6 col-sm-12">
-                                        <span className="tut">Average Expenses:</span> ${details.avgExpense} per month
+                    <span className="tut">Average Expenses:</span> ${averge} per month
                                 </div>
                                 </div>
                                 <br />
