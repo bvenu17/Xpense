@@ -54,7 +54,6 @@ const University = (props) => {
                                     sum = sum + parseInt(item.rent) + parseInt(item.utilities)
                                     count += 1 
                             })
-                            console.log(sum)
                             setAverage(sum/count)
                             setPosts(p);
                         }
