@@ -32,9 +32,11 @@ const University = (props) => {
             try {
                 console.log("Enter use effect func")
                 //fetch user details
+                if(currentUser) {
                 let u = await getUser(currentUser.uid);
                 setUser(u);
                 console.log("fetched user details", u)
+                }
                 //get all colleges from the db   
                 let clist = await getAllColleges();
                 setCollegeList(clist);
@@ -87,6 +89,7 @@ const University = (props) => {
 
     return (
         <div>
+            {/* display university details */}
             <div className="post univ">
                 <div className="container container1">
                     <hr className="hRule"></hr>
@@ -179,10 +182,16 @@ const University = (props) => {
                                                         })
                                                     ) : (<p>No comments to display</p>)}
                                                 </div>
-                                                <form onSubmit={handleCommentSubmit}>
+                                                {currentUser ? (
+                                                    <form onSubmit={handleCommentSubmit}>
+
                                                     <input name="comment" id="comment" type="text" placeholder="enter comment" />
                                                     <button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
                                                 </form>
+                                                ): (
+                                                    <p>You need to login to comment</p>
+                                                )}
+
                                             </div>
                                         </div>
                                     </div>
