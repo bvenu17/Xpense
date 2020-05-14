@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, getUserPosts, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -53,6 +53,7 @@ function Profile() {
 	const [collegeSelected, setCollegeSelected] = useState();
 	//user posts state
 	const [userPosts, setUserPosts] = useState();
+	const [postId,setPostId]= useState();
 
 	//lifecycle method
 	useEffect(() => {
@@ -134,9 +135,19 @@ function Profile() {
 	const handleToggleChange = async (event) => {
 		setCurrentStudent(!currentStudent);
 	}
-	//change handler for college list dropdown  button
-	const handleDropdownChange = async (event) => {
-		setCollegeSelected(event.target.value);
+
+	//submit form for comments
+	const handleCommentSubmit = async (event) => {
+		event.preventDefault();
+		const { comment } = event.target.elements;
+		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
+		try {
+			//add comment to the post db
+			await addCommentToPost(postId, user.firstName, comment.value)
+			setFormSubmit(!formSubmit);
+		} catch (error) {
+			alert(error);
+		}
 	}
 
 	//function to update account details of the user
@@ -265,6 +276,7 @@ function Profile() {
 							<br></br>
 							<button type='submit'>Apply changes</button>
 						</form>
+						{/* form to change account details ends */}
 						<br></br><br></br>
 
 						<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2"> Cancel </Button>
@@ -333,6 +345,10 @@ function Profile() {
 											})
 										) : (<p>No comments to display</p>)}
 									</div>
+									<form onSubmit={handleCommentSubmit}>
+												<input name="comment" id="comment" type="text" placeholder="enter comment" />
+												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+											</form>
 								</div>
 							</div>
 						</div>
