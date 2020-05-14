@@ -271,6 +271,50 @@ button:focus {
 	margin-bottom: 1.0rem;
 }
 
+
+.devName
+{
+	color: #000000;
+}
+
+.locationDes{
+	padding: 10%;
+}
+
+.devCard
+{
+	width: auto;
+  	height: 100%;
+	background: transparent;
+	padding: 0px;
+	box-shadow: 0px 12px 22px rgba(82, 87, 104, 0.1), 0px -12px 22px rgba(82, 87, 104, 0.05);
+	text-align: center;
+	border: transparent;
+}
+
+.locationCardRow{
+  	align-items: center;
+	width: 80%;
+}
+
+.locationCard{
+	width: auto;
+	height: 100%;
+	padding: 0%;
+}
+
+.locationCard:hover{
+	opacity: 0.8;
+	background :  #2ecc71;
+}
+
+.devCard:hover
+{
+	opacity: 0.8;
+	background :  #2ecc71;
+
+}
+
 .avatarSide 
 {
 	float: left;
