@@ -127,7 +127,8 @@ function Home() {
 							rent: rent.value,
 							groceries: groceries.value,
 							transport: transport.value,
-							utilities : utilities.value
+							utilities : utilities.value,
+							userProfilePic:user.photoURL
 						};
 						try {
 							//add the post to the db
@@ -210,6 +211,7 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
+										<img src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
 											<br></br>

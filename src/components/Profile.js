@@ -210,10 +210,10 @@ function Profile() {
 						{/* account form starts here */}
 						<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
 							<label for="firstName">First Name:</label>
-							<input required type="text" id="firstName" value={user.firstName} name="firstName" placeholder="Enter your first name" />
+							<input required type="text" id="firstName" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
 							<br></br>
 							<label for="lastName">Last Name:</label>
-							<input required type="text" value={user.lastName} id="lastName" name="lastName" placeholder="Enter your last name" />
+							<input required type="text" defaultValue={user.lastName} id="lastName" name="lastName" placeholder="Enter your last name" />
 							<br>
 							</br>
 							{/* material ui date picker for dob */}
