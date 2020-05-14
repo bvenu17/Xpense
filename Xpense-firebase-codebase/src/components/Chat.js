@@ -30,7 +30,7 @@ const Chat = () => {
                 let u = await getUser(currentUser.uid);
                 //setLoading(false)
                 setUser(u);
-                console.log("fetched user details",u);
+                console.log("fetched user details", u);
             } catch (e) {
                 console.log(e)
             }
@@ -39,7 +39,7 @@ const Chat = () => {
                 let data = await getAllChats();
                 //setLoading(false)
                 setAllmsg(data);
-                console.log("fetched user details",data);
+                console.log("fetched user details", data);
             } catch (e) {
                 console.log(e)
             }
@@ -57,9 +57,9 @@ const Chat = () => {
     useEffect(() => {
         socket.on('output', chatData => {
 
-            console.log("emitEffect",user)
+            console.log("emitEffect", user)
             var message = document.createElement('div');
-            message.textContent =  chatData.name + " : "+chatData.message;
+            message.textContent = chatData.name + " : " + chatData.message;
             var messages = document.getElementById('messagesList')
             messages.appendChild(message);
             console.log("Message hau " + chatData);
@@ -69,22 +69,22 @@ const Chat = () => {
     const sendMessage = async (event) => {
         event.preventDefault();
         if (message) {
-            let chatData = {name:user.firstName,message:message}
+            let chatData = { name: user.firstName, message: message }
             socket.emit('input', chatData, () => setMessage(''))
             setEmit(true);
 
             //venus part
             // async function addChat() {
-                try {
-                    console.log("Chat send effect")
-                    //fetch user details from db
-                    await addChat(chatData);
-                    //setLoading(false)
-                   // setUser(u);
-                   // console.log("fetched user details")
-                } catch (e) {
-                    console.log(e)
-                }
+            try {
+                console.log("Chat send effect")
+                //fetch user details from db
+                await addChat(chatData);
+                //setLoading(false)
+                // setUser(u);
+                // console.log("fetched user details")
+            } catch (e) {
+                console.log(e)
+            }
             // }
             // addChat();
             //vend
@@ -98,18 +98,18 @@ const Chat = () => {
         <div>
             <h1>Chat component</h1>
             <h2>Is it?</h2>
-            <div>
-                <div className='card'>
-                    <div id='messagesList' className='cardblock'>
-                        {allmsg && allmsg.map((item)=>{
-                            return(
+            <div style={{border:'3px solid black', width:'100%'}}>
+                <div className='cardMsg' style={{ width: "100% ", overflow: "auto", whiteSpace: "nowrap", height: '200px' }}>
+                    <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '54%', height: '100px' }}>
+                        {allmsg && allmsg.map((item) => {
+                            return (
                                 <div>{item.name} : {item.message}</div>
                             )
                         })}
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div>
-                    <input value={message} onChange={(event) => setMessage(event.target.value)}
+                    <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message"
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
                 </div>) : (

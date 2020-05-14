@@ -8,6 +8,7 @@ import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
 import firebase from "firebase/app";
 import "firebase/storage";
+import Chat from './Chat';
 import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
 //static files import
 const defcollogo = require('../assets/college-logo.jpg')
@@ -99,10 +100,10 @@ function Home() {
 						let d = new Date();
 						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 						let month = months[d.getMonth()];
-						let year=d.getFullYear();
-						let day=d.getDate();
-						let postDate=day+ ' ' + month + ' ' + year;
-						let postTime = d.getHours() + ':' + (d.getMinutes()<10?'0':'')+ d.getMinutes();
+						let year = d.getFullYear();
+						let day = d.getDate();
+						let postDate = day + ' ' + month + ' ' + year;
+						let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
 						let post = {
 							title: title.value,
 							authorId: currentUser.uid,
@@ -113,7 +114,7 @@ function Home() {
 							category: category.value,
 							postPicture: fireBaseUrl,
 							date: postDate,
-							time:postTime
+							time: postTime
 						};
 						try {
 							//add the post to the db
@@ -278,6 +279,7 @@ function Home() {
 						<br></br>
 						<div className="post">
 							<h1>CHAT COMES HERE</h1>
+							<Chat></Chat>
 						</div>
 					</div>
 				</div>
@@ -286,7 +288,7 @@ function Home() {
 
 				{/* Rohan code ends again */}
 
-				
+
 				{/* Testing with all posts and comment*/}
 				<h1>ALl Posts</h1>
 
