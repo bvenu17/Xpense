@@ -293,6 +293,7 @@ button:focus {
 .devCard
 {
 	width: auto;
+	border-radius: 10%;
   	height: 100%;
 	background: transparent;
 	padding: 0px;
