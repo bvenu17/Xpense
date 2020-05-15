@@ -202,6 +202,29 @@ async function addCommentToPost(postId, userName, commentText) {
 
 };
 
+//harish add messages to chat db
+async function addChat(chatObject) {
+  //func to add post to db
+ // let chatData = { name: userName, message: chatObject }
+  await db.collection("chats").add(chatObject)
+    .then(function (docRef) {
+      // chatObject.postId = docRef.id;
+      console.log("Post written with ID: ", docRef.id);
+    })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
+    });
+  console.log('chat object which needs to be added to the user collection is');
+  console.log(chatObject);
+  //func to add the post to user db
+};
+
+async function getAllChats() {
+  console.log("getting all chats");
+  const snapshot = await firebase.firestore().collection('chats').get()
+  return snapshot.docs.map(doc => doc.data());
+};
+
 export {
   // updateUser,
   addPosts,
@@ -216,7 +239,9 @@ export {
   updateProfilePic,
   updateAccountInfo,
   addCommentToPost,
-  getUserPosts
+  getUserPosts,
+  addChat,
+  getAllChats
 };
 
 
