@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
 const University = (props) => {
@@ -148,29 +149,40 @@ const University = (props) => {
                             posts.map((item) => {
                                 return (
                                     <div className="post">
-                                        <div className="postContent">
-                                            <p>
-                                                Title : {item.title}
-                                                <br></br>
-                                                        Author Name : {item.authorName}
-                                                <br></br>
-                                                        Description : {item.description}
-                                                <br></br>
-                                                        Date : {item.date}
-                                                <br></br>
-                                                        Time:{item.time}
-                                                <br></br>
-                                                        <img width="100px" src={item.postPicture} alt="img-post" />
-                                                <br></br>
-                                                        <i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-                                                <br></br>
-                                                        <i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
-                                                <br></br>
-                                                        <i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
-                                                <br></br>
-                                                        <i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-                                                <br></br>
-                                            </p>
+                                        									<div className="postContent">
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+										<p>
+											Title : {item.title}
+											<br></br>
+													Author Name : {item.authorName}
+											<br></br>
+													Description : {item.description}
+											<br></br>
+													Date : {item.date}
+											<br></br>
+													Time:{item.time}
+											<br></br>
+													CollegeName: {item.collegeName}
+											<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+										</p>
     
                                             <div className="comments">
     

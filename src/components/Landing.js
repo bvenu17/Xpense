@@ -8,11 +8,7 @@ import { getAllColleges, getAllPosts } from '../firebase/FirestoreFunctions';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Chat from './Chat';
-
-
-
-
-
+import Carousel from 'react-bootstrap/Carousel'
 function Landing() {
 	const { currentUser } = useContext(AuthContext)
 	const [collegeList, setCollege] = useState();
@@ -64,7 +60,7 @@ function Landing() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "NONE") {
+		if (target === "Location") {
 			setPostFilter(undefined)
 			return
 		}
@@ -101,7 +97,7 @@ function Landing() {
 							<div className="d-flex justify-content-end">
 								<form id='locationFilter'>
 									<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
-										<option key='default' defaultValue='None'>NONE</option>
+										<option key='default' defaultValue='Location'>Location</option>
 										{options.map((item) => {
 											return (
 												<option key={item}>{item}</option>
@@ -116,32 +112,40 @@ function Landing() {
 							{postFilter ? postFilter.map((item) => {
 								return (
 									<div className="post">
-										<div className="postContent">
-											<p>User profile pic</p>
-											<img src={item.userProfilePic} alt="img"></img>
-											<p>
-												Title : {item.title}
-												<br></br>
+									<div className="postContent">
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+										<p>
+											Title : {item.title}
+											<br></br>
 													Author Name : {item.authorName}
-												<br></br>
+											<br></br>
 													Description : {item.description}
-												<br></br>
+											<br></br>
 													Date : {item.date}
-												<br></br>
+											<br></br>
 													Time:{item.time}
-												<br></br>
-												<img width="100px" src={item.postPicture} alt="img-post" />
-												<br></br>
-												<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-												<br></br>
-												<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
 											<br></br>
-												<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+													CollegeName: {item.collegeName}
 											<br></br>
-												<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-												<br></br>
-											</p>
-
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+										</p>
 											<div className="comments">
 
 												<br></br>
@@ -169,31 +173,40 @@ function Landing() {
 							}) : (postList.map((item) => {
 								return (
 									<div className="post">
-										<div className="postContent">
-											<p>User profile pic</p>
-											<img width="100px" src={item.userProfilePic} alt="img"></img>
-											<p>
-												Title : {item.title}
-												<br></br>
+									<div className="postContent">
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+										<p>
+											Title : {item.title}
+											<br></br>
 													Author Name : {item.authorName}
-												<br></br>
+											<br></br>
 													Description : {item.description}
-												<br></br>
+											<br></br>
 													Date : {item.date}
-												<br></br>
+											<br></br>
 													Time:{item.time}
-												<br></br>
-												<img width="100px" src={item.postPicture} alt="img-post" />
-												<br></br>
-												<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-												<br></br>
-												<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
 											<br></br>
-												<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+													CollegeName: {item.collegeName}
 											<br></br>
-												<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-												<br></br>
-											</p>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+										</p>
 
 											<div className="comments">
 

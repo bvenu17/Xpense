@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -188,7 +189,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "NONE") {
+		if (target === "Location") {
 			setPostFilter(undefined)
 			return
 		}
@@ -267,7 +268,7 @@ function Home() {
 						<div className="d-flex justify-content-end">
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
-									<option key='default' defaultValue='None'>NONE</option>
+									<option key='default' defaultValue='Location'>Location</option>
 									{options.map((item) => {
 										return (
 											<option key={item}>{item}</option>
@@ -283,8 +284,17 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
-										<p>User profile pic</p>
-										<img width="100px" src={item.userProfilePic} alt="img"></img>
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -297,10 +307,6 @@ function Home() {
 													Time:{item.time}
 											<br></br>
 													CollegeName: {item.collegeName}
-											<br></br>
-
-											<br></br>
-											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -343,8 +349,17 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
-										<p>User profile pic</p>
-										<img width="100px" src={item.userProfilePic} alt="img"></img>
+										<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -357,10 +372,6 @@ function Home() {
 													Time:{item.time}
 											<br></br>
 													CollegeName: {item.collegeName}
-											<br></br>
-
-											<br></br>
-											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
