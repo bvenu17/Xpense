@@ -358,7 +358,7 @@ function Profile() {
 										) : (<p>No comments to display</p>)}
 									</div>
 									<form onSubmit={handleCommentSubmit}>
-												<input name="comment" id="comment" type="text" placeholder="enter comment" />
+												<input required name="comment" id="comment" type="text" placeholder="enter comment" />
 												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
 											</form>
 								</div>
