@@ -1,9 +1,13 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -29,16 +33,24 @@ function Home() {
 	const [postPic, setPostPic] = useState();
 	const [postId, setPostId] = useState();
 	const [postPicUrl, setPostPicUrl] = useState();
+	//post allow/disallow
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	//loading data state
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 	//filter posts
 	const [options, setOptions] = useState();
 	const [postFilter, setPostFilter] = useState();
+	//post filter rent range
+	const [rentValue, setRentValue] = useState(0);
+
 
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
+		// let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -66,20 +78,25 @@ function Home() {
 				optionFilter = [...optionFilter]
 				setOptions(optionFilter);
 				console.log(optionFilter)
-				// fetch user's college
-				// while(!user){
-				// let uColg = await getCollege(currentUser.collegeId);
-				// setCollege(uColg);
-				// console.log("fetched current user's college")
-				// console.log(uColg);}
+
+				// console.log("RENT EFFECT",typeof(p[0].rent))
+				//filter by rent
+				// if(rentValue>0){
+				// 	p.forEach((post) => {
+				// 		console.log("HERE")
+				// 		if(parseInt(post.rent) <= rentValue)
+				// 		console.log("THEN HERE")
+				// 			rentList.push(post)
+				// 	})
+				// 	setPostList(rentList)
+				// 	console.log(rentList)
+				// }
 				//change loading state
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
 			}
 		}
-		// console.log("CURR",currentUser.collegeId)
-		// console.log("COLLEGE",college)
 		getData();
 	}, [currentUser, formSubmit])
 
@@ -211,6 +228,26 @@ function Home() {
 	}
 
 
+	// const redirect = async(e) => {
+	// 	e.preventDefault();
+	// 	return <Redirect to='/profile' />
+	// }
+
+	// const rentFilter = async(e) => {
+	// 	// e.preventDefault();
+	// 	let rentList = [];
+	// 	let target = parseInt(e.target.value);
+	// 	setRentValue(target)
+
+	// 	if(rentValue > 0){
+	// 		postList.map((post) => {
+	// 			if(parseInt(post.rent) <= rentValue){
+	// 				rentList.push(post);
+	// 			}
+	// 		});
+	// 		setPostList(rentList);
+	// 	}
+	// }
 
 	//component code
 	if (loading === false) {
@@ -266,6 +303,7 @@ function Home() {
 
 						<h3> FILTER POSTS HERE !!</h3>
 						<div className="d-flex justify-content-end">
+							<h5>Filter By Location</h5>
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='Location'>Location</option>
@@ -276,8 +314,16 @@ function Home() {
 									})}
 								</select>
 							</form>
+							<h5> Filter By Rent (per month)</h5>
+							<RangeSlider
+								min={0}
+								max={1000}
+								value={rentValue}
+								// onChange={rentFilter}
+								onChange={changeEvent => setRentValue(parseInt(changeEvent.target.value))}
+							/>
 						</div>
-
+						
 						<br></br>
 
 						{postFilter ? postFilter.map((item) => {
@@ -419,13 +465,28 @@ function Home() {
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
 							<form onSubmit={handlePosts}>
-								<div className='form-group'>
+								<div className='form-group' onClick={handleShow}>
+
+								<Modal className="loginForm" show={show} onHide={handleClose} >
+
+									<div className="modalContent">
+										<p> Please Update Your College Details In Your Profile Before Posting !</p>
+									</div>
+									{/* <Button variant="primary" className="modalHeader" onClick={redirect}>
+									</Button> */}
+								</Modal>
+
+
+
+
 									<label htmlFor="title">Title</label>
-									<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />
+									{show ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />) :
+											(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
 									<br></br>
 
 									<label for="description">Description</label>
-									<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />
+									{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
+											(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
 									<br></br>
 
 
@@ -439,35 +500,71 @@ function Home() {
 									})) : (<p>Please provide your college name !</p>)}
 
 									<label for="rent">Rent</label>
-									<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />
+									{show ? (<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />) :
+											(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />)}
 									<br></br>
 
 									<label for="transport">Transport</label>
-									<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />
+									{show ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />) :
+											(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />)}
 									<br></br>
 
 									<label for="utilities">Utilities</label>
-									<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />
+									{show ? (<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />) :
+											(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />)}
 									<br></br>
 
 									<label for="groceries">Grocery Stores</label>
-									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
+									{show ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />) :
+											(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />)}
 									<br></br>
 
 
 									<label for="post-image">Upload Media</label>
-									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+									{show ? (<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled/>) :
+											(<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} />)}
 									<br></br>
 
 								</div>
 
-								<div className="logSignButt">
+								{/* <div className="logSignButt">
 									{user.collegeId && user.collegeId ? collegeList.map((item) => {
 										if (item.id === user.collegeId)
 											return (
 												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
 											)
-									}) : (<p>You cannot Post... You have not provided your college details</p>)}
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+
+								</div> */}
+
+								<div className="logSignButt">
+									{user.currentStudent ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<div>
+											<Button variant="primary" className="loginButt loginButt2" onClick={handleShow}  >
+												POST
+											</Button>
+											<Modal className="loginForm" show={show} onHide={handleClose} >
+												<div className="modalContent">
+													<h3> Please Provide College Details Before Posting !</h3>
+													{/* <Button variant='primary' onClick={redirect}>
+														VIEW PROFILE
+													</Button> */}
+													{/* {<Redirect to='/profile'/>} */}
+												</div>
+											</Modal>
+										</div>
+									)}
 
 								</div>
 
