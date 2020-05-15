@@ -266,7 +266,7 @@ function Home() {
 								<div className="post">
 										<div className="headerPost">
 											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>
@@ -295,7 +295,7 @@ function Home() {
 											<Carousel.Item>
 											<img width="100%" src={item.postPicture} alt="img-post" />
 											</Carousel.Item>
-										</Carousel>
+									</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -356,7 +356,7 @@ function Home() {
 
 										<div className="headerPost">
 											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'} className="avatarPic" alt = "profilePic"></img>
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>

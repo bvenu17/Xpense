@@ -118,7 +118,7 @@ function Landing() {
 									<div className="post">
 											<div className="headerPost">
 											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>
@@ -194,7 +194,7 @@ function Landing() {
 									<div className="post">
 									<div className="headerPost">
 									<div className="avatarSide">
-										<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+										<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 									</div>
 									<div className="personal">
 										<div className="author"> {item.authorName} </div>
