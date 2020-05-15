@@ -9,6 +9,8 @@ import 'firebase/firestore';
 import firebase from "firebase/app";
 import "firebase/storage";
 import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
+//import other components
+import Chat from './Chat';
 //static files import
 const defcollogo = require('../assets/college-logo.jpg')
 
@@ -44,22 +46,18 @@ function Home() {
 				setUser(u);
 				console.log("fetched user details", u)
 				//fetch college name of the user
-				if(u.collegeId) {
+				if (u.collegeId) {
 					let cname = await getCollege(u.collegeId);
 					setCollegeName(cname.name);
 				}
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
-				console.log("fetched college list")
-				console.log(allColleges)
+				console.log("fetched college list", allColleges)
 				//fetch all posts from db
 				let p = await getAllPosts();
 				setPostList(p);
-
-				console.log("fetched all posts from db");
-				console.log(p);
-
+				console.log("fetched all posts from db", p);
 				//filter for dropdown
 				allColleges.forEach((college) => {
 					optionFilter.add(college.state);
@@ -118,9 +116,7 @@ function Home() {
 				// gets the download url then sets the image from firebase as the value for the imgUrl key:
 				storage.ref('postImages').child(postPic.name).getDownloadURL()
 					.then(fireBaseUrl => {
-						//setProfPicUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
 						setPostPicUrl(fireBaseUrl);
-
 						//retrieve values from the elements and add to post db
 						let d = new Date();
 						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -144,9 +140,9 @@ function Home() {
 							rent: rent.value,
 							groceries: groceries.value,
 							transport: transport.value,
-							utilities : utilities.value,
-							userProfilePic:user.photoURL,
-							collegeName:collegeName
+							utilities: utilities.value,
+							userProfilePic: user.photoURL,
+							collegeName: collegeName
 						};
 						try {
 							//add the post to the db
@@ -174,26 +170,26 @@ function Home() {
 		}
 	}
 
-
+	// func to filter posts by location
 	const filterPost = async (event) => {
 		event.preventDefault();
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if(target === "NONE"){
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
 
 		collegeList.map((college) => {
-			if(college.state === target){
+			if (college.state === target) {
 				cid.push(college.id);
 			}
 		});
 
 		cid.forEach((id) => {
 			postList.map((post) => {
-				if(id === post.collegeId){
+				if (id === post.collegeId) {
 					posts_filter.push(post);
 				}
 			});
@@ -256,20 +252,20 @@ function Home() {
 						</div>  */}
 
 						<h3> FILTER POSTS HERE !!</h3>
+						<div className="d-flex justify-content-end">
 						<form id='locationFilter'>
-							<select id='filterPost' form='locationFilter' onChange={filterPost}>
+							<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 								<option key='default' defaultValue='None'>NONE</option>
 								{options.map((item) => {
 									return (
-									<option key={item}>{item}</option>
+										<option key={item}>{item}</option>
 									)
 								})}
 							</select>
 						</form>
-
+						</div>
 						
-
-
+						<br></br>
 
 						{postFilter ? postFilter.map((item) => {
 							return (
@@ -287,20 +283,20 @@ function Home() {
 													Date : {item.date}
 											<br></br>
 													Time:{item.time}
-													<br></br>
+											<br></br>
 													CollegeName: {item.collegeName}
-													<br></br>
+											<br></br>
 
 											<br></br>
-													<img width="100px" src={item.postPicture} alt="img-post" />
+											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
-													<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
-													<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
 											<br></br>
-													<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
 											<br></br>
-													<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
 										</p>
 
@@ -347,20 +343,20 @@ function Home() {
 													Date : {item.date}
 											<br></br>
 													Time:{item.time}
-													<br></br>
+											<br></br>
 													CollegeName: {item.collegeName}
-													<br></br>
+											<br></br>
 
 											<br></br>
-													<img width="100px" src={item.postPicture} alt="img-post" />
+											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
-													<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
-													<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
 											<br></br>
-													<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
 											<br></br>
-													<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
 										</p>
 
@@ -391,7 +387,7 @@ function Home() {
 									</div>
 								</div>
 							)
-						})) 
+						}))
 						}
 					</div>
 					{/* Rohan static copntent ends */}
@@ -401,16 +397,16 @@ function Home() {
 						<div className="post">
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
-								<label htmlFor="title">Title</label>
-									<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required/>
+									<label htmlFor="title">Title</label>
+									<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />
 									<br></br>
 
-								<label for="description">Description</label>
-									<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required/>
+									<label for="description">Description</label>
+									<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />
 									<br></br>
 
 
-								<label for="college"> Your College</label>
+									<label for="college"> Your College</label>
 									{user.collegeId ? (collegeList.map((item) => {
 										if (user.collegeId === item.id) {
 											return (
@@ -420,7 +416,7 @@ function Home() {
 									})) : (<p>Please provide your college name !</p>)}
 
 									<label for="rent">Rent</label>
-									<input className='form-control' name='rent' id='rent' placeholder='$'  type='number' required />
+									<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />
 									<br></br>
 
 									<label for="transport">Transport</label>
@@ -428,7 +424,7 @@ function Home() {
 									<br></br>
 
 									<label for="utilities">Utilities</label>
-									<input className='form-control' name='utilities' id='utilities' placeholder='$'   type='number' required />
+									<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />
 									<br></br>
 
 									<label for="groceries">Grocery Stores</label>
@@ -437,7 +433,7 @@ function Home() {
 
 
 									<label for="post-image">Upload Media</label>
-									<input required type="file" id="post-image" onChange={handleImageChange} /> <br></br>
+									<input required type="file" className="form-control-file" id="post-image" onChange={handleImageChange} /> <br></br>
 									<br></br>
 
 								</div>
@@ -459,6 +455,7 @@ function Home() {
 						<br></br>
 						<div className="post">
 							<h1>CHAT COMES HERE</h1>
+							<Chat></Chat>
 						</div>
 					</div>
 				</div>
