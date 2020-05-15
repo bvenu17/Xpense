@@ -29,9 +29,13 @@ function Home() {
 	//loading data state
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
+	//filter posts
+	const [options, setOptions] = useState();
+	const [postFilter, setPostFilter] = useState();
 
 	//lifecycle method
 	useEffect(() => {
+		let optionFilter = new Set();
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -55,6 +59,14 @@ function Home() {
 
 				console.log("fetched all posts from db");
 				console.log(p);
+
+				//filter for dropdown
+				allColleges.forEach((college) => {
+					optionFilter.add(college.state);
+				});
+				optionFilter = [...optionFilter]
+				setOptions(optionFilter);
+				console.log(optionFilter)
 				// fetch user's college
 				// while(!user){
 				// let uColg = await getCollege(currentUser.collegeId);
@@ -162,6 +174,35 @@ function Home() {
 		}
 	}
 
+
+	const filterPost = async (event) => {
+		event.preventDefault();
+		let target = event.target.value;
+		let cid = [];
+		let posts_filter = [];
+		if(target === "NONE"){
+			setPostFilter(undefined)
+			return
+		}
+
+		collegeList.map((college) => {
+			if(college.state === target){
+				cid.push(college.id);
+			}
+		});
+
+		cid.forEach((id) => {
+			postList.map((post) => {
+				if(id === post.collegeId){
+					posts_filter.push(post);
+				}
+			});
+		});
+		setPostFilter(posts_filter);
+	}
+
+
+
 	//component code
 	if (loading === false) {
 		return (
@@ -213,7 +254,24 @@ function Home() {
 	
 							</div>
 						</div>  */}
-						{postList && postList.map((item) => {
+
+						<h3> FILTER POSTS HERE !!</h3>
+						<form id='locationFilter'>
+							<select id='filterPost' form='locationFilter' onChange={filterPost}>
+								<option key='default' defaultValue='None'>NONE</option>
+								{options.map((item) => {
+									return (
+									<option key={item}>{item}</option>
+									)
+								})}
+							</select>
+						</form>
+
+						
+
+
+
+						{postFilter ? postFilter.map((item) => {
 							return (
 								<div className="post">
 									<div className="postContent">
@@ -273,7 +331,68 @@ function Home() {
 									</div>
 								</div>
 							)
-						})}
+						}) : (postList.map((item) => {
+							return (
+								<div className="post">
+									<div className="postContent">
+										<p>User profile pic</p>
+										<img src={item.userProfilePic} alt="img"></img>
+										<p>
+											Title : {item.title}
+											<br></br>
+													Author Name : {item.authorName}
+											<br></br>
+													Description : {item.description}
+											<br></br>
+													Date : {item.date}
+											<br></br>
+													Time:{item.time}
+													<br></br>
+													CollegeName: {item.collegeName}
+													<br></br>
+
+											<br></br>
+													<img width="100px" src={item.postPicture} alt="img-post" />
+											<br></br>
+													<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+													<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+													<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+													<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+										</p>
+
+										<div className="comments">
+
+											<br></br>
+											<h2>COMMENTS GO HERE</h2>
+											<div>
+												{item.comments ? (
+													item.comments.map((comm) => {
+														return (
+															<div style={{ border: "3px solid black", margin: "20px" }}>
+																<p>
+																	<b>{comm.username} </b>
+																	<br></br>
+																	{comm.comment}
+																</p>
+															</div>
+														)
+													})
+												) : (<p>No comments to display</p>)}
+											</div>
+											<form onSubmit={handleCommentSubmit}>
+												<input name="comment" id="comment" type="text" placeholder="enter comment" />
+												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							)
+						})) 
+						}
 					</div>
 					{/* Rohan static copntent ends */}
 					{/* Rohan code once again */}
