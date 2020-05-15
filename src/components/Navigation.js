@@ -30,7 +30,7 @@ const NavigationAuth = () => {
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
-						<span className="activeLink">Home</span>
+	  		<img width="10%" src="/imgs/home.svg" alt="img" />	
 	  </NavLink>
       </li>
 
@@ -109,8 +109,7 @@ const NavigationNonAuth = () => {
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
 				<li className="nav-item active">
 					<NavLink exact to='/' className = "nav-link">
-
-					<span className = "activeLink">Landing</span>	
+						<img width="10%" src="/imgs/home.svg" alt="img" />	
 					</NavLink>
 				</li>
 
@@ -150,7 +149,7 @@ const NavigationNonAuth = () => {
 						Login/SignUp
 					</Button>
 
-					<Modal show={show} onHide={handleClose} animation={false}>
+					<Modal className="loginForm" show={show} onHide={handleClose} >
 							
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}

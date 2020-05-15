@@ -281,6 +281,14 @@ button:focus {
 	padding: 10%;
 }
 
+.loginForm{
+	height : 100%;
+}
+
+.home{
+	padding : 0px;
+}
+
 .devCard
 {
 	width: auto;
