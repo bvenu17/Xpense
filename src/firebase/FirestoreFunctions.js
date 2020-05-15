@@ -206,6 +206,8 @@ async function addCommentToPost(postId, userName, commentText) {
 async function addChat(chatObject) {
   //func to add post to db
  // let chatData = { name: userName, message: chatObject }
+ const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+ chatObject.createdAt=timestamp();
   await db.collection("chats").add(chatObject)
     .then(function (docRef) {
       // chatObject.postId = docRef.id;
@@ -221,7 +223,7 @@ async function addChat(chatObject) {
 
 async function getAllChats() {
   console.log("getting all chats");
-  const snapshot = await firebase.firestore().collection('chats').get()
+  const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt","asc").get()
   return snapshot.docs.map(doc => doc.data());
 };
 
