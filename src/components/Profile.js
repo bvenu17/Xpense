@@ -102,7 +102,9 @@ function Profile() {
 			contentType: 'image/jpeg'
 		};
 		const storage = firebase.storage();
-		const uploadTask = storage.ref(`/profilePics/${profPic.name}`).put(profPic);
+		const imageName =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
+
+		const uploadTask = storage.ref(`/profilePics/${imageName}`).put(profPic);
 		console.log('img uploaded');
 
 		// Listen for state changes, errors, and completion of the upload.
@@ -116,7 +118,7 @@ function Profile() {
 			}, () => {
 				// gets the functions from storage refences the image storage in firebase by the children
 				// gets the download url then sets the image from firebase as the value for the imgUrl key:
-				storage.ref('profilePics').child(profPic.name).getDownloadURL()
+				storage.ref('profilePics').child(imageName).getDownloadURL()
 					.then(fireBaseUrl => {
 						//setProfPicUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
 						setProfPicUrl(fireBaseUrl);
@@ -197,7 +199,7 @@ function Profile() {
 
 							<form onSubmit={handleUpload}>
 								{/* <label for="profilepicfile">upload file in .jpeg or .png format</label> */}
-								<input type='file' name="porfilepicfile" id="porfilepicfile" onChange={handleChange} />
+								<input type='file' accept="image/*" name="porfilepicfile" id="porfilepicfile" onChange={handleChange} />
 								<br></br><br></br>
 								<button style={{ border: '3px solid black' }}>Change profile picture</button>
 							</form>
