@@ -56,35 +56,35 @@ const About = () => {
                 <div className="col-lg-2 col-md-6 col-sm-12">
                     <div className="devCard">
                         <img width="100%" src="/imgs/vedadnya.jpg" alt="img" />
-                        <p className="devName"><br></br>Vedadnya Jadhav</p>
+                        <p className="devName"><br></br>Vedadnya <br></br> Jadhav</p>
                     </div>
                 </div>
 
                 <div className="col-lg-2 col-md-6 col-sm-12">
                     <div className="devCard">
-                        <img width="100%" src="/imgs/venu.jpg" alt="img" />
-                        <p className="devName"><br></br>Venugopal Balaji</p>
+                        <img hetight ="100%" width="100%" src="/imgs/venu.jpg" alt="img" />
+                        <p className="devName"><br></br>Venugopal <br></br> Balaji</p>
                     </div>
                 </div>
 
                 <div className="col-lg-2 col-md-6 col-sm-12">
                     <div className="devCard">
                         <img width="100%" src="/imgs/chirag.jpg" alt="img" />
-                        <p className="devName"><br></br>Chirag Kamble</p>
+                        <p className="devName"><br></br>Chirag <br></br> Kamble</p>
                     </div>
                 </div>
 
                 <div className="col-lg-2 col-md-6 col-sm-12">
                     <div className="devCard">
                         <img width="100%" src="/imgs/rohan.jpg" alt="img" />
-                        <p className="devName"><br></br>Rohan Shah</p>
+                        <p className="devName"><br></br>Rohan <br></br> Shah</p>
                     </div>
                 </div>
 
                 <div className="col-lg-2 col-md-6 col-sm-12">
                     <div className="devCard">
-                        <img width="100%" src="/imgs/harish.jpg" alt="img" />
-                        <p className="devName"><br></br>Harish Nair</p>
+                        <img width="100%"  src="/imgs/harish.jpg" alt="img" />
+                        <p className="devName"><br></br>Harish <br></br> Nair</p>
                     </div>
                 </div>
 
