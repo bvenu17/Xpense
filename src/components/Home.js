@@ -100,7 +100,8 @@ function Home() {
 		//console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
 		const storage = firebase.storage();
-		const uploadTask = storage.ref(`/postImages/${postPic.name}`).put(postPic);
+		const imageName =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
+		const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
 		console.log('img uploaded');
 
 		// Listen for state changes, errors, and completion of the upload.
@@ -114,7 +115,7 @@ function Home() {
 			}, () => {
 				// gets the functions from storage refences the image storage in firebase by the children
 				// gets the download url then sets the image from firebase as the value for the imgUrl key:
-				storage.ref('postImages').child(postPic.name).getDownloadURL()
+				storage.ref('postImages').child(imageName).getDownloadURL()
 					.then(fireBaseUrl => {
 						setPostPicUrl(fireBaseUrl);
 						//retrieve values from the elements and add to post db
@@ -272,7 +273,7 @@ function Home() {
 								<div className="post">
 									<div className="postContent">
 										<p>User profile pic</p>
-										<img src={item.userProfilePic} alt="img"></img>
+										<img width="100px" src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -332,7 +333,7 @@ function Home() {
 								<div className="post">
 									<div className="postContent">
 										<p>User profile pic</p>
-										<img src={item.userProfilePic} alt="img"></img>
+										<img width="100px" src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -433,7 +434,7 @@ function Home() {
 
 
 									<label for="post-image">Upload Media</label>
-									<input required type="file" className="form-control-file" id="post-image" onChange={handleImageChange} /> <br></br>
+									<input required type="file" accept="image/*"  className="form-control-file" id="post-image" onChange={handleImageChange} /> <br></br>
 									<br></br>
 
 								</div>

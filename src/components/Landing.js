@@ -171,7 +171,7 @@ function Landing() {
 									<div className="post">
 										<div className="postContent">
 											<p>User profile pic</p>
-											<img src={item.userProfilePic} alt="img"></img>
+											<img width="100px" src={item.userProfilePic} alt="img"></img>
 											<p>
 												Title : {item.title}
 												<br></br>
