@@ -352,7 +352,7 @@ function Home() {
 	else {
 		return (
 			<div className="container container1">
-				<p>Home Loading....</p>
+				<img width="10%" src="/imgs/loading.gif" alt="img" />
 			</div>
 		)
 	}
