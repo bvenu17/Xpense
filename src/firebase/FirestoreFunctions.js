@@ -99,7 +99,7 @@ async function getAllPostsforCollege(collegeID) {
   let postsRef = db.collection('posts');
   let allPosts = [];
   let x;
-  let query = postsRef.where('collegeId', '<=', collegeID).get()
+  let query = postsRef.where('collegeId', '==', collegeID).get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
