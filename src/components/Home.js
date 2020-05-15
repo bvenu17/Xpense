@@ -95,12 +95,12 @@ function Home() {
 	const handlePosts = async (event) => {
 		event.preventDefault();
 		//get all elements from form
-		let { title, description, rent, groceries, transport, utilities } = event.target.elements;
+		let { title, description, rent, groceries, transport, utilities,postImage } = event.target.elements;
 		let collegeDetails = await getCollege(user.collegeId);
 		//console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
 		const storage = firebase.storage();
-		const imageName =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
+		const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
 		const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
 		console.log('img uploaded');
 
@@ -152,8 +152,18 @@ function Home() {
 						} catch (error) {
 							alert(error);
 						}
+						title.value = "";
+						description.value = "";
+						rent.value = "";
+						groceries.value = "";
+						transport.value = "";
+						utilities.value = "";
+						postImage.value="";
+
 					})
 			})
+
+
 	};
 
 
@@ -169,6 +179,7 @@ function Home() {
 		} catch (error) {
 			alert(error);
 		}
+		comment.value = "";
 	}
 
 	// func to filter posts by location
@@ -254,18 +265,18 @@ function Home() {
 
 						<h3> FILTER POSTS HERE !!</h3>
 						<div className="d-flex justify-content-end">
-						<form id='locationFilter'>
-							<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
-								<option key='default' defaultValue='None'>NONE</option>
-								{options.map((item) => {
-									return (
-										<option key={item}>{item}</option>
-									)
-								})}
-							</select>
-						</form>
+							<form id='locationFilter'>
+								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
+									<option key='default' defaultValue='None'>NONE</option>
+									{options.map((item) => {
+										return (
+											<option key={item}>{item}</option>
+										)
+									})}
+								</select>
+							</form>
 						</div>
-						
+
 						<br></br>
 
 						{postFilter ? postFilter.map((item) => {
@@ -434,7 +445,7 @@ function Home() {
 
 
 									<label for="post-image">Upload Media</label>
-									<input required type="file" accept="image/*"  className="form-control-file" id="post-image" onChange={handleImageChange} /> <br></br>
+									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
 									<br></br>
 
 								</div>
