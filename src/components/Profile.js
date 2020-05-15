@@ -65,6 +65,7 @@ function Profile() {
 				setLoading(false)
 				setUser(u);
 				setCurrentStudent(u.currentStudent)
+				setDob(u.dob);
 				console.log("fetched user details", u)
 				// fetch college list from db
 				let allColleges = await getAllColleges();
@@ -101,6 +102,7 @@ function Profile() {
 		var metadata = {
 			contentType: 'image/jpeg'
 		};
+		const {profilepicfile} = event.target.elements;
 		const storage = firebase.storage();
 		const imageName =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
 
@@ -128,6 +130,7 @@ function Profile() {
 							alert(error);
 						}
 						console.log('firebase url is' + fireBaseUrl);
+						profilepicfile.value="";
 					})
 			})
 	}
@@ -155,6 +158,7 @@ function Profile() {
 		} catch (error) {
 			alert(error);
 		}
+		comment.value=""
 	}
 
 	//function to update account details of the user
@@ -173,14 +177,15 @@ function Profile() {
 		}
 		let status = currentStudent;
 		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
-		if (first && last && dateOfBirth) {
 			try {
 				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
-				setFormSubmit(true);
+				setFormSubmit(!formSubmit);
+
 			} catch (error) {
 				alert(error);
 			}
-		} else alert('enter all info');
+			setTemp(!temp);
+
 	};
 
 	//component code
@@ -199,7 +204,7 @@ function Profile() {
 
 							<form onSubmit={handleUpload}>
 								{/* <label for="profilepicfile">upload file in .jpeg or .png format</label> */}
-								<input type='file' accept="image/*" name="porfilepicfile" id="porfilepicfile" onChange={handleChange} />
+								<input type='file' accept="image/*" name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 								<br></br><br></br>
 								<button style={{ border: '3px solid black' }}>Change profile picture</button>
 							</form>

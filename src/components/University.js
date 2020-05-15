@@ -93,6 +93,7 @@ const University = (props) => {
         } catch (error) {
             alert(error);
         }
+        comment.value=""
     }
 
     return (
