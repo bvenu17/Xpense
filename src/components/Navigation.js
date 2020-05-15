@@ -30,7 +30,8 @@ const NavigationAuth = () => {
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
-						<span className="activeLink">Home</span>
+	  		<img className="navLogo" width="12%" src="/imgs/home.svg" alt="img" />	
+			<span className="activeLink"> Home</span>
 	  </NavLink>
       </li>
 
@@ -56,7 +57,7 @@ const NavigationAuth = () => {
 			<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 		</div>
       </li>
-
+	  <li>   </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
 						<span className="activeLink">About</span>
@@ -68,10 +69,10 @@ const NavigationAuth = () => {
 
 		<li className = "nav-item active">
 		<NavLink exact to='/profile' class="nav-link">
-		<span className="activeLink">Account</span>
-					</NavLink>
+		<img className="navLogo" width="7%" src="/imgs/profile.png" alt="img" />	
+		<span className="activeLink"> Profile</span>
+		</NavLink>
 		</li>
-		<li></li>
 		<li className = "nav-item">
 		<SignOutButton />
 		</li>
@@ -109,8 +110,8 @@ const NavigationNonAuth = () => {
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
 				<li className="nav-item active">
 					<NavLink exact to='/' className = "nav-link">
-
-					<span className = "activeLink">Landing</span>	
+						<img className="navLogo" width="12%" src="/imgs/home.svg" alt="img" />
+						<span className="activeLink"> Home</span>	
 					</NavLink>
 				</li>
 
@@ -136,7 +137,7 @@ const NavigationNonAuth = () => {
 					<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 					</div>
 				</li>
-
+				<li>   </li>
 				<li className="nav-item active">
 				<NavLink exact to='/about' className = "nav-link">
 									<span className="activeLink">About</span>
@@ -150,7 +151,7 @@ const NavigationNonAuth = () => {
 						Login/SignUp
 					</Button>
 
-					<Modal show={show} onHide={handleClose} animation={false}>
+					<Modal className="loginForm" show={show} onHide={handleClose} >
 							
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}

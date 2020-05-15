@@ -370,8 +370,8 @@ function Profile() {
 		);
 	} else {
 		return (
-			<div>
-				<p>Profile Loading...</p>
+			<div className="container container1">
+				<img width="10%" src="/imgs/loading.gif" alt="img" />
 			</div>
 		)
 	}

@@ -4,19 +4,15 @@ import '../App.css';
 const About = () => {
     return (
         <div className="container container1">
-            <div className="devName">
-                <h1>Welcome to xPense</h1>
-            </div>
+            <h1>What do we do?</h1>
             <br></br>
+            <p className="devName">Every year, hundreds of thousands of international students come to the United States for their education. Information regarding courses, tuition fees, university facilities, etc is available in abundance on every school’s website. But when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our application comes into play!</p>
             <br></br>
-            <br></br>
-            <br></br>
-            <h2>What do we do?</h2>
-            <p className="devName">Project Description</p>
+            <p>Our application is designed to give incoming students data from students that have actually studied in these universities. The data would mainly include their monthly expenses, rent according to particular locations, pictures of the houses you get for the rent you pay, the grocery resources . It is a social media approach where current or existing students can post all the above information. It will also allow incoming students to comment on posts, filter by location or university. Currently, our focus will be on universities in the states of  New Jersey and New York.</p>
             <br></br>
             <br></br>
             <h1>What loactions do we cover?</h1>
-
+            <br></br>
             <div className="row locationCardRow">
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
                     <div className="locationDes">
@@ -57,6 +53,7 @@ const About = () => {
                     <div className="devCard">
                         <img width="100%" src="/imgs/vedadnya.jpg" alt="img" />
                         <p className="devName"><br></br>Vedadnya <br></br> Jadhav</p>
+
                     </div>
                 </div>
 
@@ -64,6 +61,7 @@ const About = () => {
                     <div className="devCard">
                         <img hetight ="100%" width="100%" src="/imgs/venu.jpg" alt="img" />
                         <p className="devName"><br></br>Venugopal <br></br> Balaji</p>
+
                     </div>
                 </div>
 
@@ -71,6 +69,7 @@ const About = () => {
                     <div className="devCard">
                         <img width="100%" src="/imgs/chirag.jpg" alt="img" />
                         <p className="devName"><br></br>Chirag <br></br> Kamble</p>
+
                     </div>
                 </div>
 
@@ -78,6 +77,7 @@ const About = () => {
                     <div className="devCard">
                         <img width="100%" src="/imgs/rohan.jpg" alt="img" />
                         <p className="devName"><br></br>Rohan <br></br> Shah</p>
+
                     </div>
                 </div>
 
@@ -85,6 +85,7 @@ const About = () => {
                     <div className="devCard">
                         <img width="100%"  src="/imgs/harish.jpg" alt="img" />
                         <p className="devName"><br></br>Harish <br></br> Nair</p>
+
                     </div>
                 </div>
 
