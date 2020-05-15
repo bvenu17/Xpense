@@ -129,7 +129,7 @@ const Chat = () => {
                     />
                 </div>) : (
                         <div>
-                            <p>SignUp to comment!</p>
+                            <p>SignUp to chat!</p>
                         </div>
                     )}
 
