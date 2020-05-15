@@ -174,7 +174,7 @@ function Home() {
 		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
 		try {
 			//add comment to the post db
-			await addCommentToPost(postId, user.firstName, comment.value)
+			await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
 			setFormSubmit(!formSubmit);
 		} catch (error) {
 			alert(error);
@@ -332,7 +332,7 @@ function Home() {
 												) : (<p>No comments to display</p>)}
 											</div>
 											<form onSubmit={handleCommentSubmit}>
-												<input name="comment" id="comment" type="text" placeholder="enter comment" />
+												<input required name="comment" id="comment" type="text" placeholder="enter comment" />
 												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
 											</form>
 										</div>
@@ -392,8 +392,8 @@ function Home() {
 												) : (<p>No comments to display</p>)}
 											</div>
 											<form onSubmit={handleCommentSubmit}>
-												<input name="comment" id="comment" type="text" placeholder="enter comment" />
-												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+												<input required  name="comment" id="comment" type="text" placeholder="enter comment" />
+												<button  onClick={() => setPostId(item.id)} type="submit">Send comment</button>
 											</form>
 										</div>
 									</div>
