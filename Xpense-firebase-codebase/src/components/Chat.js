@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 import { AuthContext } from "../firebase/Auth";
 import { addChat, getUser, getAllChats } from '../firebase/FirestoreFunctions';
+import { socket } from "./Socket";
 
-
-let socket;
+//let socket;
 
 const Chat = () => {
 
@@ -14,16 +14,20 @@ const Chat = () => {
     //chat states
     const [message, setMessage] = useState('');
     const [allmsg, setAllmsg] = useState()
-    const [emit, setEmit] = useState(undefined);
-    const ENDPOINT = 'localhost:5000'
+    //const [emited, setEmited] = useState(false);
+    const [msgSent,setMsgSent] = useState();
+    // const ENDPOINT = 'localhost:5000'
+    //let socket;
 
     useEffect(() => {
 
-        socket = io(ENDPOINT);
+        // socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
         console.log(socket);
+
         console.log("ek baar")
         //venus part
         async function getData() {
+
             try {
                 console.log("enter use effect func")
                 //fetch user details from db
@@ -46,32 +50,45 @@ const Chat = () => {
         }
         getData();
         //vend
-    }, [ENDPOINT]);
 
-    // useEffect(()=>{
-    //     socket.on('output',message=>{
-    //         setAllmsg(allmsg=>[...allmsg,message]);
+        //socket.emit('input',msgSent);
+        async function outMsg(){
+            socket.off('output').on('output', chatData => {
+
+               // console.log("emitEffect", emited)
+                var message = document.createElement('div');
+                message.textContent = chatData.name + " : " + chatData.message;
+                var messages = document.getElementById('messagesList')
+                messages.appendChild(message);
+                console.log("Message hau " + chatData);
+            })
+
+        }
+        outMsg();
+        
+    }, []);
+
+
+
+    // useEffect(() => {
+    //     socket.on('output', chatData => {
+
+    //         console.log("emitEffect", user)
+    //         var message = document.createElement('div');
+    //         message.textContent = chatData.name + " : " + chatData.message;
+    //         var messages = document.getElementById('messagesList')
+    //         messages.appendChild(message);
+    //         console.log("Message hau " + chatData);
     //     })
-    // },[]);
-
-    useEffect(() => {
-        socket.on('output', chatData => {
-
-            console.log("emitEffect", user)
-            var message = document.createElement('div');
-            message.textContent = chatData.name + " : " + chatData.message;
-            var messages = document.getElementById('messagesList')
-            messages.appendChild(message);
-            console.log("Message hau " + chatData);
-        })
-    }, [setEmit]);
+    // }, []);  
 
     const sendMessage = async (event) => {
         event.preventDefault();
         if (message) {
             let chatData = { name: user.firstName, message: message }
-            socket.emit('input', chatData, () => setMessage(''))
-            setEmit(true);
+            //setMsgSent(chatData);
+            socket.emit('input', chatData,() => setMessage(''))
+            //setEmited(!emited);
 
             //venus part
             // async function addChat() {
@@ -98,7 +115,7 @@ const Chat = () => {
         <div>
             <h1>Chat component</h1>
             <h2>Is it?</h2>
-            <div style={{border:'3px solid black', width:'100%'}}>
+            <div style={{ border: '3px solid black', width: '100%' }}>
                 <div className='cardMsg' style={{ width: "100% ", overflow: "auto", whiteSpace: "nowrap", height: '200px' }}>
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '54%', height: '100px' }}>
                         {allmsg && allmsg.map((item) => {

@@ -2,6 +2,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 const router = require('./router')
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -13,7 +14,9 @@ io.on('connect',(socket)=>{
     console.log("We have a new connection!")
 
     socket.on('disconnect',()=>{
+        socket.disconnect();
         console.log("User left");
+
     })
 
     socket.on('input',function(msg,callback){
@@ -25,6 +28,7 @@ io.on('connect',(socket)=>{
     })
 });
 
+app.use(cors());
 app.use(router);
 
 server.listen(PORT,()=>{

@@ -11,6 +11,7 @@ import "firebase/storage";
 import Chat from './Chat';
 import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
 //static files import
+//import io from 'socket.io-client';
 const defcollogo = require('../assets/college-logo.jpg')
 
 
@@ -31,6 +32,9 @@ function Home() {
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 
+	//const ENDPOINT = 'localhost:5000'
+	
+	//let socket;
 	//lifecycle method
 	useEffect(() => {
 		async function getData() {
@@ -58,6 +62,7 @@ function Home() {
 			}
 		}
 		getData();
+		//socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
 	}, [currentUser, formSubmit])
 
 	//onChange handler for input field of profile picture
