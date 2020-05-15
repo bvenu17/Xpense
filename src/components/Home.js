@@ -226,29 +226,6 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-
-
-	// const redirect = async(e) => {
-	// 	e.preventDefault();
-	// 	return <Redirect to='/profile' />
-	// }
-
-	// const rentFilter = async(e) => {
-	// 	// e.preventDefault();
-	// 	let rentList = [];
-	// 	let target = parseInt(e.target.value);
-	// 	setRentValue(target)
-
-	// 	if(rentValue > 0){
-	// 		postList.map((post) => {
-	// 			if(parseInt(post.rent) <= rentValue){
-	// 				rentList.push(post);
-	// 			}
-	// 		});
-	// 		setPostList(rentList);
-	// 	}
-	// }
-
 	//component code
 	if (loading === false) {
 		return (
@@ -256,50 +233,6 @@ function Home() {
 				{/* Rohan Static Content */}
 				<div className="row">
 					<div className="col-lg-8 col-md-12 col-sm-12">
-						{/* <div className="post">
-							<div className="headerPost">
-								<div className="avatarSide">
-									<img src='/imgs/profile.png' className="avatarPic"></img>
-								</div>
-								<div className="personal">
-									<div className="author"> Author Name Goes Here </div>
-
-									<div className="college">College Name Goes here</div>
-									<div className="time">Date and Time Go here!</div><br>
-									</br>
-								</div>
-							</div>
-							<div className="postContent" id="module">
-								<p className="collapse" id="collapseExample" aria-expanded="false">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat dui ut lacus posuere pulvinar. Etiam eget malesuada ligula. Donec congue justo at tristique euismod. Pellentesque leo ipsum, rhoncus eu mattis sed, tincidunt id tellus. Ut facilisis urna vel maximus scelerisque. Duis nunc tortor, efficitur eget facilisis sit amet, finibus quis nisi. Quisque eget lorem eu dui rutrum ornare eu ac tortor. Suspendisse elit justo, volutpat id dignissim ac, aliquet sed mi. Aliquam elementum orci est, eget porta libero tempus a. Nullam libero lacus, ullamcorper vitae ipsum nec, posuere sagittis diam. Sed sed ex tristique ipsum hendrerit suscipit.
-                                    <br></br> <br></br>
-									Nam tincidunt neque id ultrices sollicitudin. Quisque nec quam enim. Curabitur ut eros vel augue porta congue. Praesent at aliquet ante. In sed urna nec mauris rhoncus feugiat vitae ullamcorper nisl. Sed blandit interdum mattis. Vestibulum vel molestie neque. Praesent condimentum, velit nec pellentesque gravida, libero ante pretium neque, ac faucibus tortor lorem ac nisl. Vivamus feugiat libero nunc, et efficitur ex consequat in. Phasellus ligula ex, porta vel risus sit amet, lacinia pharetra purus. Nulla ullamcorper nibh pharetra diam blandit dapibus.
-
-                                    <br></br> <br></br>
-
-									<i className="fas fa-shopping-cart icons" title="groceries"></i>$250 per month  GROCERIES
-
-                                    <br></br>
-									<i className="fas fa-home icons" title="rent"></i>$600 per month RENT
-                                    <br></br>
-									<i className="fas fa-wifi icons" title="internet"></i>$15 per month WIFI
-                                    <br></br>
-									<i className="fas fa-bolt icons" title="electricity"></i>$50 per month ELECTRICITY
-                                    <br></br>
-									<i className="fas fa-subway icons" title="transport"></i>15 min from PATH  TRANSPORT
-                                    <br></br>
-								</p>
-								<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
-
-							</div>
-							<div className="comments">
-
-								<br></br>
-								<h2>COMMENTS GO HERE</h2>
-
-	
-							</div>
-						</div>  */}
 
 						<h3> FILTER POSTS HERE !!</h3>
 						<div className="d-flex justify-content-end">
@@ -526,22 +459,6 @@ function Home() {
 									<br></br>
 
 								</div>
-
-								{/* <div className="logSignButt">
-									{user.collegeId && user.collegeId ? collegeList.map((item) => {
-										if (item.id === user.collegeId)
-											return (
-												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-											)
-									}) : ( 
-										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
-											POST
-										</Button>
-										
-								
-									)}
-
-								</div> */}
 
 								<div className="logSignButt">
 									{user.currentStudent ? collegeList.map((item) => {
