@@ -12,6 +12,7 @@ import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccount
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
 //datepicker imports
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -309,34 +310,40 @@ function Profile() {
 				{userPosts && userPosts.map((item) => {
 					return (
 						<div className="post">
-							<div className="postContent">
-								<p>
-									Title : {item.title}
-									<br></br>
+									<div className="postContent">
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+										<p>
+											Title : {item.title}
+											<br></br>
 													Author Name : {item.authorName}
-									<br></br>
+											<br></br>
 													Description : {item.description}
-									<br></br>
+											<br></br>
 													Date : {item.date}
-									<br></br>
+											<br></br>
 													Time:{item.time}
-									<br></br>
-													Expense : ${item.expenses}
-									<br></br>
-									<img width="100px" src={item.postPicture} alt="img-post" />
-									<br></br>
-									<i className="fas fa-shopping-cart icons" title="groceries"></i>${item.groceries} per month  GROCERIES
-
-                                    <br></br>
-									<i className="fas fa-home icons" title="rent"></i>${item.rent} per month RENT
-                                    <br></br>
-									<i className="fas fa-wifi icons" title="internet"></i>${item.wifi} per month WIFI
-                                    <br></br>
-									<i className="fas fa-bolt icons" title="electricity"></i>${item.electricity} per month ELECTRICITY
-                                    <br></br>
-									<i className="fas fa-subway icons" title="transport"></i>${item.transport} per month TRANSPORT
-                                    <br></br>
-								</p>
+											<br></br>
+													CollegeName: {item.collegeName}
+											<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+										</p>
 
 								<div className="comments">
 
