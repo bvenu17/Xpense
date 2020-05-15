@@ -285,9 +285,10 @@ button:focus {
 	height : 100%;
 }
 
-.home{
-	padding : 0px;
+.navLogo{
+	padding-bottom : 2%;
 }
+
 
 .devCard
 {
