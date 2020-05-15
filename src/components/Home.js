@@ -1,8 +1,13 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
+import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -28,16 +33,24 @@ function Home() {
 	const [postPic, setPostPic] = useState();
 	const [postId, setPostId] = useState();
 	const [postPicUrl, setPostPicUrl] = useState();
+	//post allow/disallow
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	//loading data state
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 	//filter posts
 	const [options, setOptions] = useState();
 	const [postFilter, setPostFilter] = useState();
+	//post filter rent range
+	const [rentValue, setRentValue] = useState(0);
+
 
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
+		// let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -65,20 +78,25 @@ function Home() {
 				optionFilter = [...optionFilter]
 				setOptions(optionFilter);
 				console.log(optionFilter)
-				// fetch user's college
-				// while(!user){
-				// let uColg = await getCollege(currentUser.collegeId);
-				// setCollege(uColg);
-				// console.log("fetched current user's college")
-				// console.log(uColg);}
+
+				// console.log("RENT EFFECT",typeof(p[0].rent))
+				//filter by rent
+				// if(rentValue>0){
+				// 	p.forEach((post) => {
+				// 		console.log("HERE")
+				// 		if(parseInt(post.rent) <= rentValue)
+				// 		console.log("THEN HERE")
+				// 			rentList.push(post)
+				// 	})
+				// 	setPostList(rentList)
+				// 	console.log(rentList)
+				// }
 				//change loading state
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
 			}
 		}
-		// console.log("CURR",currentUser.collegeId)
-		// console.log("COLLEGE",college)
 		getData();
 	}, [currentUser, formSubmit])
 
@@ -188,7 +206,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "NONE") {
+		if (target === "Location") {
 			setPostFilter(undefined)
 			return
 		}
@@ -217,52 +235,6 @@ function Home() {
 			<div className='container container1'>
 				{/* Rohan Static Content */}
 				<div className="row">
-					{/* <div className="col-lg-8 col-md-12 col-sm-12"> */}
-						{/* <div className="post">
-							<div className="headerPost">
-								<div className="avatarSide">
-									<img src='/imgs/profile.png' className="avatarPic"></img>
-								</div>
-								<div className="personal">
-									<div className="author"> Author Name Goes Here </div>
-
-									<div className="college">College Name Goes here</div>
-									<div className="time">Date and Time Go here!</div><br>
-									</br>
-								</div>
-							</div>
-							<div className="postContent" id="module">
-								<p className="collapse" id="collapseExample" aria-expanded="false">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat dui ut lacus posuere pulvinar. Etiam eget malesuada ligula. Donec congue justo at tristique euismod. Pellentesque leo ipsum, rhoncus eu mattis sed, tincidunt id tellus. Ut facilisis urna vel maximus scelerisque. Duis nunc tortor, efficitur eget facilisis sit amet, finibus quis nisi. Quisque eget lorem eu dui rutrum ornare eu ac tortor. Suspendisse elit justo, volutpat id dignissim ac, aliquet sed mi. Aliquam elementum orci est, eget porta libero tempus a. Nullam libero lacus, ullamcorper vitae ipsum nec, posuere sagittis diam. Sed sed ex tristique ipsum hendrerit suscipit.
-                                    <br></br> <br></br>
-									Nam tincidunt neque id ultrices sollicitudin. Quisque nec quam enim. Curabitur ut eros vel augue porta congue. Praesent at aliquet ante. In sed urna nec mauris rhoncus feugiat vitae ullamcorper nisl. Sed blandit interdum mattis. Vestibulum vel molestie neque. Praesent condimentum, velit nec pellentesque gravida, libero ante pretium neque, ac faucibus tortor lorem ac nisl. Vivamus feugiat libero nunc, et efficitur ex consequat in. Phasellus ligula ex, porta vel risus sit amet, lacinia pharetra purus. Nulla ullamcorper nibh pharetra diam blandit dapibus.
-
-                                    <br></br> <br></br>
-
-									<i className="fas fa-shopping-cart icons" title="groceries"></i>$250 per month  GROCERIES
-
-                                    <br></br>
-									<i className="fas fa-home icons" title="rent"></i>$600 per month RENT
-                                    <br></br>
-									<i className="fas fa-wifi icons" title="internet"></i>$15 per month WIFI
-                                    <br></br>
-									<i className="fas fa-bolt icons" title="electricity"></i>$50 per month ELECTRICITY
-                                    <br></br>
-									<i className="fas fa-subway icons" title="transport"></i>15 min from PATH  TRANSPORT
-                                    <br></br>
-								</p>
-								<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
-
-							</div>
-							<div className="comments">
-
-								<br></br>
-								<h2>COMMENTS GO HERE</h2>
-
-	
-							</div>
-						</div>  */}
-
 						<div class = "row">
 							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
 							<label> FILTER BY LOCATION </label>
@@ -313,7 +285,17 @@ function Home() {
 								
 									{item.description}
 									<br></br>
-									<img class = "postImg" src={item.postPicture} alt="img-post" />
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -393,7 +375,17 @@ function Home() {
 								
 									{item.description}
 									<br></br>
-									<img class = "postImg" src={item.postPicture} alt="img-post" />
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>

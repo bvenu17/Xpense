@@ -5,6 +5,7 @@ import Chat from './Chat';
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
 const University = (props) => {
@@ -170,7 +171,17 @@ const University = (props) => {
 								
 									{item.description}
 									<br></br>
-									<img class = "postImg" src={item.postPicture} alt="img-post" />
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>

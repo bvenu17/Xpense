@@ -8,11 +8,7 @@ import { getAllColleges, getAllPosts } from '../firebase/FirestoreFunctions';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Chat from './Chat';
-
-
-
-
-
+import Carousel from 'react-bootstrap/Carousel'
 function Landing() {
 	const { currentUser } = useContext(AuthContext)
 	const [collegeList, setCollege] = useState();
@@ -141,7 +137,17 @@ function Landing() {
 								
 									{item.description}
 									<br></br>
-									<img class = "postImg" src={item.postPicture} alt="img-post" />
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -207,7 +213,17 @@ function Landing() {
 						
 							{item.description}
 							<br></br>
-							<img class = "postImg" src={item.postPicture} alt="img-post" />
+							<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
 							<br></br>
 									<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 									<br></br>
@@ -262,40 +278,63 @@ function Landing() {
 
 
 								<form>
-									<div className='form-group'>
+									<div className='form-group' onClick={handleShow}>
+
+										<Modal className="loginForm" show={show} onHide={handleClose} >
+
+											<div className="modalContent">
+												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
+											</div>
+											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											</Button>
+										</Modal>
+
+
+
+
 										<label htmlFor="title">Title</label>
-										<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />
+										{show ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />) :
+												(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
 										<br></br>
 
 										<label for="description">Description</label>
-										<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />
+										{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
+												(<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />)}
 										<br></br>
 
 										<label for="rent">Rent</label>
-										<input className='form-control' name='rent' id='rent' placeholder='$' required />
+										{show ? (<input className='form-control' name='rent' id='rent' placeholder='$' disabled required />) :
+												(<input className='form-control' name='rent' id='rent' placeholder='$' required />)}
 										<br></br>
 
 										<label for="transport">Transport</label>
-										<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' required />
+										{show ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' disabled required />) :
+												(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' required />)}
 										<br></br>
 
 										<label for="house">Houses</label>
-										<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' required />
+										{show ? (<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' disabled required />) :
+												(<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' required />)}
 										<br></br>
 
 										<label for="groceries">Groceries</label>
-										<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />
+										{show ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' disabled required />) : 
+												(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />)}
 										<br></br>
 
 										<label for="post-image">Upload Pictures</label>
-										<input required type="file" id="post-image" /> <br></br>
+										{show ? (<div><input required type="file" id="post-image" disabled /> <br></br></div>) : 
+												(<div><input required type="file" id="post-image" /> <br></br></div>) }
+										
+
 
 									</div>
 									<div className="logSignButt">
 										{/* <Button variant="primary" type='submit' className="loginButt loginButt2" disabled> POST </Button> */}
 										<Button variant="primary" className="loginButt loginButt2" onClick={handleShow}>
 											POST
-									</Button>
+										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
 
