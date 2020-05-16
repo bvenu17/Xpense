@@ -189,11 +189,6 @@ function Landing() {
 												<form>
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 													<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
-													<Modal className="loginForm" show={show} onHide={handleClose} >
-														<div className = "modalContent">
-															<h3> Please Provide College Details To Post !</h3>
-														</div>
-													</Modal>
 												</form>
 											</div>
 										</div>
@@ -274,11 +269,6 @@ function Landing() {
 										<form>
 										<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 										<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
-											<Modal className="loginForm" show={show} onHide={handleClose} >
-													<div className = "modalContent">
-														<h3> Please Provide College Details To Post !</h3>
-													</div>
-											</Modal>
 											
 											
 										</form>
@@ -301,15 +291,14 @@ function Landing() {
 								<form>
 									<div className='form-group' onClick={handleShow}>
 
-										<Modal className="loginForm" show={show} onHide={handleClose} >
-
-											<div className="modalContent">
-												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
-											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
-												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+									<Modal className="loginForm" show={show} onHide={handleClose} >
+									<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+					{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
 											</Button>
-										</Modal>
+											<div className = "modalContent">
+											{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+											</div>
+									</Modal>
 
 
 
@@ -358,13 +347,12 @@ function Landing() {
 										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
-
-											<div className="modalContent">
-												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
-											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
-												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
-											</Button>
+										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+						{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+												</Button>
+												<div className = "modalContent">
+												{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+												</div>
 										</Modal>
 
 
