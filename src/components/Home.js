@@ -499,26 +499,13 @@ function Home() {
 										
 										<label for="postImage">Upload Media</label>
 										<div className="multiImg">
-										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+										{user.currentStudent ? (<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button></div>) : 
+																(<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt" disabled ><i class="fas fa-check-circle icons"></i></button></div>)}
 									</div>
 								</div>
-
-								{/* <div className="logSignButt">
-									{user.collegeId && user.collegeId ? collegeList.map((item) => {
-										if (item.id === user.collegeId)
-											return (
-												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-											)
-									}) : ( 
-										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
-											POST
-										</Button>
-										
 								
-									)}
-								</div> */}
-
 								<div className="logSignButt">
 									{user.currentStudent ? (<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>) : (<p>You cannot Post... You have not provided your college details</p>)}
 								</div>
