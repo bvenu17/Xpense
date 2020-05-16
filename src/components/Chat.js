@@ -126,7 +126,7 @@ const Chat = () => {
             <div>
                 <div className='cardMsg' style={{ width: "100% ", overflow: "auto", whiteSpace: "nowrap", height: '20.0rem' }}>
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '74%', height: '100px' }}>
-                        {allmsg && allmsg.map((item) => {
+                        {allmsg && allmsg.chatMessage.map((item) => {
                             return (
                                 <div class = "comments">
                                     <div class = "comment chat">
