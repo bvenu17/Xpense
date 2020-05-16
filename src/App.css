@@ -319,9 +319,11 @@ button:focus {
 {
 	font-weight: 900;
 }
+
+
 .postImg 
 {
-	width: 20.0rem;
+	margin: 0 auto;
 	height: 20.0rem;
 }
 
@@ -377,7 +379,6 @@ h2
 	font-weight: bold;
 	font-size: xx-large;
 }
-
 
 
 .devName2
@@ -495,7 +496,7 @@ h2
   {
 	  width: 8.0rem;
 	  height: 8.0rem;
-	  border-radius: 50%;
+	  border-radius: 10%;
   }
   .uniName
   {

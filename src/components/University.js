@@ -5,6 +5,7 @@ import Chat from './Chat';
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import { Modal } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
@@ -12,6 +13,10 @@ const University = (props) => {
     //user states
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState();
+    //login for comments
+    const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     //state for college id fomr url
     const [id, setId] = useState(undefined);
     //state for all colleges present in the db
@@ -109,7 +114,7 @@ const University = (props) => {
 
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-12">
-                                <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" className="univLogo"></img><br />
+                                <img src={details.logoUrl} alt="defaultpic" className="univLogo"></img><br />
                             </div>
                             <div className="col-lg-10 col-md-10 col-sm-12">
 
@@ -161,27 +166,26 @@ const University = (props) => {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+                                            <div className="postContent">
+                                            <br></br>
+                                                <Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>
+                                                <br></br>
+                                                <p class="postTitle">
+                                                    {item.title}
+                                                </p>
+                                            </div>
 										</div>
 									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
 									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
 									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -227,7 +231,16 @@ const University = (props) => {
             
                         </form>
                                                 ): (
-                                                    <p>You need to login to comment</p>
+                                                    // <p>You need to login to comment</p>
+                                                    <form>
+                                                        <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+                                                           <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                                            <Modal className="loginForm" show={show} onHide={handleClose} >
+                                                                <div className = "modalContent">
+                                                                    <h3> Please Provide College Details To Post !</h3>
+                                                                </div>
+                                                            </Modal>
+                                                    </form>
                                                 )}
 
                                             </div>

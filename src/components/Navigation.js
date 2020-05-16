@@ -148,13 +148,12 @@ const NavigationNonAuth = () => {
 					</Button>
 
 					<Modal className="loginForm" show={show} onHide={handleClose} >
-							
+					<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+							</Button>
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
 							</div>
-							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-							</Button>
 					</Modal>
 				</li>
 			</ul>
