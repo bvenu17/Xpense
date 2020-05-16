@@ -51,40 +51,41 @@ const About = () => {
             <div className="row">
                 <div className="col-lg-1 col-md-0 col-sm-0"></div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-4 col-sm-4">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/vedadnya.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Vedadnya <br></br> Jadhav</p>
 
                     </div>
+                  
                 </div>
-
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+      
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img hetight ="100%" width="100%" src="/imgs/venu.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Venugopal <br></br> Balaji</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/chirag.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Chirag <br></br> Kamble</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/rohan.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Rohan <br></br> Shah</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%"  src="/imgs/harish.jpg"class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Harish <br></br> Nair</p>
 

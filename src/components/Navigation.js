@@ -5,7 +5,9 @@ import { AuthContext } from '../firebase/Auth';
 import SignOutButton from './SignOut';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import '../App.css';
+import '../App.css'
+const logo = require('../assets/xPense.png')
+
 
 const Navigation = () => {
 	const { currentUser } = useContext(AuthContext);
@@ -21,6 +23,7 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
+  <img class = "logo"  src={logo} alt="img" />
   <a className="navbar-brand brand" href="/home">xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -66,12 +69,11 @@ const NavigationAuth = () => {
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
-		<li className = "nav-item active">
-		<NavLink exact to='/profile' class="nav-link">
-	
-		<span className="activeLink"> <i class="fas fa-user-circle" title = "profile"></i> Profile</span>
-		</NavLink>
-		</li>
+	<li className="nav-item active">
+	  <NavLink exact to='/profile' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-user-circle" title = "Profile"></i> Profile</span>
+	  </NavLink>
+      </li>
 		<li className = "nav-item">
 		<SignOutButton />
 		</li>
@@ -96,6 +98,7 @@ const NavigationNonAuth = () => {
 
 		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
+			<img src={logo} alt="img" class = "logo" />
 			<a className="navbar-brand brand" href="/">xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>

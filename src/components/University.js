@@ -1,11 +1,13 @@
 //basic imports
 import React, { useState, useEffect, useContext } from 'react';
 import Chat from './Chat';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 //css imports
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
@@ -14,9 +16,12 @@ const University = (props) => {
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState();
     //login for comments
+    const [logSign, setlogSign] = useState("Signup");
     const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const setLogin = () => setlogSign("Login")
+	const setSignup = () => setlogSign("SignUp")
     //state for college id fomr url
     const [id, setId] = useState(undefined);
     //state for all colleges present in the db
@@ -231,16 +236,22 @@ const University = (props) => {
             
                         </form>
                                                 ): (
-                                                    // <p>You need to login to comment</p>
+                                                <div>
+                                                    {/* <p>You need to login to comment</p> */}
                                                     <form>
                                                         <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
-                                                           <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                                        <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                                             <Modal className="loginForm" show={show} onHide={handleClose} >
                                                                 <div className = "modalContent">
-                                                                    <h3> Please Provide College Details To Post !</h3>
+                                                                    {/* <h3> Please Provide College Details To Post !</h3> */}
+                                                                <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+												                    {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											                    </Button>
+                                                                    {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
                                                                 </div>
                                                             </Modal>
                                                     </form>
+                                                </div>
                                                 )}
 
                                             </div>
@@ -255,7 +266,7 @@ const University = (props) => {
                     </div>
 
                     <div class = "col-lg-4 col-md-12 col-sm-12">
-                    <div className="post">
+                    <div className="post chatBox">
 							<h2>GLOBAL CHAT</h2>
 							<Chat></Chat>
 						</div>

@@ -92,13 +92,13 @@ function Landing() {
 					{/* Rohan Static Content */}
 					<div className="row">
 					<div class = "row">
-							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 							<label> FILTER BY LOCATION </label>
 							</div>
-							<div class = "col-lg-6 col-md-6 col-sm-9 col-xs-9">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						
 							<form id='locationFilter'>
-								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
+								<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
 									{options.map((item) => {
 										return (
@@ -333,7 +333,7 @@ function Landing() {
 												(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />)}
 										<br></br>
 
-										<label for="post-image">Upload Pictures</label>
+										<label for="post-image">Upload Media</label>
 										{show ? (<div><input required type="file" id="post-image" disabled /> <br></br></div>) : 
 												(<div><input required type="file" id="post-image" /> <br></br></div>) }
 										
@@ -361,7 +361,7 @@ function Landing() {
 							</div>
 							<br></br>
 							<br></br>
-							<div className="post">
+							<div className="post chatBox">
 								<h2>GLOBAL CHAT</h2>
 								<Chat />
 							</div>
