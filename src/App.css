@@ -68,7 +68,7 @@
 	border: none !important;
 	text-decoration: underline;
 	margin-left: 5px;
-	color: #069;
+	color: darkblue;
 }
 
 .forgotPassword:hover {
@@ -188,6 +188,7 @@ border: none;
 
 .loginButt2{
 	background: #2ecc71;
+	color: black;
 	padding-left: 1.0rem;
 	padding-right: 1.0rem;
 	border-radius: 2.0rem;
@@ -220,14 +221,14 @@ border: none;
 .forgotPassword {
 	background: none !important;
 	border: none !important;
-	color: #2ecc71;
+	color: #069;
 	font-size: 0.8rem;
 	font-weight: 700;
 }
 
 .forgotPassword:hover {
 	text-decoration: none;
-	color: #069;
+	color: red;
 }
 
 .container1
@@ -302,7 +303,7 @@ button:focus {
 	margin-bottom: 0%;
 	line-height: 1.3rem;
 	padding-top: 0.5rem;
-	color: #2ecc71;
+	color: #232323;
 }
 .college
 {
@@ -334,33 +335,53 @@ button:focus {
 	
 	height: 20.0rem;
 }
+
+/* .carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+} */
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+/* 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
 
   outline: black;
   background-size: 100%, 100%;
   border-radius: 50%;
-  background-image: none;
-}
+  background-color: #000000;
+  color: #000000;
+  padding: 1.0rem;
 
-.carousel-control-next-icon:after
+
+} */
+
+/* .carousel-control-next-icon:after
 {
+	display: inline-block;
   content: '>';
-  font-size: 55px;
-  color: #2ecc71;
+  font-size: 4.0rem;
+  color: black;
 }
 
 .carousel-control-prev-icon:after {
   content: '<';
-  font-size: 55px;
-  color: #2ecc71;
-}
+  font-size: 4.0rem;
+  color: black;
+} */
 .icons 
 {
 	color: #2ecc71;
 	width: 1.5rem;
 }
-h2 
+.h2 
 {
 	font-size: 1.5rem;
 }
@@ -475,7 +496,11 @@ h2
 
 
 /*SEE MORE */
+a 
+{
 
+	color: darkblue;
+}
 #module {
 	font-size: 1rem;
 	line-height: 1.5;
@@ -493,11 +518,13 @@ h2
   }
   
   #module a.collapsed::after {
-	content: '+ Show More';
+	content: 'More';
+
   }
   
   #module a:not(.collapsed)::after {
-	content: '- Show Less';
+	content: 'Less';
+
   }
 
 

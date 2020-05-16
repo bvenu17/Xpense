@@ -134,6 +134,8 @@ function Landing() {
 												return(
 													<Carousel.Item>
 													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													{/* <span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+													<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" /> */}
 													</Carousel.Item>
 												)
 												})}
@@ -187,8 +189,11 @@ function Landing() {
 											</div>
 												{/* <p>You need to Login to Comment</p> */}
 												<form>
+												<label for = "comment"></label>
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
-													<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+
+													<label for = "submitButt"></label>
+													<button name = "submitButt" id = "submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 												</form>
 											</div>
 										</div>
@@ -215,6 +220,8 @@ function Landing() {
 												return(
 													<Carousel.Item>
 													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													{/* <span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+													<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" /> */}
 													</Carousel.Item>
 												)
 												})}
@@ -240,7 +247,7 @@ function Landing() {
 									<br></br>
 							
 									</p>
-									<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+									<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 							</div>
 
@@ -267,8 +274,11 @@ function Landing() {
 									</div>
 										{/* <p>You need to Login to Comment</p> */}
 										<form>
+										<label for = "comment"></label>
 										<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
-										<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+
+										<label for = "submitButt"></label>
+										<button name = "submitButt" id = "submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 											
 											
 										</form>
@@ -283,7 +293,8 @@ function Landing() {
 
 						<div className="col-lg-4 col-md-12 col-sm-12">
 							<div className="post">
-								<h2>Share your experience living in the US</h2>
+							<span class = "h2">Share your experience living in the US</span>
+							<br></br><br></br>
 
 								{/* Currently this form is disabled */}
 
@@ -362,7 +373,8 @@ function Landing() {
 							<br></br>
 							<br></br>
 							<div className="post chatBox">
-								<h2>GLOBAL CHAT</h2>
+							<span class = "h2">GLOBAL CHAT</span>
+							<br></br><br></br>
 								<Chat />
 							</div>
 						</div>
