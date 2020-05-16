@@ -374,11 +374,6 @@ h2
 {
 	color: #000000;
 }
-.devName::first-letter {
-	text-transform: uppercase;
-	font-weight: bold;
-	font-size: xx-large;
-}
 
 
 .devName2
