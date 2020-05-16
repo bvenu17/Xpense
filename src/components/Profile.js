@@ -429,7 +429,7 @@ function Profile() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
@@ -459,10 +459,11 @@ function Profile() {
 											</div>
 											<form onSubmit={handleCommentSubmit}>
 												
-											
+											        <label for = "comment"></label>
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
 												
-													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+													<label for = "commentButt"></label>
+													<button name = "commentButt" id = "commentButt" onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 														
 											
 												

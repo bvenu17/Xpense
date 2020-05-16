@@ -61,7 +61,7 @@ const NavigationAuth = () => {
       </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About </span>
 	  </NavLink>
       </li>
 
