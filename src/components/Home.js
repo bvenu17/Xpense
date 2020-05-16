@@ -139,7 +139,6 @@ function Home() {
 						})
 				})
 		}
-
 	}
 
 	//submit form for post second 2 dusra
