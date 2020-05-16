@@ -44,6 +44,9 @@ async function doSocialSignIn(provider) {
 	} else if (provider === 'facebook') {
 		socialProvider = new firebase.auth.FacebookAuthProvider();
 	}
+	else if (provider === 'github') {
+		socialProvider = new firebase.auth.GithubAuthProvider();
+	}
 	await firebase.auth().signInWithPopup(socialProvider).then(function(result) {
 		console.log(result)
 		const displayName = result.user.displayName.split(" ")

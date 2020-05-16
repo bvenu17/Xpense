@@ -34,6 +34,7 @@ import Select from '@material-ui/core/Select';
 import { FormLabel } from 'react-bootstrap';
 //static file init
 const defpic = require('../assets/default-avatar.png')
+//
 
 function Profile() {
 	//user states
@@ -55,6 +56,7 @@ function Profile() {
 	//user posts state
 	const [userPosts, setUserPosts] = useState();
 	const [postId,setPostId]= useState();
+	//
 
 	//lifecycle method
 	useEffect(() => {
