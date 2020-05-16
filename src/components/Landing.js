@@ -292,12 +292,12 @@ function Landing() {
 									<div className='form-group' onClick={handleShow}>
 
 									<Modal className="loginForm" show={show} onHide={handleClose} >
-									<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-					{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-											</Button>
-											<div className = "modalContent">
+										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+											{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+										</Button>
+										<div className = "modalContent">
 											{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
+										</div>
 									</Modal>
 
 
@@ -333,7 +333,7 @@ function Landing() {
 												(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />)}
 										<br></br>
 
-										<label for="post-image">Upload Pictures</label>
+										<label for="post-image">Upload Media</label>
 										{show ? (<div><input required type="file" id="post-image" disabled /> <br></br></div>) : 
 												(<div><input required type="file" id="post-image" /> <br></br></div>) }
 										
@@ -347,12 +347,12 @@ function Landing() {
 										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
-										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-						{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-												</Button>
-												<div className = "modalContent">
+											<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+													{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											</Button>
+											<div className = "modalContent">
 												{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-												</div>
+											</div>
 										</Modal>
 
 
