@@ -1,8 +1,9 @@
+//basic imports
 import React from 'react';
+//css imports
 import '../App.css';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom'
-
-//import { BrowserRouter as Router, Route } from 'react-router-dom';
+//components imports
 import Profile from './Profile';
 import Home from './Home';
 import Landing from './Landing';
@@ -10,11 +11,11 @@ import University from './University';
 import Navigation from './Navigation';
 import { AuthProvider } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
-
-//harish
+import ErrorPage from './ErrorPage';
+import About from './About';
 import Chat from './Chat';
 
-import About from './About'
+//component code
 function App() {
 	return (
 		<AuthProvider>
@@ -27,10 +28,10 @@ function App() {
 						<Route exact path='/' component={Landing} />
 						<Route exact path = '/about' component = {About}/>
 						<Route path='/university/:id' exact component={University} />
-						{/* harish */}
-						<Route exact path = '/chat' component = {Chat}/>
 						<PrivateRoute path='/home' component={Home} />
 						<PrivateRoute path='/profile' component={Profile} />
+						<Route exact path = '/chat' component = {Chat}/>
+						<Route path="*" status={404} exact component={ErrorPage} />
 						
 						{/* <Route path='/signin' component={SignIn} /> */}
 						{/* <Route path='/signup' component={SignUp} /> */}

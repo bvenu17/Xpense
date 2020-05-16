@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import { AuthContext } from '../firebase/Auth';
 import { doChangePassword } from '../firebase/FirebaseFunctions';
 import '../App.css';
@@ -28,11 +29,13 @@ function ChangePassword() {
 		return (
 			<div>
 				{pwMatch && <h4 className='error'>{pwMatch}</h4>}
+				<br></br>
 				<h2>Change Password</h2>
 				<form onSubmit={submitForm}>
 					<div className='form-group'>
-						<label>
-							Current Password:
+						<label for = "currentPassword">
+							Current Password
+							</label>
 							<input
 								className='form-control'
 								name='currentPassword'
@@ -41,12 +44,13 @@ function ChangePassword() {
 								placeholder='Current Password'
 								required
 							/>
-						</label>
+						
 					</div>
 
 					<div className='form-group'>
-						<label>
-							New Password:
+						<label for = "newPasswordOne">
+							New Password
+							</label>
 							<input
 								className='form-control'
 								name='newPasswordOne'
@@ -55,11 +59,12 @@ function ChangePassword() {
 								placeholder='Password'
 								required
 							/>
-						</label>
+					
 					</div>
 					<div className='form-group'>
-						<label>
-							Confirm New Password:
+						<label for = "newPasswordTwo">
+							Confirm New Password
+							</label>
 							<input
 								className='form-control'
 								name='newPasswordTwo'
@@ -68,10 +73,10 @@ function ChangePassword() {
 								placeholder='Confirm Password'
 								required
 							/>
-						</label>
+					
 					</div>
 
-					<button type='submit'>Change Password</button>
+					<Button type='submit' className = "loginButt loginButt2">Change Password</Button>
 				</form>
 				<br />
 			</div>

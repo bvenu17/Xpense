@@ -21,7 +21,7 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
-  <a className="navbar-brand brand" href="">xPense</a>
+  <a className="navbar-brand brand" href="/home">xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -30,13 +30,14 @@ const NavigationAuth = () => {
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
-						<span className="activeLink">Home</span>
+	  			
+			<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>
 	  </NavLink>
       </li>
 
 	  <li className="nav-item active dropdown">
         <a className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Universities
+		<i class="fas fa-university" title = "universities"></i> Universities
         </a>
 		<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			<a className="dropdown-item" href ="/university/1">Princeton University</a>
@@ -56,20 +57,20 @@ const NavigationAuth = () => {
 			<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 		</div>
       </li>
-
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink">About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
 	  </NavLink>
       </li>
 
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
-		<li className = "nav-item">
+		<li className = "nav-item active">
 		<NavLink exact to='/profile' class="nav-link">
-						Account
-					</NavLink>
+	
+		<span className="activeLink"> <i class="fas fa-user-circle" title = "profile"></i> Profile</span>
+		</NavLink>
 		</li>
 		<li className = "nav-item">
 		<SignOutButton />
@@ -93,28 +94,25 @@ const NavigationNonAuth = () => {
  	return (
 	
 
-
-
-
-
-		<nav className="navbar sticky-top navbar-expand-lg navbar-light navStyle">
+		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
-			<a className="navbar-brand brand" href="">xPense</a>
+			<a className="navbar-brand brand" href="/">xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
 
 			<div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
-				<li className="nav-item">
-					<NavLink exact to='/' class = "nav-link">
-					<span className = "activeLink">Landing</span>	
+				<li className="nav-item active">
+					<NavLink exact to='/' className = "nav-link">
+						
+						<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>	
 					</NavLink>
 				</li>
 
 				<li className="nav-item active dropdown">
 					<a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Universities
+					<i class="fas fa-university" title = "universities"></i> Universities
 					</a>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a className="dropdown-item" href = "/university/1">Princeton University</a>
@@ -134,12 +132,13 @@ const NavigationNonAuth = () => {
 					<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 					</div>
 				</li>
-
+			
 				<li className="nav-item active">
-				<NavLink exact to='/about' className = "nav-link">
-									<span className="activeLink">About</span>
-				</NavLink>
-				</li>
+	  <NavLink exact to='/about' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+	  </NavLink>
+      </li>
+	  <li></li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
@@ -148,7 +147,7 @@ const NavigationNonAuth = () => {
 						Login/SignUp
 					</Button>
 
-					<Modal show={show} onHide={handleClose} animation={false}>
+					<Modal className="loginForm" show={show} onHide={handleClose} >
 							
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}

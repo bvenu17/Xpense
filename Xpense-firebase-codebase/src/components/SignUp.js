@@ -26,7 +26,7 @@ function SignUp() {
 	}
 
 	return (
-		<div>
+		<div className="loginForm">
 			<h1 className = "loginRegHeader">Sign up</h1>
 			{pwMatch && <h4 className='error'>{pwMatch}</h4>}
 			<form onSubmit={handleSignUp}>
