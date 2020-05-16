@@ -27,7 +27,7 @@ function Home() {
 	const [collegeList, setCollegeList] = useState();
 	//post states
 	const [postList, setPostList] = useState();
-	const [postPic, setPostPic] = useState();
+	const [postPic, setPostPic] = useState([]);
 	const [postId, setPostId] = useState();
 	const [postPicUrl, setPostPicUrl] = useState();
 	//post allow/disallow
@@ -44,7 +44,7 @@ function Home() {
 	const [rentValue, setRentValue] = useState(0);
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
-	const [uploadedImgsFileName,setUploadedImgsFileName] = useState([])
+	const [uploadedImgsFileName, setUploadedImgsFileName] = useState([])
 
 
 	//lifecycle method
@@ -79,21 +79,7 @@ function Home() {
 				setOptions(optionFilter);
 				console.log(optionFilter)
 
-				console.log("RENT EFFECT",rentValue)
-				//filter by rent
-				if(rentValue>0){
-					console.log("rentValue",typeof(rentValue))
-					p.forEach((post) => {
-						post.rent = parseInt(post.rent)
-						console.log(typeof(post.rent))
-						if(post.rent <= rentValue)
-						console.log("THEN HERE")
-							rentList.push(post)
-					})
-					setPostList(rentList)
-					console.log("RENT LIST",rentList)
-				}
-				//change loading state
+
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
@@ -102,121 +88,54 @@ function Home() {
 		getData();
 	}, [currentUser, formSubmit])
 
-	//onChange handler for input field of post picture
+	//onChange handler for post images
 	const handleImageChange = async (event) => {
 		event.preventDefault();
-		if (event.target.files[0]) {
-			const postPicture = event.target.files[0];
-			setPostPic(postPicture);
+		const test = [];
+		for (var i = 0; i < event.target.files.length; i++) {
+			var imageFile = event.target.files[i];
+
+			imageFile["id"] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+			test.push(imageFile);
 		}
+		setPostPic(test);
+
+
 	}
 
-	//func to upload img and get download url
-	const uploadMultipleImages = async (event) => {
-		event.preventDefault();
-		if (postPic) {
-			const storage = firebase.storage();
-			const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
-			const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
-			console.log('img uploaded');
+	//onSubmit for uploading imgs to firebase
+	const uploadMultipleImages = e => {
+		e.preventDefault(); // prevent page refreshing
+		const promises = [];
+		postPic.forEach(file => {
+			const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + file.name;
+			const uploadTask =
+				firebase.storage().ref().child(`postImages/${imageName}`).put(file);
+			promises.push(uploadTask);
+			uploadTask.on(
+				firebase.storage.TaskEvent.STATE_CHANGED,
+				snapshot => {
+					const progress =
+						((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					if (snapshot.state === firebase.storage.TaskState.RUNNING) {
+						console.log(`Progress: ${progress}%`);
+					}
+				},
+				error => console.log(error.code),
+				async () => {
+					const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+					// do something with the url
+					setPostImgsUrl(prevState => [...prevState, downloadURL]);
+					setUploadedImgsFileName(prevState => [...prevState, file.name])
+				}
+			);
+		});
 
-			// Listen for state changes, errors, and completion of the upload.
-			uploadTask.on('state_changed',
-				(snapShot) => {
-					//takes a snap shot of the process as it is happening
-					console.log(snapShot)
-				}, (err) => {
-					//catches the errors
-					console.log(err)
-				}, () => {
-					// gets the functions from storage refences the image storage in firebase by the children
-					// gets the download url then sets the image from firebase as the value for the imgUrl key:
-					storage.ref('postImages').child(imageName).getDownloadURL()
-						.then(fireBaseUrl => {
-							setPostImgsUrl([...postImgsUrl,fireBaseUrl]);
-							setUploadedImgsFileName([...uploadedImgsFileName,postPic.name])
-						})
-				})
-		}
+
 	}
 
-	// //submit form for post
-	// const handlePosts = async (event) => {
-	// 	event.preventDefault();
-	// 	//get all elements from form
-	// 	let { title, description, rent, groceries, transport, utilities, postImage } = event.target.elements;
-	// 	let collegeDetails = await getCollege(user.collegeId);
-	// 	//console.log("College id is the foll " + collegeSelect.value)
-	// 	//upload post image to firebase
-	// 	const storage = firebase.storage();
-	// 	const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
-	// 	const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
-	// 	console.log('img uploaded');
 
-	// 	// Listen for state changes, errors, and completion of the upload.
-	// 	uploadTask.on('state_changed',
-	// 		(snapShot) => {
-	// 			//takes a snap shot of the process as it is happening
-	// 			console.log(snapShot)
-	// 		}, (err) => {
-	// 			//catches the errors
-	// 			console.log(err)
-	// 		}, () => {
-	// 			// gets the functions from storage refences the image storage in firebase by the children
-	// 			// gets the download url then sets the image from firebase as the value for the imgUrl key:
-	// 			storage.ref('postImages').child(imageName).getDownloadURL()
-	// 				.then(fireBaseUrl => {
-	// 					setPostPicUrl(fireBaseUrl);
-	// 					//retrieve values from the elements and add to post db
-	// 					let d = new Date();
-	// 					let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	// 					let month = months[d.getMonth()];
-	// 					let year = d.getFullYear();
-	// 					let day = d.getDate();
-	// 					let postDate = day + ' ' + month + ' ' + year;
-	// 					let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-
-	// 					let post = {
-	// 						title: title.value,
-	// 						authorId: currentUser.uid,
-	// 						authorName: user.firstName + " " + user.lastName,
-	// 						collegeId: user.collegeId,
-	// 						collegeName: collegeDetails.name,
-	// 						comments: [],
-	// 						description: description.value,
-	// 						postPicture: fireBaseUrl,
-	// 						date: postDate,
-	// 						time: postTime,
-	// 						rent: rent.value,
-	// 						groceries: groceries.value,
-	// 						transport: transport.value,
-	// 						utilities: utilities.value,
-	// 						userProfilePic: user.photoURL,
-	// 						collegeName: collegeName
-	// 					};
-	// 					try {
-	// 						//add the post to the db
-	// 						addPosts(currentUser.uid, post);
-	// 						setFormSubmit(!formSubmit);
-	// 					} catch (error) {
-	// 						alert(error);
-	// 					}
-	// 					title.value = "";
-	// 					description.value = "";
-	// 					rent.value = "";	
-	// 					groceries.value = "";
-	// 					transport.value = "";
-	// 					utilities.value = "";
-	// 					postImage.value = "";
-
-	// 				})
-	// 		})
-
-
-	// };
-
-
-	//submit form for post second 2 dusra
+	//submit form for post 
 	const handlePosts = async (event) => {
 		event.preventDefault();
 		//get all elements from form
@@ -225,46 +144,48 @@ function Home() {
 		//console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
 		let d = new Date();
-						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-						let month = months[d.getMonth()];
-						let year = d.getFullYear();
-						let day = d.getDate();
-						let postDate = day + ' ' + month + ' ' + year;
-						let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+		let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let month = months[d.getMonth()];
+		let year = d.getFullYear();
+		let day = d.getDate();
+		let postDate = day + ' ' + month + ' ' + year;
+		let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
 
-						let post = {
-							title: title.value,
-							authorId: currentUser.uid,
-							authorName: user.firstName + " " + user.lastName,
-							collegeId: user.collegeId,
-							collegeName: collegeDetails.name,
-							comments: [],
-							description: description.value,
-							postPicture: postImgsUrl,
-							date: postDate,
-							time: postTime,
-							rent: rent.value,
-							groceries: groceries.value,
-							transport: transport.value,
-							utilities: utilities.value,
-							userProfilePic: user.photoURL,
-							collegeName: collegeName
-						};
-						try {
-							//add the post to the db
-							addPosts(currentUser.uid, post);
-							setFormSubmit(!formSubmit);
-						} catch (error) {
-							alert(error);
-						}
-						title.value = "";
-						description.value = "";
-						rent.value = "";
-						groceries.value = "";
-						transport.value = "";
-						utilities.value = "";
-						postImage.value = "";
-
+		let post = {
+			title: title.value,
+			authorId: currentUser.uid,
+			authorName: user.firstName + " " + user.lastName,
+			collegeId: user.collegeId,
+			collegeName: collegeDetails.name,
+			comments: [],
+			description: description.value,
+			postPicture: postImgsUrl,
+			date: postDate,
+			time: postTime,
+			rent: rent.value,
+			groceries: groceries.value,
+			transport: transport.value,
+			utilities: utilities.value,
+			userProfilePic: user.photoURL,
+			collegeName: collegeName
+		};
+		try {
+			//add the post to the db
+			addPosts(currentUser.uid, post);
+			setFormSubmit(!formSubmit);
+		} catch (error) {
+			alert(error);
+		}
+		title.value = "";
+		description.value = "";
+		rent.value = "";
+		groceries.value = "";
+		transport.value = "";
+		utilities.value = "";
+		postImage.value = "";
+		setPostPic([]);
+		setPostImgsUrl([]);
+		setUploadedImgsFileName([]);
 	};
 
 
@@ -376,6 +297,17 @@ function Home() {
 
 											{item.description}
 											<br></br>
+											<Carousel>
+											{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item>
+															<img width="100%" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
+												})}
+											</Carousel>
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -464,6 +396,19 @@ function Home() {
 										<p className="collapse" id="collapseExample" aria-expanded="false">
 											{item.description}
 											<br></br>
+											<Carousel>
+											
+												{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item>
+															<img width="100%" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
+												})}
+
+											</Carousel>
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -566,11 +511,15 @@ function Home() {
 									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
 									<br></br>
 
-									<div style={{}}>
-									<label for="post-image">Upload Media</label>
 									
-									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-									<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+										{uploadedImgsFileName && uploadedImgsFileName.map((item) => {
+											return <p>{item}</p>
+										})}
+										
+										<label for="postImage">Upload Media</label>
+										<div className="multiImg">
+										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
 									</div>
 								</div>
 

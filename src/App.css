@@ -524,6 +524,11 @@ h2
 
   }
 
+  .chat-control
+  {
+	  display: flex;
+	  flex-direction: row;
+  }
   /*Profile */
 
   .upload 
@@ -556,4 +561,8 @@ h2
   	top: 50%;
   	left: 50%;
 
+  }
+  .multiImg{
+	  display: flex;
+	  flex-direction: row;
   }
