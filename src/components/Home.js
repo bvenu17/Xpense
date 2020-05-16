@@ -310,7 +310,7 @@ function Home() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 									<div className="comments">
@@ -335,10 +335,10 @@ function Home() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-
+												<label for = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label for = "commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -394,7 +394,7 @@ function Home() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
@@ -425,10 +425,10 @@ function Home() {
 										<form onSubmit={handleCommentSubmit}>
 
 
-
+											<label for = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label for ="commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 
 
@@ -449,7 +449,8 @@ function Home() {
 					</div>
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
-							<h2>Share your experience living in the US</h2>
+							<span class = "h2">Share your experience living in the US</span>
+							<br></br>
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
 									<label htmlFor="title">Title</label>
@@ -529,7 +530,8 @@ function Home() {
 						<br></br>
 
 						<div className="post chatBox">
-							<h2>GLOBAL CHAT</h2>
+						<span class = "h2">GLOBAL CHAT</span>
+							<br></br><br></br>
 							<Chat></Chat>
 						</div>
 					</div>
