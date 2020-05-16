@@ -119,7 +119,7 @@ const University = (props) => {
 
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-12">
-                                <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" className="univLogo"></img><br />
+                                <img src={details.logoUrl} alt="defaultpic" className="univLogo"></img><br />
                             </div>
                             <div className="col-lg-10 col-md-10 col-sm-12">
 
@@ -171,25 +171,26 @@ const University = (props) => {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+                                            <div className="postContent">
+                                            <br></br>
+                                                <Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>
+                                                <br></br>
+                                                <p class="postTitle">
+                                                    {item.title}
+                                                </p>
+                                            </div>
 										</div>
 									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
 									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
 									{item.description}
-									<br></br>
-									<Carousel>
-												{item.postPicture.map((photo) => {
-												return(
-													<Carousel.Item>
-													<img key={photo} className="postImg" src={photo} alt="img-post" />
-													</Carousel.Item>
-												)
-												})}
-									</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
