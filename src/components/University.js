@@ -147,7 +147,9 @@ const University = (props) => {
                                 <br />
                             </div>
                         </div>
-                    ) : (<p status={404}> COLLEGE ERROR</p>)}
+                    ) : <div className="container container1 ">
+                    <img className="loadingGIF" width="5%" src="/imgs/loading.gif" alt="img" />
+                </div>}
                 </div>
             </div>
 
