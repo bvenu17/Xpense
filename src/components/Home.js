@@ -1,13 +1,10 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
-import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -27,7 +24,6 @@ function Home() {
 	//college states
 	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
-	const [collegePic, setCollegePic] = useState(defcollogo);
 	//post states
 	const [postList, setPostList] = useState();
 	const [postPic, setPostPic] = useState();
@@ -47,6 +43,7 @@ function Home() {
 	const [rentValue, setRentValue] = useState(0);
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
+	const [uploadedImgsFileName,setUploadedImgsFileName] = useState([])
 
 
 	//lifecycle method
@@ -136,10 +133,87 @@ function Home() {
 					storage.ref('postImages').child(imageName).getDownloadURL()
 						.then(fireBaseUrl => {
 							setPostImgsUrl([...postImgsUrl,fireBaseUrl]);
+							setUploadedImgsFileName([...uploadedImgsFileName,postPic.name])
 						})
 				})
 		}
 	}
+
+	// //submit form for post
+	// const handlePosts = async (event) => {
+	// 	event.preventDefault();
+	// 	//get all elements from form
+	// 	let { title, description, rent, groceries, transport, utilities, postImage } = event.target.elements;
+	// 	let collegeDetails = await getCollege(user.collegeId);
+	// 	//console.log("College id is the foll " + collegeSelect.value)
+	// 	//upload post image to firebase
+	// 	const storage = firebase.storage();
+	// 	const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
+	// 	const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
+	// 	console.log('img uploaded');
+
+	// 	// Listen for state changes, errors, and completion of the upload.
+	// 	uploadTask.on('state_changed',
+	// 		(snapShot) => {
+	// 			//takes a snap shot of the process as it is happening
+	// 			console.log(snapShot)
+	// 		}, (err) => {
+	// 			//catches the errors
+	// 			console.log(err)
+	// 		}, () => {
+	// 			// gets the functions from storage refences the image storage in firebase by the children
+	// 			// gets the download url then sets the image from firebase as the value for the imgUrl key:
+	// 			storage.ref('postImages').child(imageName).getDownloadURL()
+	// 				.then(fireBaseUrl => {
+	// 					setPostPicUrl(fireBaseUrl);
+	// 					//retrieve values from the elements and add to post db
+	// 					let d = new Date();
+	// 					let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	// 					let month = months[d.getMonth()];
+	// 					let year = d.getFullYear();
+	// 					let day = d.getDate();
+	// 					let postDate = day + ' ' + month + ' ' + year;
+	// 					let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+
+	// 					let post = {
+	// 						title: title.value,
+	// 						authorId: currentUser.uid,
+	// 						authorName: user.firstName + " " + user.lastName,
+	// 						collegeId: user.collegeId,
+	// 						collegeName: collegeDetails.name,
+	// 						comments: [],
+	// 						description: description.value,
+	// 						postPicture: fireBaseUrl,
+	// 						date: postDate,
+	// 						time: postTime,
+	// 						rent: rent.value,
+	// 						groceries: groceries.value,
+	// 						transport: transport.value,
+	// 						utilities: utilities.value,
+	// 						userProfilePic: user.photoURL,
+	// 						collegeName: collegeName
+	// 					};
+	// 					try {
+	// 						//add the post to the db
+	// 						addPosts(currentUser.uid, post);
+	// 						setFormSubmit(!formSubmit);
+	// 					} catch (error) {
+	// 						alert(error);
+	// 					}
+	// 					title.value = "";
+	// 					description.value = "";
+	// 					rent.value = "";	
+	// 					groceries.value = "";
+	// 					transport.value = "";
+	// 					utilities.value = "";
+	// 					postImage.value = "";
+
+	// 				})
+	// 		})
+
+
+	// };
+
 
 	//submit form for post second 2 dusra
 	const handlePosts = async (event) => {
@@ -491,11 +565,12 @@ function Home() {
 									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
 									<br></br>
 
-
+									<div style={{}}>
 									<label for="post-image">Upload Media</label>
+									
 									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
 									<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
-
+									</div>
 								</div>
 
 								{/* <div className="logSignButt">

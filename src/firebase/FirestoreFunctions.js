@@ -195,15 +195,18 @@ async function addCommentToPost(postId, userName, commentText) {
 async function addChat(chatObject) {
   //func to add post to db
   // let chatData = { name: userName, message: chatObject }
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
-  chatObject.createdAt = timestamp();
-  await db.collection("chats").add(chatObject)
-    .then(function (docRef) {
+  //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+  chatObject.createdAt = new Date();
+//  await db.collection("chats").add(chatObject)
+    await db.collection("chats").doc('allChats').update({
+      chatMessage:firebase.firestore.FieldValue.arrayUnion(chatObject)
+    })
+    .then(function () {
       // chatObject.postId = docRef.id;
-      console.log("Post written with ID: ", docRef.id);
+      console.log("Chat message written with ID: ");
     })
     .catch(function (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error adding chat message: ", error);
     });
   console.log('chat object which needs to be added to the user collection is');
   console.log(chatObject);
@@ -212,8 +215,23 @@ async function addChat(chatObject) {
 
 async function getAllChats() {
   console.log("getting all chats");
-  const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
-  return snapshot.docs.map(doc => doc.data());
+  // const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
+  // return snapshot.docs.map(doc => doc.data());
+  let chatRef = await db.collection('chats').doc('allChats');
+  let getDoc = chatRef.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+      } else {
+        //console.log('Document data:', doc.data());
+        console.log("Inside firestore chat collection: ", doc.data())
+        return doc.data();
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+  return getDoc
 };
 
 export {
