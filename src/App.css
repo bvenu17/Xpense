@@ -141,6 +141,11 @@ li
 	color: #232323;
 }
 
+.logo 
+{
+width: 3.0rem;
+}
+
 .modalContent
 {
 margin: 0 auto;
@@ -319,12 +324,37 @@ button:focus {
 {
 	font-weight: 900;
 }
+
+
 .postImg 
 {
-	width: 20.0rem;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
 	height: 20.0rem;
 }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
 
+  outline: black;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: #2ecc71;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: #2ecc71;
+}
 .icons 
 {
 	color: #2ecc71;
@@ -371,8 +401,9 @@ h2
 .devName
 {
 	color: #000000;
-
 }
+
+
 .devName2
 {
 	font-weight: 700;
@@ -488,7 +519,7 @@ h2
   {
 	  width: 8.0rem;
 	  height: 8.0rem;
-	  border-radius: 50%;
+	  border-radius: 10%;
   }
   .uniName
   {
@@ -507,7 +538,7 @@ h2
 	  font-weight: 700;
   }
 
-  /*Chat*/
+ /*CHAT */
 
   .chat 
   {
@@ -515,6 +546,18 @@ h2
 	  padding: 0.5rem;
 
   }
+
+  .chatBox
+  {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 10%;
+  }
+  .chat-control
+  {
+	  display: flex;
+	  flex-direction: row;
+  } 
 
   /*Profile */
 
@@ -541,3 +584,58 @@ h2
 	  margin: 0 auto;
 	  text-align: center;
   }
+
+  .check:hover
+  {
+	background-color: black;
+  }
+
+  .loadingGIF {
+	 
+	position: absolute; 
+  	top: 50%;
+  	left: 50%;
+
+  }
+
+  /* RESPONSIVENESS */
+
+
+@media (max-width: 576px) 
+{ 
+.personal
+{
+	padding-left: 2.0rem;
+}
+.nav-item
+{
+	text-align: right;
+}
+.univLogo
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+.filter 
+{
+	margin: 0 auto;
+}
+
+}
+
+@media (min-width: 768px) 
+{ 
+
+ }
+
+@media (min-width: 992px) 
+{ 
+
+ }
+
+
+@media (min-width: 1200px) { 
+	
+ }

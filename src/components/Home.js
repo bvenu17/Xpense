@@ -1,8 +1,6 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -27,10 +25,9 @@ function Home() {
 	//college states
 	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
-	const [collegePic, setCollegePic] = useState(defcollogo);
 	//post states
 	const [postList, setPostList] = useState();
-	const [postPic, setPostPic] = useState();
+	const [postPic, setPostPic] = useState([]);
 	const [postId, setPostId] = useState();
 	const [postPicUrl, setPostPicUrl] = useState();
 	//post allow/disallow
@@ -45,12 +42,15 @@ function Home() {
 	const [postFilter, setPostFilter] = useState();
 	//post filter rent range
 	const [rentValue, setRentValue] = useState(0);
+	//state for storing multiple imgs url
+	const [postImgsUrl, setPostImgsUrl] = useState([]);
+	const [uploadedImgsFileName, setUploadedImgsFileName] = useState([])
 
 
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
-		// let rentList = [];
+		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -79,19 +79,7 @@ function Home() {
 				setOptions(optionFilter);
 				console.log(optionFilter)
 
-				// console.log("RENT EFFECT",typeof(p[0].rent))
-				//filter by rent
-				// if(rentValue>0){
-				// 	p.forEach((post) => {
-				// 		console.log("HERE")
-				// 		if(parseInt(post.rent) <= rentValue)
-				// 		console.log("THEN HERE")
-				// 			rentList.push(post)
-				// 	})
-				// 	setPostList(rentList)
-				// 	console.log(rentList)
-				// }
-				//change loading state
+
 				setLoading(false)
 			} catch (e) {
 				console.log(e)
@@ -100,88 +88,104 @@ function Home() {
 		getData();
 	}, [currentUser, formSubmit])
 
-	//onChange handler for input field of post picture
+	//onChange handler for post images
 	const handleImageChange = async (event) => {
 		event.preventDefault();
-		if (event.target.files[0]) {
-			const postPicture = event.target.files[0];
-			setPostPic(postPicture);
+		const test = [];
+		for (var i = 0; i < event.target.files.length; i++) {
+			var imageFile = event.target.files[i];
+
+			imageFile["id"] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+			test.push(imageFile);
 		}
+		setPostPic(test);
+
+
 	}
 
-	//submit form for post
+	//onSubmit for uploading imgs to firebase
+	const uploadMultipleImages = e => {
+		e.preventDefault(); // prevent page refreshing
+		const promises = [];
+		postPic.forEach(file => {
+			const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + file.name;
+			const uploadTask =
+				firebase.storage().ref().child(`postImages/${imageName}`).put(file);
+			promises.push(uploadTask);
+			uploadTask.on(
+				firebase.storage.TaskEvent.STATE_CHANGED,
+				snapshot => {
+					const progress =
+						((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					if (snapshot.state === firebase.storage.TaskState.RUNNING) {
+						console.log(`Progress: ${progress}%`);
+					}
+				},
+				error => console.log(error.code),
+				async () => {
+					const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+					// do something with the url
+					setPostImgsUrl(prevState => [...prevState, downloadURL]);
+					setUploadedImgsFileName(prevState => [...prevState, file.name])
+				}
+			);
+		});
+
+
+	}
+
+
+	//submit form for post 
 	const handlePosts = async (event) => {
 		event.preventDefault();
 		//get all elements from form
-		let { title, description, rent, groceries, transport, utilities,postImage } = event.target.elements;
+		let { title, description, rent, groceries, transport, utilities, postImage } = event.target.elements;
 		let collegeDetails = await getCollege(user.collegeId);
 		//console.log("College id is the foll " + collegeSelect.value)
 		//upload post image to firebase
-		const storage = firebase.storage();
-		const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
-		const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
-		console.log('img uploaded');
+		let d = new Date();
+		let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let month = months[d.getMonth()];
+		let year = d.getFullYear();
+		let day = d.getDate();
+		let postDate = day + ' ' + month + ' ' + year;
+		let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
 
-		// Listen for state changes, errors, and completion of the upload.
-		uploadTask.on('state_changed',
-			(snapShot) => {
-				//takes a snap shot of the process as it is happening
-				console.log(snapShot)
-			}, (err) => {
-				//catches the errors
-				console.log(err)
-			}, () => {
-				// gets the functions from storage refences the image storage in firebase by the children
-				// gets the download url then sets the image from firebase as the value for the imgUrl key:
-				storage.ref('postImages').child(imageName).getDownloadURL()
-					.then(fireBaseUrl => {
-						setPostPicUrl(fireBaseUrl);
-						//retrieve values from the elements and add to post db
-						let d = new Date();
-						let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-						let month = months[d.getMonth()];
-						let year = d.getFullYear();
-						let day = d.getDate();
-						let postDate = day + ' ' + month + ' ' + year;
-						let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-
-						let post = {
-							title: title.value,
-							authorId: currentUser.uid,
-							authorName: user.firstName + " " + user.lastName,
-							collegeId: user.collegeId,
-							collegeName: collegeDetails.name,
-							comments: [],
-							description: description.value,
-							postPicture: fireBaseUrl,
-							date: postDate,
-							time: postTime,
-							rent: rent.value,
-							groceries: groceries.value,
-							transport: transport.value,
-							utilities: utilities.value,
-							userProfilePic: user.photoURL,
-							collegeName: collegeName
-						};
-						try {
-							//add the post to the db
-							addPosts(currentUser.uid, post);
-							setFormSubmit(!formSubmit);
-						} catch (error) {
-							alert(error);
-						}
-						title.value = "";
-						description.value = "";
-						rent.value = "";
-						groceries.value = "";
-						transport.value = "";
-						utilities.value = "";
-						postImage.value="";
-
-					})
-			})
-
-
+		let post = {
+			title: title.value,
+			authorId: currentUser.uid,
+			authorName: user.firstName + " " + user.lastName,
+			collegeId: user.collegeId,
+			collegeName: collegeDetails.name,
+			comments: [],
+			description: description.value,
+			postPicture: postImgsUrl,
+			date: postDate,
+			time: postTime,
+			rent: rent.value,
+			groceries: groceries.value,
+			transport: transport.value,
+			utilities: utilities.value,
+			userProfilePic: user.photoURL,
+			collegeName: collegeName
+		};
+		try {
+			//add the post to the db
+			addPosts(currentUser.uid, post);
+			setFormSubmit(!formSubmit);
+		} catch (error) {
+			alert(error);
+		}
+		title.value = "";
+		description.value = "";
+		rent.value = "";
+		groceries.value = "";
+		transport.value = "";
+		utilities.value = "";
+		postImage.value = "";
+		setPostPic([]);
+		setPostImgsUrl([]);
+		setUploadedImgsFileName([]);
 	};
 
 
@@ -192,7 +196,7 @@ function Home() {
 		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
 		try {
 			//add comment to the post db
-			await addCommentToPost(postId, user.firstName, comment.value)
+			await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
 			setFormSubmit(!formSubmit);
 		} catch (error) {
 			alert(error);
@@ -206,7 +210,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "Location") {
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
@@ -226,21 +230,17 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-
-
-
 	//component code
 	if (loading === false) {
 		return (
 			<div className='container container1'>
 				{/* Rohan Static Content */}
 				<div className="row">
-						<div class = "row">
-							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-3 col-xs-3">
 							<label> FILTER BY LOCATION </label>
-							</div>
-							<div class = "col-lg-6 col-md-6 col-sm-9 col-xs-9">
-						
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -251,52 +251,55 @@ function Home() {
 									})}
 								</select>
 							</form>
-				            <br></br>
-							
-							</div>
+							<br></br>
+
 						</div>
-						
+					</div>
 
 
-						<br></br>
-						<div className="col-lg-8 col-md-12 col-sm-12">
+
+					<br></br>
+					<div className="col-lg-8 col-md-12 col-sm-12">
 						{postFilter ? postFilter.map((item) => {
 							return (
-								
-								<div className="post">
-										<div className="headerPost">
-											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
-											</div>
-											<div className="personal">
-												<div className="author"> {item.authorName} </div>
 
-												<div className="college">{item.collegeName}</div>
-												<div className="time">{item.time}, {item.date}</div><br>
-												</br>
-											</div>
+								<div className="post">
+									<div className="headerPost">
+										<div className="avatarSide">
+											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
 										</div>
-									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
-									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
-									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
-									<br></br>
+										<div className="personal">
+											<div className="author"> {item.authorName} </div>
+
+											<div className="college">{item.collegeName}</div>
+											<div className="time">{item.time}, {item.date}</div><br>
+											</br>
+										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+													<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+
+											{item.description}
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -305,88 +308,87 @@ function Home() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-									
-											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-									</div>	
-									
-											
-											
-									
+										</p>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-										<div className="comments">
+									</div>
+
+
+
+
+
+									<div className="comments">
 
 										<br></br>
-											<label>COMMENTS</label>
-											<div>
-												{item.comments ? (
-													item.comments.map((comm) => {
-														return (
-															<div class = "comments">
-																<div class = "comment">
-																
-																	<span class = "userName">{comm.username}</span> 
-																	<br></br>
-																	{comm.comment}
-																</div>
+										<label>COMMENTS</label>
+										<div>
+											{item.comments ? (
+												item.comments.map((comm) => {
+													return (
+														<div class="comments">
+															<div class="comment">
+
+																<span class="userName">{comm.username}</span>
+																<br></br>
+																{comm.comment}
 															</div>
-														)
-													})
-												) : (<p>No comments to display</p>)}
-											</div>
-											<form onSubmit={handleCommentSubmit}>
-											
-												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
-											
-												<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-							
-										</form>
-										
+														</div>
+													)
+												})
+											) : (<p>No comments to display</p>)}
 										</div>
+										<form onSubmit={handleCommentSubmit}>
+
+
+											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
+
+											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+
+										</form>
+
 									</div>
-									
-							
+								</div>
+
+
 							)
 						}) : (postList.map((item) => {
 							return (
-								
+
 								<div className="post">
-
-
-										<div className="headerPost">
-											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
-											</div>
-											<div className="personal">
-												<div className="author"> {item.authorName} </div>
-
-												<div className="college">{item.collegeName}</div>
-												<div className="time">{item.time}, {item.date}</div><br>
-												</br>
-											</div>
+									<div className="headerPost">
+										<div className="avatarSide">
+											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
 										</div>
-									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
-									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
-									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
-									<br></br>
+										<div className="personal">
+											<div className="author"> {item.authorName} </div>
+
+											<div className="college">{item.collegeName}</div>
+											<div className="time">{item.time}, {item.date}</div><br>
+											</br>
+										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -395,63 +397,64 @@ function Home() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-									
-											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-									</div>	
-									
-											
-											
-									
+										</p>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-										<div className="comments">
-
-											<br></br>
-											<label>COMMENTS</label>
-											<div>
-												{item.comments ? (
-													item.comments.map((comm) => {
-														return (
-															<div class = "comments">
-																<div class = "comment">
-																
-																	<span class = "userName">{comm.username}</span> 
-																	<br></br>
-																	{comm.comment}
-																</div>
-															</div>
-														)
-													})
-												) : (<p>No comments to display</p>)}
-											</div>
-											<form onSubmit={handleCommentSubmit}>
-												
-											
-													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
-												
-													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-												
-												
-													
-												
-													
-											
-												
-											</form>
-										</div>
 									</div>
-								
+
+
+
+
+
+									<div className="comments">
+
+										<br></br>
+										<label>COMMENTS</label>
+										<div>
+											{item.comments ? (
+												item.comments.map((comm) => {
+													return (
+														<div class="comments">
+															<div class="comment">
+
+																<span class="userName">{comm.username}</span>
+																<br></br>
+																{comm.comment}
+															</div>
+														</div>
+													)
+												})
+											) : (<p>No comments to display</p>)}
+										</div>
+										<form onSubmit={handleCommentSubmit}>
+
+
+
+											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
+
+											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+
+
+
+
+
+
+
+										</form>
+									</div>
+								</div>
+
 							)
 						}))
 						}
-				
-					{/* Rohan static copntent ends */}
-					{/* Rohan code once again */}
-</div>
+
+						{/* Rohan static copntent ends */}
+						{/* Rohan code once again */}
+					</div>
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
-						<h2>Share your experience living in the US</h2>
+							<h2>Share your experience living in the US</h2>
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
 									<label htmlFor="title">Title</label>
@@ -459,7 +462,7 @@ function Home() {
 									<br></br>
 
 									<label for="description">Description</label>
-									<textarea className='form-control' name='description' id='description' type='textarea' rows = "10" cols = "5" placeholder='Description' required />
+									<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />
 									<br></br>
 
 
@@ -488,12 +491,32 @@ function Home() {
 									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
 									<br></br>
 
-
-									<label for="post-image">Upload Media</label>
-									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-								
-
+									
+										{uploadedImgsFileName && uploadedImgsFileName.map((item) => {
+											return <p>{item}</p>
+										})}
+										
+										<label for="postImage">Upload Media</label>
+										<div className="multiImg">
+										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+									</div>
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+								</div> */}
 
 								<div className="logSignButt">
 									{user.collegeId && user.collegeId ? collegeList.map((item) => {
@@ -510,7 +533,7 @@ function Home() {
 						</div>
 						<br></br>
 
-						<div className="post">
+						<div className="post chatBox">
 							<h2>GLOBAL CHAT</h2>
 							<Chat></Chat>
 						</div>
@@ -524,8 +547,8 @@ function Home() {
 	}
 	else {
 		return (
-			<div className="container container1">
-				<img width="10%" src="/imgs/loading.gif" alt="img" />
+			<div className="container container1 ">
+				<img className="loadingGIF" width="5%" src="/imgs/loading.gif" alt="img" />
 			</div>
 		)
 	}
@@ -533,4 +556,3 @@ function Home() {
 }
 
 export default Home;
-

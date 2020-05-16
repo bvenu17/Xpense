@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser,updateProfilePicturePost,updateAccountDetailsPost, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -127,6 +127,8 @@ function Profile() {
 						setProfPicUrl(fireBaseUrl);
 						try {
 							updateProfilePic(currentUser.uid, fireBaseUrl);
+							updateProfilePicturePost(currentUser.uid,fireBaseUrl);
+
 						} catch (error) {
 							alert(error);
 						}
@@ -154,7 +156,7 @@ function Profile() {
 		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
 		try {
 			//add comment to the post db
-			await addCommentToPost(postId, user.firstName, comment.value)
+			await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
 			setFormSubmit(!formSubmit);
 		} catch (error) {
 			alert(error);
@@ -180,6 +182,7 @@ function Profile() {
 		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
 			try {
 				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
+				await updateAccountDetailsPost(currentUser.uid,first,last);
 				setFormSubmit(!formSubmit);
 
 			} catch (error) {
@@ -220,15 +223,9 @@ function Profile() {
 											<form onSubmit={handleUpload}>
 												<label for="profilepicfile" class = "pp">Change Profile Picture</label>
 
-								
-												
-												
-													
-
-
 												<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 										
-												<button class = "commentButt"><i class="fas fa-check-circle icons"></i></button>
+												<Button class = "commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
 											</form>
 										
 
@@ -390,7 +387,7 @@ function Profile() {
 
 										<div className="headerPost">
 											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>
@@ -399,28 +396,29 @@ function Profile() {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+
+											<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
 										</div>
-									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
-									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
-									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-									</Carousel>
-									<br></br>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -429,12 +427,12 @@ function Profile() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-									
-											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-									</div>	
-									
+										</p>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>
+
 											
 											
 									
@@ -465,11 +463,7 @@ function Profile() {
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
 												
 													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-												
-												
-													
-												
-													
+														
 											
 												
 											</form>
@@ -480,15 +474,15 @@ function Profile() {
 				}
 				)}
 					<br></br>
-				{/* change password part */}
-				{change ? <div><ChangePassword /> <button onClick={() => setChange(!change)}>Hide</button></div> : <button onClick={() => setChange(!change)}>Click to Change Password</button>} <br />
-				<br></br>
-				<SignOutButton />
+
 			</div>
 			</div>
 </div>
 		);
-	} else {
+	} 
+	
+	
+	else {
 		return (
 			<div className="container container1">
 				<img width="10%" src="/imgs/loading.gif" alt="img" />

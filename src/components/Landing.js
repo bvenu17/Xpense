@@ -92,13 +92,13 @@ function Landing() {
 					{/* Rohan Static Content */}
 					<div className="row">
 					<div class = "row">
-							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 							<label> FILTER BY LOCATION </label>
 							</div>
-							<div class = "col-lg-6 col-md-6 col-sm-9 col-xs-9">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						
 							<form id='locationFilter'>
-								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
+								<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
 									{options.map((item) => {
 										return (
@@ -118,7 +118,7 @@ function Landing() {
 									<div className="post">
 											<div className="headerPost">
 											<div className="avatarSide">
-												<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>
@@ -127,27 +127,28 @@ function Landing() {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+											<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 										</div>
 									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
+
 									<p className="collapse" id="collapseExample" aria-expanded="false">
 								
 									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -184,7 +185,11 @@ function Landing() {
 													})
 												) : (<p>No comments to display</p>)}
 											</div>
-												<p>You need to Login to Comment</p>
+												{/* <p>You need to Login to Comment</p> */}
+												<form>
+													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+													<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+												</form>
 											</div>
 										</div>
 									
@@ -194,7 +199,7 @@ function Landing() {
 									<div className="post">
 									<div className="headerPost">
 									<div className="avatarSide">
-										<img src={item.userProfilePic} className="avatarPic" alt = "profilePic"></img>
+										<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 									</div>
 									<div className="personal">
 										<div className="author"> {item.authorName} </div>
@@ -203,27 +208,27 @@ function Landing() {
 										<div className="time">{item.time}, {item.date}</div><br>
 										</br>
 									</div>
+									<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 								</div>
 							<div className="postContent" id = "module">
-			
-							<p class = "postTitle">
-							{item.title}
-							</p>
 							<p className="collapse" id="collapseExample" aria-expanded="false">
 						
 							{item.description}
-							<br></br>
-							<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
 							<br></br>
 									<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 									<br></br>
@@ -260,7 +265,13 @@ function Landing() {
 											})
 										) : (<div class = "comments">No comments to display</div>)}
 									</div>
-										<p>You need to Login to Comment</p>
+										{/* <p>You need to Login to Comment</p> */}
+										<form>
+										<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+										<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+											
+											
+										</form>
 									</div>
 								</div>
 								)
@@ -280,15 +291,14 @@ function Landing() {
 								<form>
 									<div className='form-group' onClick={handleShow}>
 
-										<Modal className="loginForm" show={show} onHide={handleClose} >
-
-											<div className="modalContent">
-												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
-											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
-												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+									<Modal className="loginForm" show={show} onHide={handleClose} >
+									<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+					{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
 											</Button>
-										</Modal>
+											<div className = "modalContent">
+											{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+											</div>
+									</Modal>
 
 
 
@@ -337,13 +347,12 @@ function Landing() {
 										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
-
-											<div className="modalContent">
-												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
-											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
-												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
-											</Button>
+										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+						{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+												</Button>
+												<div className = "modalContent">
+												{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+												</div>
 										</Modal>
 
 
@@ -352,7 +361,7 @@ function Landing() {
 							</div>
 							<br></br>
 							<br></br>
-							<div className="post">
+							<div className="post chatBox">
 								<h2>GLOBAL CHAT</h2>
 								<Chat />
 							</div>
@@ -365,8 +374,8 @@ function Landing() {
 
 		else {
 			return (
-				<div className="container container1">
-					<img width="10%" src="/imgs/loading.gif" alt="img" />
+				<div className="container container1 ">
+					<img className="loadingGIF" width="5%" src="/imgs/loading.gif" alt="img" />
 				</div>
 			)
 		}

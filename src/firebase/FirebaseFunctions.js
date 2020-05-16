@@ -47,6 +47,7 @@ async function doSocialSignIn(provider) {
 	await firebase.auth().signInWithPopup(socialProvider).then(function(result) {
 		console.log(result)
 		const displayName = result.user.displayName.split(" ")
+		if(result.additionalUserInfo.isNewUser) {
 		let data = {
 			firstName: displayName[0],
 			lastName : displayName[1],
@@ -57,8 +58,12 @@ async function doSocialSignIn(provider) {
 			photoURL : '',
 			posts : []
 		  };
-		  db.collection('users').doc(result.user.uid).set(data);	
+		   db.collection('users').doc(result.user.uid).set(data);	
+		
+
+		}
 	  }).catch(function(error) {
+
 		console.log(error.message)
 	  });
 }

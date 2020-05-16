@@ -20,8 +20,9 @@ const About = () => {
                     <div className="locationDes">
                         <h1 class = "loc">New Jersey</h1>
                         <br></br>
+
                     
-                        <p>New Jersey is a northeastern U.S. state with some 130 miles of Atlantic coast. Jersey City, across the Hudson River from Lower Manhattan, is the site of Liberty State Park, where ferries embark for nearby Ellis Island, with its historic Immigration Museum, and the iconic Statue of Liberty. The Jersey Shore includes notable resort towns like historic Asbury Park and Cape May, with its preserved Victorian buildings.</p>
+                        <p className="devName">New Jersey is a northeastern U.S. state with some 130 miles of Atlantic coast. Jersey City, across the Hudson River from Lower Manhattan, is the site of Liberty State Park, where ferries embark for nearby Ellis Island, with its historic Immigration Museum, and the iconic Statue of Liberty. The Jersey Shore includes notable resort towns like historic Asbury Park and Cape May, with its preserved Victorian buildings.</p>
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
@@ -36,8 +37,9 @@ const About = () => {
                     <div className="locationDes">
                         <h1 class = "loc">New York</h1>
                         <br></br>
+
                       
-                        <p>New York is a state in the northeastern U.S., known for New York City and towering Niagara Falls. NYC’s island of Manhattan is home to the Empire State Building, Times Square and Central Park. The Brooklyn Bridge connects Manhattan with the borough of Brooklyn. The iconic Statue of Liberty stands in New York Harbor. To the east, Long Island has beaches, the Montauk Lighthouse, the ritzy Hamptons and Fire Island.</p>
+                        <p className="devName">New York is a state in the northeastern U.S., known for New York City and towering Niagara Falls. NYC’s island of Manhattan is home to the Empire State Building, Times Square and Central Park. The Brooklyn Bridge connects Manhattan with the borough of Brooklyn. The iconic Statue of Liberty stands in New York Harbor. To the east, Long Island has beaches, the Montauk Lighthouse, the ritzy Hamptons and Fire Island.</p>
                     </div>
                 </div>
             </div>
@@ -49,40 +51,41 @@ const About = () => {
             <div className="row">
                 <div className="col-lg-1 col-md-0 col-sm-0"></div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-4 col-sm-4">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/vedadnya.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Vedadnya <br></br> Jadhav</p>
 
                     </div>
+                  
                 </div>
-
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+      
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img hetight ="100%" width="100%" src="/imgs/venu.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Venugopal <br></br> Balaji</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/chirag.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Chirag <br></br> Kamble</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%" src="/imgs/rohan.jpg" class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Rohan <br></br> Shah</p>
 
                     </div>
                 </div>
 
-                <div className="col-lg-2 col-md-6 col-sm-12">
-                    <div className="devCard">
+                <div className="col-lg-2 col-md-6 col-sm-6">
+                    <div className="devCard post">
                         <img width="100%"  src="/imgs/harish.jpg"class = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Harish <br></br> Nair</p>
 
