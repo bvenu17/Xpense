@@ -68,6 +68,13 @@ const NavigationAuth = () => {
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
+	
+	<li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-info-circle" title = "Charts"></i> Charts </span>
+	  </NavLink>
+      </li>
+
 	<li className="nav-item active">
 	  <NavLink exact to='/profile' className = "nav-link">
 						<span className="activeLink"><i class="fas fa-user-circle" title = "Profile"></i> Profile</span>
@@ -143,6 +150,13 @@ const NavigationNonAuth = () => {
 	  <li></li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
+
+
+	  <li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-info-circle" title = "Charts"></i> Charts </span>
+	  </NavLink>
+      </li>
 
 								<li className="nav-item">
 					<Button variant="primary" className="loginButt" onClick={handleShow}>
