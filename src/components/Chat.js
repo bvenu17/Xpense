@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from "../firebase/Auth";
+import { Button, Modal } from 'react-bootstrap';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import { addChat, getUser, getAllChats } from '../firebase/FirestoreFunctions';
 import { socket } from "./Socket";
 
@@ -10,6 +13,13 @@ const Chat = () => {
     //user states
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState();
+    //login to chat
+    const [logSign, setlogSign] = useState("Signup");
+    const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const setLogin = () => setlogSign("Login")
+	const setSignup = () => setlogSign("SignUp")
     //chat states
     const [message, setMessage] = useState('');
     const [allmsg, setAllmsg] = useState()
@@ -127,7 +137,19 @@ const Chat = () => {
                     <button onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
                 </div>) : (
                         <div>
-                            <p>SignUp to chat!</p>
+                            {/* <p>SignUp to chat!</p> */}
+                            <form>
+                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+                                <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                <Modal className="loginForm" show={show} onHide={handleClose} >
+                                    <Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+                    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+                                            </Button>
+                                            <div className = "modalContent">
+                                            {logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
+                                            </div>
+                                    </Modal>
+                            </form>
                         </div>
                     )}
 

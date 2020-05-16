@@ -5,6 +5,7 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -49,7 +50,7 @@ function Home() {
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
-		// let rentList = [];
+		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -77,6 +78,7 @@ function Home() {
 				optionFilter = [...optionFilter]
 				setOptions(optionFilter);
 				console.log(optionFilter)
+
 
 				setLoading(false)
 			} catch (e) {
@@ -128,6 +130,7 @@ function Home() {
 				}
 			);
 		});
+
 
 	}
 
@@ -207,7 +210,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "Location") {
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
@@ -227,9 +230,6 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-
-
-
 	//component code
 	if (loading === false) {
 		return (
@@ -241,7 +241,6 @@ function Home() {
 							<label> FILTER BY LOCATION </label>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
-
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -276,12 +275,24 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 									</div>
 									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
 										<p className="collapse" id="collapseExample" aria-expanded="false">
 
 											{item.description}
@@ -296,6 +307,7 @@ function Home() {
 												})}
 											</Carousel>
 											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -352,8 +364,6 @@ function Home() {
 							return (
 
 								<div className="post">
-
-
 									<div className="headerPost">
 										<div className="avatarSide">
 											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -365,14 +375,25 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 									</div>
 									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
 										<p className="collapse" id="collapseExample" aria-expanded="false">
-
 											{item.description}
 											<br></br>
 											<Carousel>
@@ -387,6 +408,7 @@ function Home() {
 
 											</Carousel>
 											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -500,6 +522,22 @@ function Home() {
 										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
 									</div>
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+
+								</div> */}
 
 								<div className="logSignButt">
 									{user.collegeId && user.collegeId ? collegeList.map((item) => {
