@@ -536,7 +536,6 @@ function Home() {
 										
 								
 									)}
-
 								</div> */}
 
 								<div className="logSignButt">
@@ -577,4 +576,3 @@ function Home() {
 }
 
 export default Home;
-
