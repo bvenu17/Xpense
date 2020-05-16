@@ -1,8 +1,6 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -27,7 +25,6 @@ function Home() {
 	//college states
 	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
-	const [collegePic, setCollegePic] = useState(defcollogo);
 	//post states
 	const [postList, setPostList] = useState();
 	const [postPic, setPostPic] = useState();
@@ -47,6 +44,7 @@ function Home() {
 	const [rentValue, setRentValue] = useState(0);
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
+	const [uploadedImgsFileName,setUploadedImgsFileName] = useState([])
 
 
 	//lifecycle method
@@ -136,10 +134,10 @@ function Home() {
 					storage.ref('postImages').child(imageName).getDownloadURL()
 						.then(fireBaseUrl => {
 							setPostImgsUrl([...postImgsUrl,fireBaseUrl]);
+							setUploadedImgsFileName([...uploadedImgsFileName,postPic.name])
 						})
 				})
 		}
-
 	}
 
 	// //submit form for post
@@ -205,7 +203,7 @@ function Home() {
 	// 					}
 	// 					title.value = "";
 	// 					description.value = "";
-	// 					rent.value = "";
+	// 					rent.value = "";	
 	// 					groceries.value = "";
 	// 					transport.value = "";
 	// 					utilities.value = "";
@@ -356,16 +354,8 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
-									</div>
-									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
-										<p className="collapse" id="collapseExample" aria-expanded="false">
-
-											{item.description}
-											<br></br>
+										<div className="postContent">
+										<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
 												return(
@@ -376,9 +366,15 @@ function Home() {
 												})}
 											</Carousel>
 											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
 
-											<br></br>
-											<img width="100px" src={item.postPicture} alt="img-post" />
+											{item.description}
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -447,16 +443,8 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
-									</div>
-									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
-										<p className="collapse" id="collapseExample" aria-expanded="false">
-
-											{item.description}
-											<br></br>
+										<div className="postContent">
+										<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
 												return(
@@ -467,9 +455,14 @@ function Home() {
 												})}
 											</Carousel>
 											<br></br>
-
-											<br></br>
-											<img width="100px" src={item.postPicture} alt="img-post" />
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -573,11 +566,12 @@ function Home() {
 									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
 									<br></br>
 
-
+									<div style={{}}>
 									<label for="post-image">Upload Media</label>
+									
 									<input required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
 									<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
-
+									</div>
 								</div>
 
 								{/* <div className="logSignButt">
