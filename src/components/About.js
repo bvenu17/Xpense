@@ -20,6 +20,7 @@ const About = () => {
                     <div className="locationDes">
                         <h1 class = "loc">New Jersey</h1>
                         <br></br>
+
                     
                         <p>New Jersey is a northeastern U.S. state with some 130 miles of Atlantic coast. Jersey City, across the Hudson River from Lower Manhattan, is the site of Liberty State Park, where ferries embark for nearby Ellis Island, with its historic Immigration Museum, and the iconic Statue of Liberty. The Jersey Shore includes notable resort towns like historic Asbury Park and Cape May, with its preserved Victorian buildings.</p>
                     </div>
@@ -36,6 +37,7 @@ const About = () => {
                     <div className="locationDes">
                         <h1 class = "loc">New York</h1>
                         <br></br>
+
                       
                         <p>New York is a state in the northeastern U.S., known for New York City and towering Niagara Falls. NYC’s island of Manhattan is home to the Empire State Building, Times Square and Central Park. The Brooklyn Bridge connects Manhattan with the borough of Brooklyn. The iconic Statue of Liberty stands in New York Harbor. To the east, Long Island has beaches, the Montauk Lighthouse, the ritzy Hamptons and Fire Island.</p>
                     </div>

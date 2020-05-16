@@ -7,7 +7,7 @@ let db = firebaseApp.firestore();
 async function addPosts(uid, postObject) {
   //func to add post to db
   const timestamp = firebase.firestore.FieldValue.serverTimestamp;
-postObject.createdAt=timestamp();
+  postObject.createdAt = timestamp();
   await db.collection("posts").add(postObject)
     .then(function (docRef) {
       postObject.postId = docRef.id;
@@ -20,7 +20,7 @@ postObject.createdAt=timestamp();
   console.log(postObject);
   //func to add the post to user db
   await db.collection('users').doc(uid).update({
-    posts: firebase.firestore.FieldValue.arrayUnion({postId:postObject.postId})
+    posts: firebase.firestore.FieldValue.arrayUnion({ postId: postObject.postId })
   })
     .then(function () {
       console.log("Post in User Document successfully updated!");
@@ -78,21 +78,6 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
       console.log("account info was updated!");
     });
 }
-// async function getPost(uid) {
-//   let postRef = await db.collection('posts').doc(uid);
-//   let getDoc = postRef.get()
-//     .then(doc => {
-//       if (!doc.exists) {
-//         console.log('No such document!');
-//       } else {
-//         return doc.data()
-//       }
-//     })
-//     .catch(err => {
-//       console.log('Error getting document', err);
-//     });
-//   return getDoc
-// };
 
 
 async function getAllPostsforCollege(collegeID) {
@@ -107,8 +92,8 @@ async function getAllPostsforCollege(collegeID) {
       }
       snapshot.forEach(doc => {
         //console.log(doc.id, '=>', doc.data());
-        x=doc.data();
-        x.id=doc.id;
+        x = doc.data();
+        x.id = doc.id;
         allPosts.push(x)
       });
       return allPosts
@@ -125,7 +110,7 @@ async function getAllPosts() {
   // return snapshot.docs.map(doc => doc.data());
   const markers = [];
   let x;
-  await firebase.firestore().collection('posts').orderBy("createdAt","desc").get()
+  await firebase.firestore().collection('posts').orderBy("createdAt", "desc").get()
     .then(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         x = doc.data();
@@ -148,8 +133,8 @@ async function getUserPosts(uid) {
       }
       snapshot.forEach(doc => {
         //console.log(doc.id, '=>', doc.data());
-        x=doc.data();
-        x.id=doc.id;
+        x = doc.data();
+        x.id = doc.id;
         allPosts.push(x)
       });
       return allPosts
@@ -189,8 +174,12 @@ async function addCollege(element) {
 
 //func to add commments for the post to db
 async function addCommentToPost(postId, userName, commentText) {
+  //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+  let commentObj = { username: userName, comment: commentText };
+  commentObj.createdAt = new Date();
+  console.log("comment is", commentObj);
   await db.collection('posts').doc(postId).update({
-    comments: firebase.firestore.FieldValue.arrayUnion({ username: userName, comment: commentText })
+    comments: firebase.firestore.FieldValue.arrayUnion(commentObj)
   })
     .then(function () {
       console.log("Comment in Post Document successfully updated!");
@@ -205,9 +194,9 @@ async function addCommentToPost(postId, userName, commentText) {
 //harish add messages to chat db
 async function addChat(chatObject) {
   //func to add post to db
- // let chatData = { name: userName, message: chatObject }
- const timestamp = firebase.firestore.FieldValue.serverTimestamp;
- chatObject.createdAt=timestamp();
+  // let chatData = { name: userName, message: chatObject }
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+  chatObject.createdAt = timestamp();
   await db.collection("chats").add(chatObject)
     .then(function (docRef) {
       // chatObject.postId = docRef.id;
@@ -223,7 +212,7 @@ async function addChat(chatObject) {
 
 async function getAllChats() {
   console.log("getting all chats");
-  const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt","asc").get()
+  const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
   return snapshot.docs.map(doc => doc.data());
 };
 

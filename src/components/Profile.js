@@ -154,7 +154,7 @@ function Profile() {
 		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
 		try {
 			//add comment to the post db
-			await addCommentToPost(postId, user.firstName, comment.value)
+			await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
 			setFormSubmit(!formSubmit);
 		} catch (error) {
 			alert(error);
@@ -409,6 +409,7 @@ function Profile() {
 								
 									{item.description}
 									<br></br>
+
 									<Carousel>
 											<Carousel.Item>
 											<img width="100%" src={item.postPicture} alt="img-post" />

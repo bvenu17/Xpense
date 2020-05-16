@@ -90,7 +90,7 @@ const University = (props) => {
         console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
         try {
             //add comment to the post db
-            await addCommentToPost(postId, user.firstName, comment.value)
+            await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
             setFormSubmit(true);
         } catch (error) {
             alert(error);
@@ -218,6 +218,7 @@ const University = (props) => {
 												) : (<p>No comments to display</p>)}
 											</div>
                                                 {currentUser ? (
+
                         		<form onSubmit={handleCommentSubmit}>
 											
                                 <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
