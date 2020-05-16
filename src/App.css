@@ -141,6 +141,19 @@ li
 	color: #232323;
 }
 
+.ssign
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 0 auto;
+	padding-bottom: 10%;
+}
+
+.socialSign{
+	width: 3.0rem;
+}
+
 .logo 
 {
 width: 3.0rem;
@@ -210,11 +223,6 @@ border: none;
 
 }
 
-.ssign
-{
-	text-align: center;
-	margin: 0 auto;
-}
 
 
 .forgotPassword {
