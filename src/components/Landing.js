@@ -185,7 +185,16 @@ function Landing() {
 													})
 												) : (<p>No comments to display</p>)}
 											</div>
-												<p>You need to Login to Comment</p>
+												{/* <p>You need to Login to Comment</p> */}
+												<form>
+													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+													<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+													<Modal className="loginForm" show={show} onHide={handleClose} >
+														<div className = "modalContent">
+															<h3> Please Provide College Details To Post !</h3>
+														</div>
+													</Modal>
+												</form>
 											</div>
 										</div>
 									
@@ -261,7 +270,18 @@ function Landing() {
 											})
 										) : (<div class = "comments">No comments to display</div>)}
 									</div>
-										<p>You need to Login to Comment</p>
+										{/* <p>You need to Login to Comment</p> */}
+										<form>
+										<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+										<button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+											<Modal className="loginForm" show={show} onHide={handleClose} >
+													<div className = "modalContent">
+														<h3> Please Provide College Details To Post !</h3>
+													</div>
+											</Modal>
+											
+											
+										</form>
 									</div>
 								</div>
 								)

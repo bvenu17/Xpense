@@ -5,6 +5,7 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -99,7 +100,7 @@ function Home() {
 			}
 		}
 		getData();
-	}, [currentUser, formSubmit, rentValue])
+	}, [currentUser, formSubmit])
 
 	//onChange handler for input field of post picture
 	const handleImageChange = async (event) => {
