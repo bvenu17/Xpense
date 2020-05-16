@@ -63,6 +63,7 @@ async function doSocialSignIn(provider) {
 
 		}
 	  }).catch(function(error) {
+
 		console.log(error.message)
 	  });
 }
