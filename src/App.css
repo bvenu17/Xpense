@@ -137,7 +137,7 @@ li
 
 .activeLink
 {
-	font-weight: 900;
+	font-weight: 700;
 	color: #232323;
 }
 
@@ -234,6 +234,7 @@ label
 {
 	text-transform: uppercase;
 	font-size: 0.8rem;
+	line-height: 0.8rem;
 	letter-spacing: 0.2rem;
 	margin-bottom: 0em;
 }
@@ -271,6 +272,101 @@ button:focus {
 	margin-bottom: 1.0rem;
 }
 
+.avatarSide 
+{
+	float: left;
+	width: 11%;
+
+}
+.personal
+{
+	float: left;
+	width: 88%;
+
+}
+.avatarPic
+{
+	width: 4.0rem;
+	height: 4.0rem;
+	border-radius: 50%;
+}
+.author
+{
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-bottom: 0%;
+	line-height: 1.3rem;
+	padding-top: 0.5rem;
+	color: #2ecc71;
+}
+.college
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	font-weight: 400;
+}
+.time 
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 0.7rem;
+	font-weight: 400;	
+
+}
+.postTitle
+{
+	font-weight: 900;
+}
+.postImg 
+{
+	width: 20.0rem;
+	height: 20.0rem;
+}
+
+.icons 
+{
+	color: #2ecc71;
+	width: 1.5rem;
+}
+h2 
+{
+	font-size: 1.5rem;
+}
+.comments 
+{
+	background-color: white;
+}
+.comment
+{
+	background-color: #E9EBEE;
+	border-radius: 1.0rem;
+	margin-bottom: 1.0rem;
+	padding: 1.0rem;
+}
+.comment2 
+{
+	border-radius: 1.0rem;
+	padding: 1.0rem;
+	border: 1px solid #E9EBEE;
+	outline: none;
+	outline-width: 0px;
+	width: 90%;
+}
+.commentButt 
+{
+	background: none;
+	border: none;
+	font-size: 2.0rem;
+}
+.userName
+{
+	font-weight: 700;
+}
+
+
+
 
 .devName
 {
@@ -282,6 +378,15 @@ button:focus {
 	font-size: xx-large;
 }
 
+
+}
+.devName2
+{
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+}
 .locationDes{
 	padding: 10%;
 }
@@ -330,58 +435,20 @@ button:focus {
 	background :  #2ecc71;
 
 }
-
-.avatarSide 
+.loc 
 {
-	float: left;
-	width: 11%;
+	font-weight: 900;
+	font-size: 6.0rem;
+	line-height: 6.0rem;
+	text-transform: uppercase;
 }
-.personal
+.avatarPic2
 {
-	float: left;
-	width: 89%;
-
-	margin-left: 1.0rem;
-}
-.avatarPic
-{
-	width: 4.0rem;
-}
-.author
-{
-	font-size: 1.3rem;
-	font-weight: 700;
-	margin-bottom: 0%;
-	line-height: 1.3rem;
-	padding-top: 0.5rem;
-	color: #2ecc71;
-}
-.college
-{
-	margin: 0%;
-	padding: 0%;
-	font-size: 1.0rem;
-	line-height: 1.0rem;
-	font-weight: 400;
-}
-.time 
-{
-	margin: 0%;
-	padding: 0%;
-	font-size: 0.7rem;
-	font-weight: 400;	
+	height: 10.0rem;
+	width: 10.0rem;
 
 }
 
-.icons 
-{
-	color: #2ecc71;
-	width: 1.5rem;
-}
-h2 
-{
-	font-size: 1.5rem;
-}
 
 /*SEE MORE */
 
@@ -445,4 +512,39 @@ h2
   .tut 
   {
 	  font-weight: 700;
+  }
+
+  /*Chat*/
+
+  .chat 
+  {
+	  background: #2ecc71;
+	  padding: 0.5rem;
+
+  }
+
+  /*Profile */
+
+  .upload 
+  {
+	  border: none;
+	  width: 85%;
+	  margin-top: 0%;
+  }
+  .profileName
+  {
+	  font-weight: 900;
+	  font-size: 1.5rem;
+  }
+  .pp 
+  {
+	  margin-bottom: 0%;
+	  line-height: 0.8rem;
+	  padding-bottom: 0%;
+	  text-align: left;
+  }
+  .profileButt 
+  {
+	  margin: 0 auto;
+	  text-align: center;
   }

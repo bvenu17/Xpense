@@ -8,11 +8,7 @@ import { getAllColleges, getAllPosts } from '../firebase/FirestoreFunctions';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Chat from './Chat';
-
-
-
-
-
+import Carousel from 'react-bootstrap/Carousel'
 function Landing() {
 	const { currentUser } = useContext(AuthContext)
 	const [collegeList, setCollege] = useState();
@@ -95,129 +91,178 @@ function Landing() {
 				<div className='container container1'>
 					{/* Rohan Static Content */}
 					<div className="row">
-						<div className="col-lg-8 col-md-12 col-sm-12">
-
-							<h3> FILTER POSTS HERE !!</h3>
-							<div className="d-flex justify-content-end">
-								<form id='locationFilter'>
-									<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
-										<option key='default' defaultValue='None'>NONE</option>
-										{options.map((item) => {
-											return (
-												<option key={item}>{item}</option>
-											)
-										})}
-									</select>
-								</form>
+					<div class = "row">
+							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
+							<label> FILTER BY LOCATION </label>
 							</div>
-
-							<br></br>
+							<div class = "col-lg-6 col-md-6 col-sm-9 col-xs-9">
+						
+							<form id='locationFilter'>
+								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
+									<option key='default' defaultValue='None'>NONE</option>
+									{options.map((item) => {
+										return (
+											<option key={item}>{item}</option>
+										)
+									})}
+								</select>
+							</form>
+				            <br></br>
+							
+							</div>
+						</div>
+						<div className="col-lg-8 col-md-12 col-sm-12">
 
 							{postFilter ? postFilter.map((item) => {
 								return (
 									<div className="post">
-										<div className="postContent">
-											<p>User profile pic</p>
-											<img src={item.userProfilePic} alt="img"></img>
-											<p>
-												Title : {item.title}
-												<br></br>
-													Author Name : {item.authorName}
-												<br></br>
-													Description : {item.description}
-												<br></br>
-													Date : {item.date}
-												<br></br>
-													Time:{item.time}
-												<br></br>
-												<img width="100px" src={item.postPicture} alt="img-post" />
-												<br></br>
-												<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-												<br></br>
-												<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<div className="headerPost">
+											<div className="avatarSide">
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
+											</div>
+											<div className="personal">
+												<div className="author"> {item.authorName} </div>
+
+												<div className="college">{item.collegeName}</div>
+												<div className="time">{item.time}, {item.date}</div><br>
+												</br>
+											</div>
+										</div>
+									<div className="postContent" id = "module">
+					
+									<p class = "postTitle">
+								    {item.title}
+									</p>
+									<p className="collapse" id="collapseExample" aria-expanded="false">
+								
+									{item.description}
+									<br></br>
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+									<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
-												<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
 											<br></br>
-												<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-												<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+									
 											</p>
+											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>
 
 											<div className="comments">
 
+
 												<br></br>
-												<h2>COMMENTS GO HERE</h2>
-												<div>
-													{item.comments ? (
-														item.comments.map((comm) => {
-															return (
-																<div style={{ border: "3px solid black", margin: "20px" }}>
-																	<p>
-																		<b>{comm.username} </b>
-																		<br></br>
-																		{comm.comment}
-																	</p>
+											<label>COMMENTS</label>
+											<div>
+												{item.comments ? (
+													item.comments.map((comm) => {
+														return (
+															<div class = "comments">
+																<div class = "comment">
+																
+																	<span class = "userName">{comm.username}</span> 
+																	<br></br>
+																	{comm.comment}
 																</div>
-															)
-														})
-													) : (<p>No comments to display</p>)}
-												</div>
+															</div>
+														)
+													})
+												) : (<p>No comments to display</p>)}
+											</div>
 												<p>You need to Login to Comment</p>
 											</div>
 										</div>
-									</div>
+									
 								)
 							}) : (postList.map((item) => {
 								return (
 									<div className="post">
-										<div className="postContent">
-											<p>User profile pic</p>
-											<img width="100px" src={item.userProfilePic} alt="img"></img>
-											<p>
-												Title : {item.title}
-												<br></br>
-													Author Name : {item.authorName}
-												<br></br>
-													Description : {item.description}
-												<br></br>
-													Date : {item.date}
-												<br></br>
-													Time:{item.time}
-												<br></br>
-												<img width="100px" src={item.postPicture} alt="img-post" />
-												<br></br>
-												<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-												<br></br>
-												<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
-											<br></br>
-												<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
-											<br></br>
-												<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-												<br></br>
-											</p>
-
-											<div className="comments">
-
-												<br></br>
-												<h2>COMMENTS GO HERE</h2>
-												<div>
-													{item.comments ? (
-														item.comments.map((comm) => {
-															return (
-																<div style={{ border: "3px solid black", margin: "20px" }}>
-																	<p>
-																		<b>{comm.username} </b>
-																		<br></br>
-																		{comm.comment}
-																	</p>
-																</div>
-															)
-														})
-													) : (<p>No comments to display</p>)}
-												</div>
-												<p>You need to Login to Comment</p>
-											</div>
-										</div>
+									<div className="headerPost">
+									<div className="avatarSide">
+										<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
 									</div>
+									<div className="personal">
+										<div className="author"> {item.authorName} </div>
+
+										<div className="college">{item.collegeName}</div>
+										<div className="time">{item.time}, {item.date}</div><br>
+										</br>
+									</div>
+								</div>
+							<div className="postContent" id = "module">
+			
+							<p class = "postTitle">
+							{item.title}
+							</p>
+							<p className="collapse" id="collapseExample" aria-expanded="false">
+						
+							{item.description}
+							<br></br>
+							<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+							<br></br>
+									<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+									<br></br>
+									<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+									<br></br>
+									<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+									<br></br>
+									<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+									<br></br>
+							
+									</p>
+									<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+							</div>
+
+									<div className="comments">
+
+
+										<br></br>
+									<label>COMMENTS</label>
+									<div>
+										{item.comments ? (
+											item.comments.map((comm) => {
+												return (
+													<div class = "comments">
+														<div class = "comment">
+														
+															<span class = "userName">{comm.username}</span> 
+															<br></br>
+															{comm.comment}
+														</div>
+													</div>
+												)
+											})
+										) : (<div class = "comments">No comments to display</div>)}
+									</div>
+										<p>You need to Login to Comment</p>
+									</div>
+								</div>
 								)
 							}))
 							}
@@ -233,40 +278,63 @@ function Landing() {
 
 
 								<form>
-									<div className='form-group'>
+									<div className='form-group' onClick={handleShow}>
+
+										<Modal className="loginForm" show={show} onHide={handleClose} >
+
+											<div className="modalContent">
+												{logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
+											</div>
+											<Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+												{logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											</Button>
+										</Modal>
+
+
+
+
 										<label htmlFor="title">Title</label>
-										<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />
+										{show ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />) :
+												(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
 										<br></br>
 
 										<label for="description">Description</label>
-										<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />
+										{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
+												(<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />)}
 										<br></br>
 
 										<label for="rent">Rent</label>
-										<input className='form-control' name='rent' id='rent' placeholder='$' required />
+										{show ? (<input className='form-control' name='rent' id='rent' placeholder='$' disabled required />) :
+												(<input className='form-control' name='rent' id='rent' placeholder='$' required />)}
 										<br></br>
 
 										<label for="transport">Transport</label>
-										<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' required />
+										{show ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' disabled required />) :
+												(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' required />)}
 										<br></br>
 
 										<label for="house">Houses</label>
-										<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' required />
+										{show ? (<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' disabled required />) :
+												(<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' required />)}
 										<br></br>
 
 										<label for="groceries">Groceries</label>
-										<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />
+										{show ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' disabled required />) : 
+												(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />)}
 										<br></br>
 
 										<label for="post-image">Upload Pictures</label>
-										<input required type="file" id="post-image" /> <br></br>
+										{show ? (<div><input required type="file" id="post-image" disabled /> <br></br></div>) : 
+												(<div><input required type="file" id="post-image" /> <br></br></div>) }
+										
+
 
 									</div>
 									<div className="logSignButt">
 										{/* <Button variant="primary" type='submit' className="loginButt loginButt2" disabled> POST </Button> */}
 										<Button variant="primary" className="loginButt loginButt2" onClick={handleShow}>
 											POST
-									</Button>
+										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
 
@@ -285,7 +353,7 @@ function Landing() {
 							<br></br>
 							<br></br>
 							<div className="post">
-								<h1>CHAT COMES HERE</h1>
+								<h2>GLOBAL CHAT</h2>
 								<Chat />
 							</div>
 						</div>

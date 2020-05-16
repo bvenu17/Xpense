@@ -30,14 +30,14 @@ const NavigationAuth = () => {
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">
-	  		<img className="navLogo" width="12%" src="/imgs/home.svg" alt="img" />	
-			<span className="activeLink"> Home</span>
+	  			
+			<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>
 	  </NavLink>
       </li>
 
 	  <li className="nav-item active dropdown">
         <a className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Universities
+		<i class="fas fa-university" title = "universities"></i> Universities
         </a>
 		<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			<a className="dropdown-item" href ="/university/1">Princeton University</a>
@@ -57,10 +57,9 @@ const NavigationAuth = () => {
 			<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 		</div>
       </li>
-	  <li>   </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink">About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
 	  </NavLink>
       </li>
 
@@ -69,8 +68,8 @@ const NavigationAuth = () => {
 
 		<li className = "nav-item active">
 		<NavLink exact to='/profile' class="nav-link">
-		<img className="navLogo" width="7%" src="/imgs/profile.png" alt="img" />	
-		<span className="activeLink"> Profile</span>
+	
+		<span className="activeLink"> <i class="fas fa-user-circle" title = "profile"></i> Profile</span>
 		</NavLink>
 		</li>
 		<li className = "nav-item">
@@ -95,10 +94,6 @@ const NavigationNonAuth = () => {
  	return (
 	
 
-
-
-
-
 		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
 			<a className="navbar-brand brand" href="/">xPense</a>
@@ -110,14 +105,14 @@ const NavigationNonAuth = () => {
   			<ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
 				<li className="nav-item active">
 					<NavLink exact to='/' className = "nav-link">
-						<img className="navLogo" width="12%" src="/imgs/home.svg" alt="img" />
-						<span className="activeLink"> Home</span>	
+						
+						<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>	
 					</NavLink>
 				</li>
 
 				<li className="nav-item active dropdown">
 					<a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Universities
+					<i class="fas fa-university" title = "universities"></i> Universities
 					</a>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a className="dropdown-item" href = "/university/1">Princeton University</a>
@@ -137,12 +132,13 @@ const NavigationNonAuth = () => {
 					<a className="dropdown-item" href = "/university/15">University of Rochester</a>
 					</div>
 				</li>
-				<li>   </li>
+			
 				<li className="nav-item active">
-				<NavLink exact to='/about' className = "nav-link">
-									<span className="activeLink">About</span>
-				</NavLink>
-				</li>
+	  <NavLink exact to='/about' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+	  </NavLink>
+      </li>
+	  <li></li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 

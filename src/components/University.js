@@ -1,9 +1,11 @@
 //basic imports
 import React, { useState, useEffect, useContext } from 'react';
+import Chat from './Chat';
 //css imports
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
 const University = (props) => {
@@ -123,7 +125,7 @@ const University = (props) => {
                                          {details.zip}
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-12">
-                                        <i className="fas fa-link icons2" title="Website"></i>{details.url}
+                                        <i className="fas fa-link icons2" title="Website"></i> {details.url}
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-12">
                                         <span className="tut">Tuition:</span> ${details.tuition} per year
@@ -143,67 +145,94 @@ const University = (props) => {
 
             <div className="container container1">
                 <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-12">
+                    <div className="col-lg-8 col-md-12 col-sm-12">
                     {posts && posts ? (
                             posts.map((item) => {
                                 return (
                                     <div className="post">
-                                        <div className="postContent">
-                                            <p>
-                                                Title : {item.title}
-                                                <br></br>
-                                                        Author Name : {item.authorName}
-                                                <br></br>
-                                                        Description : {item.description}
-                                                <br></br>
-                                                        Date : {item.date}
-                                                <br></br>
-                                                        Time:{item.time}
-                                                <br></br>
-                                                        <img width="100px" src={item.postPicture} alt="img-post" />
-                                                <br></br>
-                                                        <i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
-                                                <br></br>
-                                                        <i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
-                                                <br></br>
-                                                        <i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
-                                                <br></br>
-                                                        <i className="fas fa-subway icons" title="transport"></i>  {item.transport}
-                                                <br></br>
-                                            </p>
+                                        	<div className="headerPost">
+											<div className="avatarSide">
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
+											</div>
+											<div className="personal">
+												<div className="author"> {item.authorName} </div>
+
+												<div className="college">{item.collegeName}</div>
+												<div className="time">{item.time}, {item.date}</div><br>
+												</br>
+											</div>
+										</div>
+									<div className="postContent" id = "module">
+					
+									<p class = "postTitle">
+								    {item.title}
+									</p>
+									<p className="collapse" id="collapseExample" aria-expanded="false">
+								
+									{item.description}
+									<br></br>
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+										</Carousel>
+									<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+									
+											</p>
+											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>
     
                                             <div className="comments">
     
                                                 <br></br>
                                                 <h2>COMMENTS GO HERE</h2>
                                                 <div>
-                                                    {item.comments ? (
-                                                        item.comments.map((comm) => {
-                                                            return (
-                                                                <div style={{ border: "3px solid black", margin: "20px" }}>
-                                                                    <p>
-                                                                        <b>{comm.username} </b>
-                                                                        <br></br>
-                                                                        {comm.comment}
-                                                                    </p>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    ) : (<p>No comments to display</p>)}
-                                                </div>
+												{item.comments ? (
+													item.comments.map((comm) => {
+														return (
+															<div class = "comments">
+																<div class = "comment">
+																
+																	<span class = "userName">{comm.username}</span> 
+																	<br></br>
+																	{comm.comment}
+																</div>
+															</div>
+														)
+													})
+												) : (<p>No comments to display</p>)}
+											</div>
                                                 {currentUser ? (
-                                                    <form onSubmit={handleCommentSubmit}>
 
-                                                    <input required name="comment" id="comment" type="text" placeholder="enter comment" />
-                                                    <button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
-                                                </form>
+                        		<form onSubmit={handleCommentSubmit}>
+											
+                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
+                            
+                                <button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+            
+                        </form>
                                                 ): (
                                                     <p>You need to login to comment</p>
                                                 )}
 
                                             </div>
                                         </div>
-                                    </div>
+                                   
                                 )
                             })
                         ) : (
@@ -211,6 +240,15 @@ const University = (props) => {
                             )
                         }
                     </div>
+
+                    <div class = "col-lg-4 col-md-12 col-sm-12">
+                    <div className="post">
+							<h2>GLOBAL CHAT</h2>
+							<Chat></Chat>
+						</div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

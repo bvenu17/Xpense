@@ -12,6 +12,7 @@ import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccount
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
 //datepicker imports
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -193,49 +194,66 @@ function Profile() {
 		return (
 			<div className="container container1">
 				{/* Profile picture part */}
-				<div className="col-lg-12 col-md-12 col-sm-12">
-					<h2>Profile Page</h2>
-					<div className="post">
-						<div className="text-center">
+				<div class = "row">
 
-							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' style={{ borderRadius: "50%" }} height="200" width="200" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' height="100" width="100" /></p>)}
-
-							{/* form to chang profile pic */}
-
-							<form onSubmit={handleUpload}>
-								{/* <label for="profilepicfile">upload file in .jpeg or .png format</label> */}
-								<input type='file' accept="image/*" name="profilepicfile" id="profilepicfile" onChange={handleChange} />
-								<br></br><br></br>
-								<button style={{ border: '3px solid black' }}>Change profile picture</button>
-							</form>
-							{/* display user details from db */}
-							{user ? (<p>First Name: {user.firstName}  <br />Last Name: {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
-
-						</div>
-					</div>
-				</div>
 				{/* form to update account details */}
-				<h2>Edit account info</h2>
+
+				
 
 				{temp ? (
-					<div>
+
+						
+						<div className="col-lg-4 col-md-12 col-sm-12">
+						<br></br>  
+									<div className="post">
+									
+										<div className="text-center">
+
+											{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic'  class = "avatarPic avatarPic2" /></p>)}
+
+												{/* display user details from db */}
+												{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+
+
+											{/* form to chang profile pic */}
+
+											<form onSubmit={handleUpload}>
+												<label for="profilepicfile" class = "pp">Change Profile Picture</label>
+
+								
+												
+												
+													
+
+
+												<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+										
+												<button class = "commentButt"><i class="fas fa-check-circle icons"></i></button>
+											</form>
+										
+
+										</div>
+									</div>
+
+									<div class = "post">
+						<h2>Edit account info</h2>
 						{/* account form starts here */}
 						<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
-							<label for="firstName">First Name:</label>
-							<input required type="text" id="firstName" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
+							<label for="firstName">First Name</label>
+							<input required type="text" id="firstName" class = "form-control" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
 							<br></br>
-							<label for="lastName">Last Name:</label>
-							<input required type="text" defaultValue={user.lastName} id="lastName" name="lastName" placeholder="Enter your last name" />
+							<label for="lastName">Last Name</label>
+							<input required type="text" defaultValue={user.lastName} class = "form-control" id="lastName" name="lastName" placeholder="Enter your last name" />
 							<br>
 							</br>
 							{/* material ui date picker for dob */}
+							<label>Date of birth</label>
 							<MuiPickersUtilsProvider utils={DateFnsUtils}>
-								<Grid container justify="center">
+								<Grid container justify="left">
 									<KeyboardDatePicker
-										margin="normal"
+										margin="0"
 										id="dob"
 										name="dob"
-										label="Enter date of birth"
 										format="MM/dd/yyyy"
 										value={dob}
 										required
@@ -246,6 +264,7 @@ function Profile() {
 									/>
 								</Grid>
 							</MuiPickersUtilsProvider>
+							<br></br>
 							{/*input field for college name if user is a current student */}
 							{currentStudent ? (
 								<div>
@@ -286,84 +305,177 @@ function Profile() {
 									</FormControl>)}
 							<br></br>
 							<br></br>
-							<button type='submit'>Apply changes</button>
+							<div class = "row">
+								<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<Button type='submit' className="loginButt loginButt2">Apply Changes</Button>
+								</div>
+								<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt"> Cancel Changes</Button>
+								</div>
+							</div>
+							
 						</form>
 						{/* form to change account details ends */}
-						<br></br><br></br>
+						<br></br>
 
-						<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2"> Cancel </Button>
+					
 
 					</div>
 
-				) : (
-						<div>
-							<br></br>
 
-							<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2"> Edit Profile </Button>
+
 						</div>
+
+				) : (
+
+					<div className="col-lg-4 col-md-12 col-sm-12">
+							<br></br> 
+					<div className="post">
+
+						<div className="text-center">
+
+							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class = "avatarPic avatarPic2" /></p>)}
+
+								{/* display user details from db */}
+								{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+							{/* form to chang profile pic */}
+
+							<form onSubmit={handleUpload}>
+								<label for="profilepicfile" class = "pp">Change Profile Picture</label>
+								<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+										
+												<button class = "commentButt"> <i class="fas fa-check-circle icons"></i></button>
+							</form>
+				
+
+						</div>
+
+					
+					
+
+						<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2 profileButt"> Edit Profile </Button>
+							<br></br><br></br>
+								{/* change password part */}
+				{change ? <div><ChangePassword /> <Button className = "loginButt" onClick={() => setChange(!change)}>Hide</Button></div> : <Button className="loginButt loginButt2" onClick={() => setChange(!change)}>Change Password</Button>} <br />
+				<br></br> 
+								
+								<SignOutButton />
+							
+							
+
+					<br></br>
+				<br></br>
+		
+					</div>
+					<br></br>
+					
+					</div>
+					
+
+							
+					
+								
 					)
 				}
+				
+				
 
 				{/* Get user posts */}
-				<h1>My posts</h1>
+				<div class = "col-lg-8 col-md-12 col-sm-12">
+				<label>My posts</label>
 				{userPosts && userPosts.map((item) => {
 					return (
 						<div className="post">
-							<div className="postContent">
-								<p>
-									Title : {item.title}
-									<br></br>
-													Author Name : {item.authorName}
-									<br></br>
-													Description : {item.description}
-									<br></br>
-													Date : {item.date}
-									<br></br>
-													Time:{item.time}
-									<br></br>
-													Expense : ${item.expenses}
-									<br></br>
-									<img width="100px" src={item.postPicture} alt="img-post" />
-									<br></br>
-									<i className="fas fa-shopping-cart icons" title="groceries"></i>${item.groceries} per month  GROCERIES
 
-                                    <br></br>
-									<i className="fas fa-home icons" title="rent"></i>${item.rent} per month RENT
-                                    <br></br>
-									<i className="fas fa-wifi icons" title="internet"></i>${item.wifi} per month WIFI
-                                    <br></br>
-									<i className="fas fa-bolt icons" title="electricity"></i>${item.electricity} per month ELECTRICITY
-                                    <br></br>
-									<i className="fas fa-subway icons" title="transport"></i>${item.transport} per month TRANSPORT
-                                    <br></br>
-								</p>
 
-								<div className="comments">
+										<div className="headerPost">
+											<div className="avatarSide">
+												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
+											</div>
+											<div className="personal">
+												<div className="author"> {item.authorName} </div>
 
+												<div className="college">{item.collegeName}</div>
+												<div className="time">{item.time}, {item.date}</div><br>
+												</br>
+											</div>
+										</div>
+									<div className="postContent" id = "module">
+					
+									<p class = "postTitle">
+								    {item.title}
+									</p>
+									<p className="collapse" id="collapseExample" aria-expanded="false">
+								
+									{item.description}
 									<br></br>
-									<h2>COMMENTS GO HERE</h2>
-									<div>
-										{item.comments ? (
-											item.comments.map((comm) => {
-												return (
-													<div style={{ border: "3px solid black", margin: "20px" }}>
-														<p>
-															<b>{comm.username} </b>
-															<br></br>
-															{comm.comment}
-														</p>
-													</div>
-												)
-											})
-										) : (<p>No comments to display</p>)}
-									</div>
-									<form onSubmit={handleCommentSubmit}>
-												<input required name="comment" id="comment" type="text" placeholder="enter comment" />
-												<button onClick={() => setPostId(item.id)} type="submit">Send comment</button>
+
+									<Carousel>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+											<Carousel.Item>
+											<img width="100%" src={item.postPicture} alt="img-post" />
+											</Carousel.Item>
+									</Carousel>
+									<br></br>
+											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
+											<br></br>
+											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
+											<br></br>
+											<i className="fas fa-bolt icons" title="utlities"></i>  ${item.utilities} per month Utilities
+											<br></br>
+											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
+											<br></br>
+									
+											</p>
+											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>	
+									
+											
+											
+									
+
+										<div className="comments">
+
+											<br></br>
+											<label>COMMENTS</label>
+											<div>
+												{item.comments ? (
+													item.comments.map((comm) => {
+														return (
+															<div class = "comments">
+																<div class = "comment">
+																
+																	<span class = "userName">{comm.username}</span> 
+																	<br></br>
+																	{comm.comment}
+																</div>
+															</div>
+														)
+													})
+												) : (<p>No comments to display</p>)}
+											</div>
+											<form onSubmit={handleCommentSubmit}>
+												
+											
+													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
+												
+													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												
+												
+													
+												
+													
+											
+												
 											</form>
-								</div>
-							</div>
-						</div>
+										</div>
+									</div>
 
 					)
 				}
@@ -374,6 +486,8 @@ function Profile() {
 				<br></br>
 				<SignOutButton />
 			</div>
+			</div>
+</div>
 		);
 	} else {
 		return (

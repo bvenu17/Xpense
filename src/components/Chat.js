@@ -113,18 +113,25 @@ const Chat = () => {
     // console.log("dusra kuch" + message);
     return (
         <div>
-            <div style={{ border: '3px solid black', width: '100%' }}>
-                <div className='cardMsg' style={{ width: "100% ", overflow: "auto", whiteSpace: "nowrap", height: '200px' }}>
-                    <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '54%', height: '100px' }}>
+            <div>
+                <div className='cardMsg' style={{ width: "100% ", overflow: "auto", whiteSpace: "nowrap", height: '20.0rem' }}>
+                    <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '74%', height: '100px' }}>
                         {allmsg && allmsg.map((item) => {
                             return (
-                                <div>{item.name} : {item.message}</div>
+                                <div class = "comments">
+                                    <div class = "comment chat">
+                                        <span class = "userName"> {item.name} </span>
+                                        <br></br>
+                                        {item.message}
+                                    </div>
+                                </div>
+                                // <div>{item.name} : {item.message}</div>
                             )
                         })}
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div>
-                    <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message"
+                    <input className = "form-control" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message (Press Enter to Send)"
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
                 </div>) : (
