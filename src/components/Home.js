@@ -456,11 +456,13 @@ function Home() {
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
 									<label htmlFor="title">Title</label>
-									<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />
+									{user.currentStudent ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />) :
+															(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />)}
 									<br></br>
 
 									<label for="description">Description</label>
-									<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />
+									{user.currentStudent ? (<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />) :
+															(<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' disabled required />)}
 									<br></br>
 
 
@@ -474,19 +476,23 @@ function Home() {
 									})) : (<p>Please provide your college name !</p>)}
 
 									<label for="rent">Rent</label>
-									<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />
+									{user.currentStudent ? (<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />) :
+															(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
 									<label for="transport">Transport</label>
-									<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />
+									{user.currentStudent ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />) :
+															(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />)}
 									<br></br>
 
 									<label for="utilities">Utilities</label>
-									<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />
+									{user.currentStudent ? (<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />) :
+															(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
 									<label for="groceries">Grocery Stores</label>
-									<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />
+									{user.currentStudent ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />) : 
+															(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />)}
 									<br></br>
 
 									
@@ -496,34 +502,15 @@ function Home() {
 										
 										<label for="postImage">Upload Media</label>
 										<div className="multiImg">
-										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+										{user.currentStudent ? (<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons">Upload </i> </button> </div>) : 
+																(<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt" disabled ><i class="fas fa-check-circle icons"></i></button> </div>)}
 									</div>
 								</div>
 
-								{/* <div className="logSignButt">
-									{user.collegeId && user.collegeId ? collegeList.map((item) => {
-										if (item.id === user.collegeId)
-											return (
-												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-											)
-									}) : ( 
-										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
-											POST
-										</Button>
-										
-								
-									)}
-								</div> */}
-
 								<div className="logSignButt">
-									{user.collegeId && user.collegeId ? collegeList.map((item) => {
-										if (item.id === user.collegeId)
-											return (
-												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-											)
-									}) : (<p>You cannot Post... You have not provided your college details</p>)}
-
+									{user.currentStudent ? (<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>) : (<p>You cannot Post... You have not provided your college details</p>)}
 								</div>
 
 

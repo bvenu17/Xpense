@@ -4,6 +4,7 @@ import firebaseApp from './Firebase'
 import { func } from 'prop-types';
 
 let db = firebaseApp.firestore();
+let flag = false
 
 async function addPosts(uid, postObject) {
   //func to add post to db
@@ -343,8 +344,8 @@ async function addChat(chatObject) {
   //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
   chatObject.createdAt = new Date();
+    // await db.collection("chats").doc('allChats').add(chatObject)
 
-  //  await db.collection("chats").add(chatObject)
   await db.collection("chats").doc('allChats').update({
     chatMessage: firebase.firestore.FieldValue.arrayUnion(chatObject)
   })
@@ -355,6 +356,7 @@ async function addChat(chatObject) {
     .catch(function (error) {
       console.error("Error adding chat message: ", error);
     });
+
   console.log('chat object which needs to be added to the user collection is');
   console.log(chatObject);
   //func to add the post to user db
@@ -368,6 +370,7 @@ async function getAllChats() {
   let getDoc = chatRef.get()
     .then(doc => {
       if (!doc.exists) {
+        flag=false;
         console.log('No such document!');
       } else {
         //console.log('Document data:', doc.data());
