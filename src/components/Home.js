@@ -358,16 +358,8 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
-									</div>
-									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
-										<p className="collapse" id="collapseExample" aria-expanded="false">
-
-											{item.description}
-											<br></br>
+										<div className="postContent">
+										<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
 												return(
@@ -377,6 +369,16 @@ function Home() {
 												)
 												})}
 											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+
+											{item.description}
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -447,16 +449,8 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
-									</div>
-									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
-										<p className="collapse" id="collapseExample" aria-expanded="false">
-
-											{item.description}
-											<br></br>
+										<div className="postContent">
+										<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
 												return(
@@ -466,6 +460,15 @@ function Home() {
 												)
 												})}
 											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
