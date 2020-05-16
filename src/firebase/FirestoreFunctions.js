@@ -344,8 +344,8 @@ async function addChat(chatObject) {
   //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
   chatObject.createdAt = new Date();
-    // await db.collection("chats").doc('allChats').add(chatObject)
 
+  //  await db.collection("chats").add(chatObject)
   await db.collection("chats").doc('allChats').update({
     chatMessage: firebase.firestore.FieldValue.arrayUnion(chatObject)
   })

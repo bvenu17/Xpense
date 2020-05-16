@@ -223,15 +223,9 @@ function Profile() {
 											<form onSubmit={handleUpload}>
 												<label for="profilepicfile" class = "pp">Change Profile Picture</label>
 
-								
-												
-												
-													
-
-
 												<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 										
-												<button class = "commentButt"><i class="fas fa-check-circle icons"></i></button>
+												<Button class = "commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
 											</form>
 										
 

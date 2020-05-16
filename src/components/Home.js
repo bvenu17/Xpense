@@ -282,6 +282,8 @@ function Home() {
 												return(
 													<Carousel.Item>
 													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+													<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
 													</Carousel.Item>
 												)
 												})}
@@ -311,11 +313,6 @@ function Home() {
 										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
 									</div>
-
-
-
-
-
 									<div className="comments">
 
 										<br></br>
@@ -502,12 +499,25 @@ function Home() {
 										
 										<label for="postImage">Upload Media</label>
 										<div className="multiImg">
-										{user.currentStudent ? (<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-																	<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons">Upload </i> </button> </div>) : 
-																(<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
-																	<button onClick={uploadMultipleImages} class="commentButt" disabled ><i class="fas fa-check-circle icons"></i></button> </div>)}
+										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+										<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
 									</div>
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+								</div> */}
 
 								<div className="logSignButt">
 									{user.currentStudent ? (<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>) : (<p>You cannot Post... You have not provided your college details</p>)}
@@ -518,7 +528,7 @@ function Home() {
 						</div>
 						<br></br>
 
-						<div className="post">
+						<div className="post chatBox">
 							<h2>GLOBAL CHAT</h2>
 							<Chat></Chat>
 						</div>
