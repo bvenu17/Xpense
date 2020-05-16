@@ -114,7 +114,7 @@ const University = (props) => {
 
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-12">
-                                <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" className="univLogo"></img><br />
+                                <img src={details.logoUrl} alt="defaultpic" className="univLogo"></img><br />
                             </div>
                             <div className="col-lg-10 col-md-10 col-sm-12">
 
