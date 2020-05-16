@@ -1,6 +1,5 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
-import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
