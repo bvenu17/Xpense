@@ -6,7 +6,6 @@ import RangeSlider from 'react-bootstrap-range-slider';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
-import Carousel from 'react-bootstrap/Carousel';
 import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
@@ -208,7 +207,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "Location") {
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
@@ -228,7 +227,6 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-<<<<<<< HEAD
 
 
 	// const redirect = async(e) => {
@@ -252,8 +250,6 @@ function Home() {
 	// 	}
 	// }
 
-=======
->>>>>>> firebase-basecode
 	//component code
 	if (loading === false) {
 		return (
@@ -261,16 +257,12 @@ function Home() {
 				{/* Rohan Static Content */}
 				<div className="row">
 					<div className="col-lg-8 col-md-12 col-sm-12">
-<<<<<<< HEAD
-=======
-
->>>>>>> firebase-basecode
 						<h3> FILTER POSTS HERE !!</h3>
 						<div className="d-flex justify-content-end">
 							<h5>Filter By Location</h5>
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
-									<option key='default' defaultValue='Location'>Location</option>
+									<option key='default' defaultValue='None'>NONE</option>
 									{options.map((item) => {
 										return (
 											<option key={item}>{item}</option>
@@ -294,17 +286,8 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
+										<p>User profile pic</p>
+										<img width="100px" src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -317,6 +300,10 @@ function Home() {
 													Time:{item.time}
 											<br></br>
 													CollegeName: {item.collegeName}
+											<br></br>
+
+											<br></br>
+											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -359,17 +346,8 @@ function Home() {
 							return (
 								<div className="post">
 									<div className="postContent">
-										<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
+										<p>User profile pic</p>
+										<img width="100px" src={item.userProfilePic} alt="img"></img>
 										<p>
 											Title : {item.title}
 											<br></br>
@@ -382,6 +360,10 @@ function Home() {
 													Time:{item.time}
 											<br></br>
 													CollegeName: {item.collegeName}
+											<br></br>
+
+											<br></br>
+											<img width="100px" src={item.postPicture} alt="img-post" />
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -490,6 +472,22 @@ function Home() {
 									<br></br>
 
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+
+								</div> */}
 
 								<div className="logSignButt">
 									{user.currentStudent ? collegeList.map((item) => {
