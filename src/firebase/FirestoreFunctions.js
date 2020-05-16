@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import firebaseApp from './Firebase'
+import { func } from 'prop-types';
 
 let db = firebaseApp.firestore();
 
@@ -77,6 +78,80 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
     .then(function () {
       console.log("account info was updated!");
     });
+}
+
+async function updateProfilePicturePost(uid, picUrl) {
+  console.log("entering prof pic post now");
+  let allPostId = [];
+  let x;
+  let query = await db.collection("posts").where('authorId', '==', uid).get()
+
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return;
+      }
+      snapshot.forEach(doc => {
+        //console.log(doc.id, '=>', doc.data());
+        x = doc.data();
+        x.id = doc.id;
+        allPostId.push(x.id)
+      });
+      // return allPosts
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+
+  for (let i = 0; i < allPostId.length; i++) {
+    await db.collection("posts").doc(allPostId[i]).update({
+      userProfilePic: picUrl
+    })
+      .then(function () {
+        console.log("ProfPic url updated in posts");
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        console.error("Error updating pic in post: ", error);
+      });
+  }
+}
+
+async function updateAccountDetailsPost(uid, firstName,lastName) {
+  console.log("entering prof pic post now");
+  let allPostId = [];
+  let x;
+  let query = await db.collection("posts").where('authorId', '==', uid).get()
+
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return;
+      }
+      snapshot.forEach(doc => {
+        //console.log(doc.id, '=>', doc.data());
+        x = doc.data();
+        x.id = doc.id;
+        allPostId.push(x.id)
+      });
+      // return allPosts
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+
+  for (let i = 0; i < allPostId.length; i++) {
+    await db.collection("posts").doc(allPostId[i]).update({
+      authorName: firstName + " " + lastName
+    })
+      .then(function () {
+        console.log("ProfPic url updated in posts");
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        console.error("Error updating pic in post: ", error);
+      });
+  }
 }
 
 
@@ -266,11 +341,13 @@ async function addChat(chatObject) {
   //func to add post to db
   // let chatData = { name: userName, message: chatObject }
   //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
   chatObject.createdAt = new Date();
-//  await db.collection("chats").add(chatObject)
-    await db.collection("chats").doc('allChats').update({
-      chatMessage:firebase.firestore.FieldValue.arrayUnion(chatObject)
-    })
+
+  //  await db.collection("chats").add(chatObject)
+  await db.collection("chats").doc('allChats').update({
+    chatMessage: firebase.firestore.FieldValue.arrayUnion(chatObject)
+  })
     .then(function () {
       // chatObject.postId = docRef.id;
       console.log("Chat message written with ID: ");
@@ -320,7 +397,9 @@ export {
   addCommentToPost,
   getUserPosts,
   addChat,
-  getAllChats
+  getAllChats,
+  updateAccountDetailsPost,
+  updateProfilePicturePost
 };
 
 

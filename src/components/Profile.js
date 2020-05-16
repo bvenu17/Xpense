@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser,updateProfilePicturePost,updateAccountDetailsPost, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -127,6 +127,8 @@ function Profile() {
 						setProfPicUrl(fireBaseUrl);
 						try {
 							updateProfilePic(currentUser.uid, fireBaseUrl);
+							updateProfilePicturePost(currentUser.uid,fireBaseUrl);
+
 						} catch (error) {
 							alert(error);
 						}
@@ -180,6 +182,7 @@ function Profile() {
 		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
 			try {
 				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
+				await updateAccountDetailsPost(currentUser.uid,first,last);
 				setFormSubmit(!formSubmit);
 
 			} catch (error) {
@@ -334,7 +337,7 @@ function Profile() {
 
 						<div className="text-center">
 
-							{user && user.photoURL ? (<img className="align-self-center" src={user.userProfilePic ? user.userProfilePic : '/imgs/profile.png'} alt='profilePic' class = "avatarPic avatarPic2" />) : (<img src='/imgs/profile.png' alt='defaultpic' class = "avatarPic avatarPic2" />)}
+							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class = "avatarPic avatarPic2" /></p>)}
 
 								{/* display user details from db */}
 								{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
@@ -399,29 +402,29 @@ function Profile() {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
-											<div className="postContent">
-											<br></br>
-												<Carousel>
-													{item.postPicture.map((photo) => {
-													return(
-														<Carousel.Item>
-														<img key={photo} className="postImg" src={photo} alt="img-post" />
-														</Carousel.Item>
-													)
-													})}
-												</Carousel>
-												<br></br>
-												<p class="postTitle">
-													{item.title}
-												</p>
-											</div>
-										</div>
-									<div className="postContent" id = "module">
-									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
-									{item.description}
 
-									<br></br>
+											<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
+											<br></br>
+
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -430,12 +433,12 @@ function Profile() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-									
-											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-									</div>	
-									
+										</p>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>
+
 											
 											
 									
@@ -466,11 +469,7 @@ function Profile() {
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
 												
 													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-												
-												
-													
-												
-													
+														
 											
 												
 											</form>
@@ -480,11 +479,16 @@ function Profile() {
 					)
 				}
 				)}
+					<br></br>
+
 			</div>
 			</div>
 </div>
 		);
-	} else {
+	} 
+	
+	
+	else {
 		return (
 			<div className="container container1">
 				<img width="10%" src="/imgs/loading.gif" alt="img" />
