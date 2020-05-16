@@ -57,8 +57,8 @@ async function doSocialSignIn(provider) {
 			photoURL : '',
 			posts : []
 		  };
-		  db.collection('users').doc(result.user.uid).set(data);	
-	  }).catch(function(error) {
+		  db.collection('users').doc(result.user.uid).set(data);
+		}).catch(function(error) {
 		console.log(error.message)
 	  });
 }
