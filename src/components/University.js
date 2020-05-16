@@ -5,6 +5,7 @@ import Chat from './Chat';
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import { Modal } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
@@ -12,6 +13,10 @@ const University = (props) => {
     //user states
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState();
+    //login for comments
+    const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     //state for college id fomr url
     const [id, setId] = useState(undefined);
     //state for all colleges present in the db
@@ -225,7 +230,16 @@ const University = (props) => {
             
                         </form>
                                                 ): (
-                                                    <p>You need to login to comment</p>
+                                                    // <p>You need to login to comment</p>
+                                                    <form>
+                                                        <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+                                                           <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                                            <Modal className="loginForm" show={show} onHide={handleClose} >
+                                                                <div className = "modalContent">
+                                                                    <h3> Please Provide College Details To Post !</h3>
+                                                                </div>
+                                                            </Modal>
+                                                    </form>
                                                 )}
 
                                             </div>
