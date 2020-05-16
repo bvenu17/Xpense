@@ -556,3 +556,7 @@ h2
   	left: 50%;
 
   }
+  .multiImg{
+	  display: flex;
+	  flex-direction: row;
+  }
