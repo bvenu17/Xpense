@@ -16,10 +16,10 @@ const Chat = () => {
     //login to chat
     const [logSign, setlogSign] = useState("Signup");
     const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
+    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const setLogin = () => setlogSign("Login")
-	const setSignup = () => setlogSign("SignUp")
+    const setSignup = () => setlogSign("SignUp")
     //chat states
     const [message, setMessage] = useState('');
     const [allmsg, setAllmsg] = useState()
@@ -72,15 +72,22 @@ const Chat = () => {
         }
         outMsg();
 
-        
+
     }, []);
 
-    
+
 
     const sendMessage = async (event) => {
         event.preventDefault();
         if (message) {
-            let chatData = { name: user.firstName, message: message }
+            let d = new Date();
+            let chatTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+            let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+            let month = months[d.getMonth()];
+            let day = d.getDate();
+            let chatDate = day + ' ' + month;
+
+            let chatData = { name: user.firstName, message: message ,time:chatTime,date:chatDate}
             socket.emit('input', chatData, () => setMessage(''))
 
             try {
@@ -103,7 +110,7 @@ const Chat = () => {
                             return (
                                 <div class="comments">
                                     <div class="comment chat">
-                                        <span class="userName"> {item.name} </span>
+                                        <span class="userName"> {item.name} </span> <span>{item.time}</span>
                                         <br></br>
                                         {item.message}
                                     </div>
@@ -121,7 +128,7 @@ const Chat = () => {
                             return (
                                 <div class="comments">
                                     <div class="comment chat">
-                                        <span class="userName"> {text.name} </span>
+                            <span class="userName"> {text.name} </span><span>{text.time}</span>
                                         <br></br>
                                         {text.message}
                                     </div>
@@ -142,13 +149,13 @@ const Chat = () => {
                                 <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
                                 <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                 <Modal className="loginForm" show={show} onHide={handleClose} >
-                                    <Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-                    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-                                            </Button>
-                                            <div className = "modalContent">
-                                            {logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-                                            </div>
-                                    </Modal>
+                                    <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+                                        {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+                                    </Button>
+                                    <div className="modalContent">
+                                        {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
+                                    </div>
+                                </Modal>
                             </form>
                         </div>
                     )}

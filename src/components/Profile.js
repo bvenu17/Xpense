@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser,updateProfilePicturePost,updateAccountDetailsPost, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -127,6 +127,8 @@ function Profile() {
 						setProfPicUrl(fireBaseUrl);
 						try {
 							updateProfilePic(currentUser.uid, fireBaseUrl);
+							updateProfilePicturePost(currentUser.uid,fireBaseUrl);
+
 						} catch (error) {
 							alert(error);
 						}
@@ -180,6 +182,7 @@ function Profile() {
 		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
 			try {
 				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
+				await updateAccountDetailsPost(currentUser.uid,first,last);
 				setFormSubmit(!formSubmit);
 
 			} catch (error) {
@@ -399,6 +402,7 @@ function Profile() {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+
 											<div className="postContent">
 										<br></br>
 											<Carousel>
@@ -476,7 +480,7 @@ function Profile() {
 				}
 				)}
 					<br></br>
-				{/* change password part */}
+
 			</div>
 			</div>
 </div>
