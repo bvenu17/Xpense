@@ -70,7 +70,7 @@ const Charts = () => {
 
     if (loading === false) {
 	return (
-        <div>
+        <div className="container container1 ">
             <p>{utilities["Stevens Institute of Technology"]}</p>
             <p>{rent["Stevens Institute of Technology"]}</p>
             <p>{total["Stevens Institute of Technology"]}</p>
