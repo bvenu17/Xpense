@@ -52,7 +52,7 @@ function Home() {
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
-		// let rentList = [];
+		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -81,18 +81,20 @@ function Home() {
 				setOptions(optionFilter);
 				console.log(optionFilter)
 
-				// console.log("RENT EFFECT",typeof(p[0].rent))
+				console.log("RENT EFFECT",rentValue)
 				//filter by rent
-				// if(rentValue>0){
-				// 	p.forEach((post) => {
-				// 		console.log("HERE")
-				// 		if(parseInt(post.rent) <= rentValue)
-				// 		console.log("THEN HERE")
-				// 			rentList.push(post)
-				// 	})
-				// 	setPostList(rentList)
-				// 	console.log(rentList)
-				// }
+				if(rentValue>0){
+					console.log("rentValue",typeof(rentValue))
+					p.forEach((post) => {
+						post.rent = parseInt(post.rent)
+						console.log(typeof(post.rent))
+						if(post.rent <= rentValue)
+						console.log("THEN HERE")
+							rentList.push(post)
+					})
+					setPostList(rentList)
+					console.log("RENT LIST",rentList)
+				}
 				//change loading state
 				setLoading(false)
 			} catch (e) {
@@ -100,7 +102,7 @@ function Home() {
 			}
 		}
 		getData();
-	}, [currentUser, formSubmit])
+	}, [currentUser, formSubmit, rentValue])
 
 	//onChange handler for input field of post picture
 	const handleImageChange = async (event) => {
@@ -139,82 +141,6 @@ function Home() {
 		}
 
 	}
-
-	// //submit form for post
-	// const handlePosts = async (event) => {
-	// 	event.preventDefault();
-	// 	//get all elements from form
-	// 	let { title, description, rent, groceries, transport, utilities, postImage } = event.target.elements;
-	// 	let collegeDetails = await getCollege(user.collegeId);
-	// 	//console.log("College id is the foll " + collegeSelect.value)
-	// 	//upload post image to firebase
-	// 	const storage = firebase.storage();
-	// 	const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + postPic.name;
-	// 	const uploadTask = storage.ref(`/postImages/${imageName}`).put(postPic);
-	// 	console.log('img uploaded');
-
-	// 	// Listen for state changes, errors, and completion of the upload.
-	// 	uploadTask.on('state_changed',
-	// 		(snapShot) => {
-	// 			//takes a snap shot of the process as it is happening
-	// 			console.log(snapShot)
-	// 		}, (err) => {
-	// 			//catches the errors
-	// 			console.log(err)
-	// 		}, () => {
-	// 			// gets the functions from storage refences the image storage in firebase by the children
-	// 			// gets the download url then sets the image from firebase as the value for the imgUrl key:
-	// 			storage.ref('postImages').child(imageName).getDownloadURL()
-	// 				.then(fireBaseUrl => {
-	// 					setPostPicUrl(fireBaseUrl);
-	// 					//retrieve values from the elements and add to post db
-	// 					let d = new Date();
-	// 					let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	// 					let month = months[d.getMonth()];
-	// 					let year = d.getFullYear();
-	// 					let day = d.getDate();
-	// 					let postDate = day + ' ' + month + ' ' + year;
-	// 					let postTime = d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-
-	// 					let post = {
-	// 						title: title.value,
-	// 						authorId: currentUser.uid,
-	// 						authorName: user.firstName + " " + user.lastName,
-	// 						collegeId: user.collegeId,
-	// 						collegeName: collegeDetails.name,
-	// 						comments: [],
-	// 						description: description.value,
-	// 						postPicture: fireBaseUrl,
-	// 						date: postDate,
-	// 						time: postTime,
-	// 						rent: rent.value,
-	// 						groceries: groceries.value,
-	// 						transport: transport.value,
-	// 						utilities: utilities.value,
-	// 						userProfilePic: user.photoURL,
-	// 						collegeName: collegeName
-	// 					};
-	// 					try {
-	// 						//add the post to the db
-	// 						addPosts(currentUser.uid, post);
-	// 						setFormSubmit(!formSubmit);
-	// 					} catch (error) {
-	// 						alert(error);
-	// 					}
-	// 					title.value = "";
-	// 					description.value = "";
-	// 					rent.value = "";
-	// 					groceries.value = "";
-	// 					transport.value = "";
-	// 					utilities.value = "";
-	// 					postImage.value = "";
-
-	// 				})
-	// 		})
-
-
-	// };
-
 
 	//submit form for post second 2 dusra
 	const handlePosts = async (event) => {
@@ -289,7 +215,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "Location") {
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
@@ -309,9 +235,6 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-
-
-
 	//component code
 	if (loading === false) {
 		return (
@@ -323,7 +246,6 @@ function Home() {
 							<label> FILTER BY LOCATION </label>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
-
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -436,8 +358,6 @@ function Home() {
 							return (
 
 								<div className="post">
-
-
 									<div className="headerPost">
 										<div className="avatarSide">
 											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -578,6 +498,22 @@ function Home() {
 									<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
 
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+
+								</div> */}
 
 								<div className="logSignButt">
 									{user.collegeId && user.collegeId ? collegeList.map((item) => {
