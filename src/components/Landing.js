@@ -365,8 +365,8 @@ function Landing() {
 
 		else {
 			return (
-				<div className="container container1">
-					<img width="10%" src="/imgs/loading.gif" alt="img" />
+				<div className="container container1 ">
+					<img className="loadingGIF" width="5%" src="/imgs/loading.gif" alt="img" />
 				</div>
 			)
 		}
