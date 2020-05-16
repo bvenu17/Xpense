@@ -49,7 +49,7 @@ function Home() {
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
-		// let rentList = [];
+		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -78,18 +78,20 @@ function Home() {
 				setOptions(optionFilter);
 				console.log(optionFilter)
 
-				// console.log("RENT EFFECT",typeof(p[0].rent))
+				console.log("RENT EFFECT",rentValue)
 				//filter by rent
-				// if(rentValue>0){
-				// 	p.forEach((post) => {
-				// 		console.log("HERE")
-				// 		if(parseInt(post.rent) <= rentValue)
-				// 		console.log("THEN HERE")
-				// 			rentList.push(post)
-				// 	})
-				// 	setPostList(rentList)
-				// 	console.log(rentList)
-				// }
+				if(rentValue>0){
+					console.log("rentValue",typeof(rentValue))
+					p.forEach((post) => {
+						post.rent = parseInt(post.rent)
+						console.log(typeof(post.rent))
+						if(post.rent <= rentValue)
+						console.log("THEN HERE")
+							rentList.push(post)
+					})
+					setPostList(rentList)
+					console.log("RENT LIST",rentList)
+				}
 				//change loading state
 				setLoading(false)
 			} catch (e) {
@@ -97,7 +99,7 @@ function Home() {
 			}
 		}
 		getData();
-	}, [currentUser, formSubmit])
+	}, [currentUser, formSubmit, rentValue])
 
 	//onChange handler for input field of post picture
 	const handleImageChange = async (event) => {
@@ -135,7 +137,6 @@ function Home() {
 						})
 				})
 		}
-
 	}
 
 	// //submit form for post
@@ -287,7 +288,7 @@ function Home() {
 		let target = event.target.value;
 		let cid = [];
 		let posts_filter = [];
-		if (target === "Location") {
+		if (target === "NONE") {
 			setPostFilter(undefined)
 			return
 		}
@@ -307,9 +308,6 @@ function Home() {
 		});
 		setPostFilter(posts_filter);
 	}
-
-
-
 	//component code
 	if (loading === false) {
 		return (
@@ -321,7 +319,6 @@ function Home() {
 							<label> FILTER BY LOCATION </label>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
-
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -356,27 +353,27 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 									</div>
 									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
 										<p className="collapse" id="collapseExample" aria-expanded="false">
 
 											{item.description}
-											<br></br>
-											<Carousel>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-											</Carousel>
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -434,8 +431,6 @@ function Home() {
 							return (
 
 								<div className="post">
-
-
 									<div className="headerPost">
 										<div className="avatarSide">
 											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -447,27 +442,26 @@ function Home() {
 											<div className="time">{item.time}, {item.date}</div><br>
 											</br>
 										</div>
+										<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
+											<br></br>
+											<p class="postTitle">
+												{item.title}
+											</p>
+										</div>
 									</div>
 									<div className="postContent" id="module">
-
-										<p class="postTitle">
-											{item.title}
-										</p>
 										<p className="collapse" id="collapseExample" aria-expanded="false">
-
 											{item.description}
-											<br></br>
-											<Carousel>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-											</Carousel>
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -578,6 +572,22 @@ function Home() {
 									<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
 									</div>
 								</div>
+
+								{/* <div className="logSignButt">
+									{user.collegeId && user.collegeId ? collegeList.map((item) => {
+										if (item.id === user.collegeId)
+											return (
+												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
+											)
+									}) : ( 
+										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
+											POST
+										</Button>
+										
+								
+									)}
+
+								</div> */}
 
 								<div className="logSignButt">
 									{user.collegeId && user.collegeId ? collegeList.map((item) => {
