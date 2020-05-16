@@ -209,7 +209,7 @@ function Profile() {
 									
 										<div className="text-center">
 
-											{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic'  class = "avatarPic avatarPic2" /></p>)}
+											{user && user.photoURL ? (<img className="align-self-center avatarPic avatarPic2"  src={user.photoURL} alt='profilePic'  />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic'  className = "avatarPic avatarPic2" /></p>)}
 
 												{/* display user details from db */}
 												{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
