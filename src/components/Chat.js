@@ -143,9 +143,8 @@ const Chat = () => {
                     />
                     <button onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
                 </div>) : (
-                        <div>
+                        <div className="chat-control">
                             {/* <p>SignUp to chat!</p> */}
-                            <form>
                                 <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
                                 <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                 <Modal className="loginForm" show={show} onHide={handleClose} >
@@ -156,7 +155,6 @@ const Chat = () => {
                                         {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
                                     </div>
                                 </Modal>
-                            </form>
                         </div>
                     )}
 
