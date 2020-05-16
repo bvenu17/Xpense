@@ -369,15 +369,13 @@ function Home() {
 											{item.description}
 											<br></br>
 											<Carousel>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
 											</Carousel>
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
@@ -460,15 +458,13 @@ function Home() {
 											{item.description}
 											<br></br>
 											<Carousel>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
-												<Carousel.Item>
-													<img width="100%" src={item.postPicture} alt="img-post" />
-												</Carousel.Item>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
 											</Carousel>
 											<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}

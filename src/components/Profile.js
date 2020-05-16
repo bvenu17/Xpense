@@ -334,7 +334,7 @@ function Profile() {
 
 						<div className="text-center">
 
-							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class = "avatarPic avatarPic2" /></p>)}
+							{user && user.photoURL ? (<img className="align-self-center" src={user.userProfilePic ? user.userProfilePic : '/imgs/profile.png'} alt='profilePic' class = "avatarPic avatarPic2" />) : (<img src='/imgs/profile.png' alt='defaultpic' class = "avatarPic avatarPic2" />)}
 
 								{/* display user details from db */}
 								{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
@@ -411,15 +411,13 @@ function Profile() {
 									<br></br>
 
 									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
 									</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
