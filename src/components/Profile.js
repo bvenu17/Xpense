@@ -334,7 +334,7 @@ function Profile() {
 
 						<div className="text-center">
 
-							{user && user.photoURL ? (<img className="align-self-center" src={user.userProfilePic ? user.userProfilePic : '/imgs/profile.png'} alt='profilePic' class = "avatarPic avatarPic2" />) : (<img src='/imgs/profile.png' alt='defaultpic' class = "avatarPic avatarPic2" />)}
+							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class = "avatarPic avatarPic2" /></p>)}
 
 								{/* display user details from db */}
 								{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
@@ -400,28 +400,27 @@ function Profile() {
 												</br>
 											</div>
 											<div className="postContent">
+										<br></br>
+											<Carousel>
+												{item.postPicture.map((photo) => {
+												return(
+													<Carousel.Item>
+													<img key={photo} className="postImg" src={photo} alt="img-post" />
+													</Carousel.Item>
+												)
+												})}
+											</Carousel>
 											<br></br>
-												<Carousel>
-													{item.postPicture.map((photo) => {
-													return(
-														<Carousel.Item>
-														<img key={photo} className="postImg" src={photo} alt="img-post" />
-														</Carousel.Item>
-													)
-													})}
-												</Carousel>
-												<br></br>
-												<p class="postTitle">
-													{item.title}
-												</p>
-											</div>
+											<p class="postTitle">
+												{item.title}
+											</p>
 										</div>
-									<div className="postContent" id = "module">
-									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
-									{item.description}
+									</div>
+									<div className="postContent" id="module">
+										<p className="collapse" id="collapseExample" aria-expanded="false">
+											{item.description}
+											<br></br>
 
-									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -430,12 +429,12 @@ function Profile() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-									
-											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
 
-									</div>	
-									
+										</p>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+
+									</div>
+
 											
 											
 									
@@ -466,11 +465,7 @@ function Profile() {
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
 												
 													<button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-												
-												
-													
-												
-													
+														
 											
 												
 											</form>
@@ -480,11 +475,16 @@ function Profile() {
 					)
 				}
 				)}
+					<br></br>
+				{/* change password part */}
 			</div>
 			</div>
 </div>
 		);
-	} else {
+	} 
+	
+	
+	else {
 		return (
 			<div className="container container1">
 				<img width="10%" src="/imgs/loading.gif" alt="img" />
