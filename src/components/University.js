@@ -266,7 +266,7 @@ const University = (props) => {
                     </div>
 
                     <div class = "col-lg-4 col-md-12 col-sm-12">
-                    <div className="post">
+                    <div className="post chatBox">
 							<h2>GLOBAL CHAT</h2>
 							<Chat></Chat>
 						</div>

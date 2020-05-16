@@ -92,13 +92,13 @@ function Landing() {
 					{/* Rohan Static Content */}
 					<div className="row">
 					<div class = "row">
-							<div class = "col-lg-6 col-md-6 col-sm-3 col-xs-3">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 							<label> FILTER BY LOCATION </label>
 							</div>
-							<div class = "col-lg-6 col-md-6 col-sm-9 col-xs-9">
+							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						
 							<form id='locationFilter'>
-								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
+								<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
 									{options.map((item) => {
 										return (
@@ -292,12 +292,12 @@ function Landing() {
 									<div className='form-group' onClick={handleShow}>
 
 									<Modal className="loginForm" show={show} onHide={handleClose} >
-										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-											{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-										</Button>
-										<div className = "modalContent">
+									<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+					{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											</Button>
+											<div className = "modalContent">
 											{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-										</div>
+											</div>
 									</Modal>
 
 
@@ -347,12 +347,12 @@ function Landing() {
 										</Button>
 
 										<Modal className="loginForm" show={show} onHide={handleClose} >
-											<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-													{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-											</Button>
-											<div className = "modalContent">
+										<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+						{logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+												</Button>
+												<div className = "modalContent">
 												{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
-											</div>
+												</div>
 										</Modal>
 
 
@@ -361,7 +361,7 @@ function Landing() {
 							</div>
 							<br></br>
 							<br></br>
-							<div className="post">
+							<div className="post chatBox">
 								<h2>GLOBAL CHAT</h2>
 								<Chat />
 							</div>

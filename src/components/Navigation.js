@@ -23,7 +23,7 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
-  <img width="5%" src={logo} alt="img" />
+  <img class = "logo"  src={logo} alt="img" />
   <a className="navbar-brand brand" href="/home">xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -98,6 +98,7 @@ const NavigationNonAuth = () => {
 
 		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
+			<img src={logo} alt="img" class = "logo" />
 			<a className="navbar-brand brand" href="/">xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
