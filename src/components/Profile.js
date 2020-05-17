@@ -29,7 +29,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControl from '@material-ui/core/FormControl';
 import { FormLabel } from 'react-bootstrap';
 //static file init
-const defpic = require('../assets/default-avatar.png')
+const defpic = require('../assets/profile.png')
 
 
 function Profile() {
@@ -42,13 +42,12 @@ function Profile() {
 	//database states
 	const [change, setChange] = useState(false);
 	const [profPic, setProfPic] = useState();
-	const [profPicUrl, setProfPicUrl] = useState();
+	//const [profPicUrl, setProfPicUrl] = useState();
 	const [formSubmit, setFormSubmit] = useState(false);
 	const [dob, setDob] = useState();
 	const [currentStudent, setCurrentStudent] = useState(false);
 	//college states
 	const [collegeList, setCollegeList] = useState();
-	const [collegeSelected, setCollegeSelected] = useState();
 	//user posts state
 	const [userPosts, setUserPosts] = useState();
 	const [postId, setPostId] = useState();
@@ -66,7 +65,9 @@ function Profile() {
 				let u = await getUser(currentUser.uid);
 				setLoading(false)
 				setUser(u);
-				setCurrentStudent(u.currentStudent)
+				if(u.currentStudent===true||u.currentStudent===false) {
+				setCurrentStudent(u.currentStudent);
+				} 
 				setDob(u.dob);
 				//fetch college name of user 
 				if(u.collegeId) {
@@ -103,9 +104,6 @@ function Profile() {
 	//submit function for profile picture form
 	const handleUpload = async (event) => {
 		event.preventDefault();
-		var metadata = {
-			contentType: 'image/jpeg'
-		};
 		const { profilepicfile } = event.target.elements;
 		const storage = firebase.storage();
 		const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
@@ -126,7 +124,7 @@ function Profile() {
 				storage.ref('profilePics').child(imageName).getDownloadURL()
 					.then(fireBaseUrl => {
 						//setProfPicUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
-						setProfPicUrl(fireBaseUrl);
+						//setProfPicUrl(fireBaseUrl);
 						try {
 							updateProfilePic(currentUser.uid, fireBaseUrl);
 							updateProfilePicturePost(currentUser.uid, fireBaseUrl);
@@ -169,6 +167,9 @@ function Profile() {
 	//function to update account details of the user
 	const handleAccountUpdate = async (event) => {
 		event.preventDefault();
+		console.log('entering update acc func');
+		let status = currentStudent;
+
 		let { firstName, lastName, dob, collegeSelect } = event.target.elements;
 		const first = firstName.value;
 		const last = lastName.value;
@@ -179,7 +180,9 @@ function Profile() {
 		} else {
 			selectedCollegeId = collegeSelect.value
 		}
-		let status = currentStudent;
+		
+		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
+
 		try {
 			await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
 			await updateAccountDetailsPost(currentUser.uid, first, last);
@@ -226,7 +229,7 @@ function Profile() {
 										<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 										<br></br>
 										{showUploadButton ? (
-											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
+											<button type="submit" className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></button>
 											) : (
 												<p></p>
 											)}
@@ -291,7 +294,7 @@ function Profile() {
 													id='collegeSelect'>
 													{collegeList && collegeList.map((item) => {
 														return (
-															<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
+															<option selected={item.id ===parseInt(user.collegeId)? (true) : (false)} value={item.id}>{item.name}</option>
 	
 														)
 													})}
@@ -354,8 +357,8 @@ function Profile() {
 											<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 											<br></br><br></br>
 											{showUploadButton ? (
-											// <button class="commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
-											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
+											<button type="submit" class="loginButt loginButt2 profileButt">Accept<i class="fas fa-check-circle  "></i></button>
+											// <Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
 
 											): (<p></p>)}
 											<br></br><br></br>
@@ -416,7 +419,7 @@ function Profile() {
 
 										<div className="postContent">
 											<br></br>
-											{item.postPicture.length != 0 ?
+											{item.postPicture.length !== 0 ?
                                                 (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(

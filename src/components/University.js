@@ -212,10 +212,11 @@ const University = (props) => {
 												{item.comments ? (
 													item.comments.map((comm,i) => {
 														return (
-															<div class = "comments" key={i}>
-																<div class = "comment">
+
+															<div className = "comments" key={i}>
+																<div className = "comment">
 																
-																	<span class = "userName">{comm.username}</span> 
+																	<span className = "userName">{comm.username}</span> 
 																	<br></br>
 																	{comm.comment}
 																</div>
@@ -267,9 +268,9 @@ const University = (props) => {
                         }
                     </div>
 
-                    <div class = "col-lg-4 col-md-12 col-sm-12">
+                    <div className = "col-lg-4 col-md-12 col-sm-12">
                     <div className="post chatBox">
-                    <span class = "h2">GLOBAL CHAT</span>
+                    <span className = "h2">GLOBAL CHAT</span>
 							<br></br><br></br>
 							<Chat></Chat>
 						</div>

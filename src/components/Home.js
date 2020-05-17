@@ -222,11 +222,11 @@ function Home() {
 			<div className='container container1'>
 				{/* Rohan Static Content */}
 				<div className="row">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-3 col-xs-3">
+					<div className="row">
+						<div className="col-lg-6 col-md-6 col-sm-3 col-xs-3">
 							<label> FILTER BY LOCATION </label>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
+						<div className="col-lg-6 col-md-6 col-sm-9 col-xs-9">
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -275,7 +275,7 @@ function Home() {
 												})}
 											</Carousel>
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -307,10 +307,10 @@ function Home() {
 											{item.comments ? (
 												item.comments.map((comm) => {
 													return (
-														<div class="comments">
-															<div class="comment">
+														<div className="comments">
+															<div className="comment">
 
-																<span class="userName">{comm.username}</span>
+																<span className="userName">{comm.username}</span>
 																<br></br>
 																{comm.comment}
 															</div>
@@ -321,10 +321,10 @@ function Home() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-												<label for = "comment"></label>
+												<label htmlFor = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-												<label for = "commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label htmlFor = "commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -397,10 +397,10 @@ function Home() {
 											{item.comments ? (
 												item.comments.map((comm) => {
 													return (
-														<div class="comments">
-															<div class="comment">
+														<div className="comments">
+															<div className="comment">
 
-																<span class="userName">{comm.username}</span>
+																<span className="userName">{comm.username}</span>
 																<br></br>
 																{comm.comment}
 															</div>
@@ -412,10 +412,10 @@ function Home() {
 										<form onSubmit={handleCommentSubmit}>
 
 
-											<label for = "comment"></label>
+											<label htmlFor = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-												<label for ="commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label htmlFor ="commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 
 
@@ -436,7 +436,7 @@ function Home() {
 					</div>
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
-							<span class = "h2">Share your experience living in the US</span>
+							<span className = "h2">Share your experience living in the US</span>
 							<br></br>
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
@@ -445,13 +445,13 @@ function Home() {
 										(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />)}
 									<br></br>
 
-									<label for="description">Description</label>
+									<label htmlFor="description">Description</label>
 									{user.currentStudent ? (<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />) :
 										(<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' disabled required />)}
 									<br></br>
 
 
-									<label for="college"> Your College</label>
+									<label htmlFor="college"> Your College</label>
 									{user.collegeId ? (collegeList.map((item) => {
 										if (user.collegeId === item.id) {
 											return (
@@ -460,22 +460,22 @@ function Home() {
 										}
 									})) : (<p>Please provide your college name !</p>)}
 
-									<label for="rent">Rent</label>
+									<label htmlFor="rent">Rent</label>
 									{user.currentStudent ? (<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />) :
 										(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
-									<label for="transport">Transport</label>
+									<label htmlFor="transport">Transport</label>
 									{user.currentStudent ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />) :
 										(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />)}
 									<br></br>
 
-									<label for="utilities">Utilities</label>
+									<label htmlFor="utilities">Utilities</label>
 									{user.currentStudent ? (<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />) :
 										(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
-									<label for="groceries">Grocery Stores</label>
+									<label htmlFor="groceries">Grocery Stores</label>
 									{user.currentStudent ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />) :
 										(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />)}
 									<br></br>
@@ -486,12 +486,12 @@ function Home() {
 											return <p>{item}</p>
 										})}
 										
-										<label for="postImage">Upload Media</label>
+										<label htmlFor="postImage">Upload Media</label>
 										<div className="multiImg">
 										{user.currentStudent ? (
 										<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
 																	{uploadButton ? (
-																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i className="fas fa-check-circle"></i></Button>
 																	): (null)}
 																
 																	</div>
@@ -499,7 +499,7 @@ function Home() {
 																(
 																<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
 																	{uploadButton ? (
-																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i className="fas fa-check-circle"></i></Button>
 
 																	): (null)}
 																	
@@ -518,7 +518,7 @@ function Home() {
 						<br></br>
 
 						<div className="post chatBox">
-						<span class = "h2">GLOBAL CHAT</span>
+						<span className = "h2">GLOBAL CHAT</span>
 							<br></br><br></br>
 							<Chat></Chat>
 						</div>

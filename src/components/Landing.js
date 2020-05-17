@@ -94,23 +94,24 @@ function Landing() {
 				<div className='container container1'>
 					{/* Rohan Static Content */}
 					<div className="row">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<label> FILTER BY LOCATION </label>
+					<div className = "row">
+							<div className = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<label> FILTER BY LOCATION </label>
 							</div>
-							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
-								<form id='locationFilter'>
-									<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
-										<option key='default' defaultValue='None'>NONE</option>
-										{options.map((item) => {
-											return (
-												<option key={item}>{item}</option>
-											)
-										})}
-									</select>
-								</form>
-								<br></br>
+							<div className = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						
+							<form id='locationFilter'>
+								<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
+									<option key='default' defaultValue='None'>NONE</option>
+									{options.map((item) => {
+										return (
+											<option key={item}>{item}</option>
+										)
+									})}
+								</select>
+							</form>
+				            <br></br>
+							
 
 							</div>
 						</div>
@@ -131,6 +132,7 @@ function Landing() {
 												</br>
 											</div>
 											<div className="postContent">
+
 												<br></br>
 												{item.postPicture.length !== 0 ?
 													(<Carousel>
@@ -143,7 +145,7 @@ function Landing() {
 														})}
 													</Carousel>) : (<div></div>)}
 												<br></br>
-												<p class="postTitle">
+												<p className="postTitle">
 													{item.title}
 												</p>
 											</div>
@@ -177,10 +179,11 @@ function Landing() {
 												{item.comments ? (
 													item.comments.map((comm, k) => {
 														return (
-															<div class="comments" key={k}>
-																<div class="comment">
 
-																	<span class="userName">{comm.username}</span>
+															<div className="comments" key={k}>
+																<div className="comment">
+
+																	<span className="userName">{comm.username}</span>
 																	<br></br>
 																	{comm.comment}
 																</div>
@@ -189,12 +192,13 @@ function Landing() {
 													})
 												) : (<p>No comments to display</p>)}
 											</div>
+
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label for="comment"></label>
+												<label htmlFor="comment"></label>
 												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label for="submitButt"></label>
+												<label htmlFor="submitButt"></label>
 												<button name="submitButt" id="submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 											</form>
 										</div>
@@ -210,6 +214,7 @@ function Landing() {
 											</div>
 											<div className="personal">
 												<div className="author"> {item.authorName} </div>
+
 
 												<div className="college">{item.collegeName}</div>
 												<div className="time">{item.time}, {item.date}</div><br>
@@ -228,7 +233,7 @@ function Landing() {
 														})}
 													</Carousel>) : (<div></div>)}
 												<br></br>
-												<p class="postTitle">
+												<p className="postTitle">
 													{item.title}
 												</p>
 											</div>
@@ -261,25 +266,25 @@ function Landing() {
 												{item.comments ? (
 													item.comments.map((comm,l) => {
 														return (
-															<div class="comments" key={l}>
-																<div class="comment">
+															<div className="comments" key={l}>
+																<div className="comment">
 
-																	<span class="userName">{comm.username}</span>
+																	<span className="userName">{comm.username}</span>
 																	<br></br>
 																	{comm.comment}
 																</div>
 															</div>
 														)
 													})
-												) : (<div class="comments">No comments to display</div>)}
+												) : (<div className="comments">No comments to display</div>)}
 											</div>
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label for="comment"></label>
+												<label htmlFor="comment"></label>
 												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label for="submitButt"></label>
-												<button name="submitButt" id="submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+												<label htmlFor="submitButt"></label>
+												<button name="submitButt" id="submitButt" class="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 
 
 											</form>
@@ -294,8 +299,9 @@ function Landing() {
 
 						<div className="col-lg-4 col-md-12 col-sm-12">
 							<div className="post">
-								<span class="h2">Share your experience living in the US</span>
-								<br></br><br></br>
+							<span className = "h2">Share your experience living in the US</span>
+							<br></br><br></br>
+
 
 								{/* Currently this form is disabled */}
 
@@ -374,7 +380,7 @@ function Landing() {
 							<br></br>
 							<br></br>
 							<div className="post chatBox">
-								<span class="h2">GLOBAL CHAT</span>
+								<span className="h2">GLOBAL CHAT</span>
 								<br></br><br></br>
 								<Chat />
 							</div>

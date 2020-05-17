@@ -23,7 +23,7 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
-  <img class = "logo"  src={logo} alt="img" />
+  <img className = "logo"  src={logo} alt="img" />
   <a className="navbar-brand brand" href="/home"> xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -38,9 +38,9 @@ const NavigationAuth = () => {
       </li>
 
 	  <li className="nav-item active dropdown">
-        <a className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<i class="fas fa-university" title = "universities"></i> Universities
-        </a>
+        <item className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<i className="fas fa-university" title = "universities"></i> Universities
+        </item>
 		<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			<a className="dropdown-item" href ="/university/1">Princeton University</a>
 			<a className="dropdown-item" href = "/university/2">Stevens Institute of Technology</a>
@@ -120,9 +120,9 @@ const NavigationNonAuth = () => {
 				</li>
 
 				<li className="nav-item active dropdown">
-					<a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-university" title = "universities"></i> Universities
-					</a>
+					<item className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i className="fas fa-university" title = "universities"></i> Universities
+					</item>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a className="dropdown-item" href = "/university/1">Princeton University</a>
 					<a className="dropdown-item" href = "/university/2">Stevens Institute of Technology</a>
@@ -160,7 +160,7 @@ const NavigationNonAuth = () => {
 
 								<li className="nav-item">
 					<Button variant="primary" className="loginButt" onClick={handleShow}>
-					<i class="fas fa-sign-in-alt"></i> Login/SignUp
+					<i className="fas fa-sign-in-alt"></i> Login/SignUp
 					</Button>
 
 					<Modal className="loginForm" show={show} onHide={handleClose} >

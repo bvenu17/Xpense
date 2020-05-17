@@ -35,7 +35,7 @@ function SignIn() {
 			<h1 className = "loginRegHeader">Log in</h1>
 			<form onSubmit={handleLogin}>
 			<div className='form-group'>
-					<label for = "email" name = "email">
+					<label htmlFor="email" name="email">
 						Email
 						</label>
 						<input
@@ -64,8 +64,8 @@ function SignIn() {
 				</button>
 					
 				</div>
-				<div class = " logSignButt">
-				<button type='submit' class = "loginButt loginButt2">LOGIN</button>	
+				<div className = " logSignButt">
+				<button type='submit' className = "loginButt loginButt2">LOGIN</button>	
 				</div>
 				
 			</form>

@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap'
 const SignOutButton = () => {
 	return (
 		<Button variant="primary" className = "loginButt" onClick={doSignOut}>
-			<i class="fas fa-sign-out-alt"></i> Sign Out
+			<i className="fas fa-sign-out-alt"></i> Sign Out
 		</Button>
 	);
 };
