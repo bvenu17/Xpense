@@ -1,29 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bar, Line, Pie } from 'react-chartjs-2';
-import { getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
-import { cpus } from 'os';
+import { Bar } from 'react-chartjs-2';
+import { getAllColleges } from '../firebase/FirestoreFunctions'
 
 
 function Charts() {
 
-    const [collegeList, setCollegeList] = useState();
-    const [utilities, setUtilities] = useState();
-    const [rent, setRent] = useState();
-    const [total, setTotal] = useState();
-
     const [chartData, setChartData] = useState();
-    const [displayTitle, setDisplayTitle] = useState(true);
-    const [displayLegend, setDisplayLegend] = useState(true);
-    const [legendPosition, setLegendPosition] = useState('right');
 
 
     useEffect(() => {
         async function getData() {
             try {
-                console.log("Entering use effect at home")
                 let clist = await getAllColleges();
-                setCollegeList(clist);
 
                 let collegeNames = [];
                 let collegeAvgs = [];
@@ -95,53 +84,22 @@ return (
                 <br></br>
                 </div>
             </div>
-        {/* <Pie
-            data={chartData}
-            options={{
-                title: {
-                    display: displayTitle,
-                    text: 'Heighest Average Expenses ' + location,
-                    fontSize: 25
-                },
-                legend: {
-                    display: displayLegend,
-                    position: legendPosition
-                }
-            }}
-        /> */}
 
         <Bar
             data={chartData}
             options={{
                 title: {
-                    display: displayTitle,
+                    display: true,
 
-                    text: 'Average Expenses of Universities',
+                    text: 'Average Expenses of Universities($)',
                     fontSize: 25
                 },
                 legend: {
-                    display: displayLegend,
-                    position: legendPosition
+                    display: true,
+                    position: 'right'
                 }
             }}
         />
-
-        {/* <Line
-            data={chartData}
-            
-            options={{
-                fill:false,
-                title: {
-                    display: displayTitle,
-                    text: 'Largest Cities In ' + location,
-                    fontSize: 25
-                },
-                legend: {
-                    display: displayLegend,
-                    position: legendPosition
-                }
-            }}
-        /> */}
     </div>
 )
 

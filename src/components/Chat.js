@@ -75,7 +75,7 @@ const Chat = () => {
         outMsg();
 
 
-    }, []);
+    }, [currentUser]);
 
 
 
@@ -89,7 +89,7 @@ const Chat = () => {
             let day = d.getDate();
             let chatDate = day + ' ' + month;
 
-            let chatData = { name: user.firstName, message: message ,time:chatTime,date:chatDate}
+            let chatData = { name: user.firstName, message: message, time: chatTime, date: chatDate }
             socket.emit('input', chatData, () => setMessage(''))
 
             try {
@@ -108,15 +108,16 @@ const Chat = () => {
             <div>
                 <div className='cardMsg' style={{ width: "100% ", overflow: "auto", height: '25.0rem' }}>
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '100%', height: '100px' }}>
-                        {allmsg && allmsg.chatMessage.map((item) => {
+                        {allmsg && allmsg.chatMessage.map((item, i) => {
                             return (
                                 <div className="comments">
                                     <div className="comment chat">
                                         <span className="userName"> {item.name} </span> 
+
                                         <br></br>
                                         {item.message}
                                         <br></br>
-                                        <span className = "time">{item.time}</span>
+                                        <span className="time">{item.time}</span>
                                     </div>
                                 </div>
                             )
@@ -128,15 +129,16 @@ const Chat = () => {
                                 <span>{msgSent.message}</span>
                             </div>
                         </div>) : (null)} */}
-                        {msgSent && msgSent.map((text) => {
+                        {msgSent && msgSent.map((text, i) => {
                             return (
                                 <div className="comments">
                                     <div className="comment chat">
                             <span className="userName"> {text.name} </span>
+
                                         <br></br>
                                         {text.message}
                                         <br></br>
-                                        <span className = "time">{text.time}</span>
+                                        <span className="time">{text.time}</span>
                                     </div>
                                 </div>
                             )
@@ -144,12 +146,13 @@ const Chat = () => {
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div className="chat-control">
-                    <label for = "addComm"></label>
-                    <input name = "addComm" id = "addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
+                    <label for="addComm"></label>
+                    <input name="addComm" id="addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
-                    <label for = "chatButt"></label>
+                    <label htmlFor = "chatButt"></label>
                     <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} className="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+
                 </div>) : (
                         <div className="chat-control">
                             {/* <p>SignUp to chat!</p> */}
@@ -168,6 +171,7 @@ const Chat = () => {
                                         {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
                                     </div>
                                 </Modal>
+
                         </div>
                     )}
 
