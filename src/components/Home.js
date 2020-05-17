@@ -214,6 +214,7 @@ function Home() {
 				}
 			});
 		});
+		posts_filter = posts_filter.sort((a,b) => b.createdAt - a.createdAt)
 		setPostFilter(posts_filter);
 	}
 	//component code
