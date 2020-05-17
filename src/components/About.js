@@ -53,7 +53,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-4 col-sm-4">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/vedadnya.jpg" class = "avatarPic2" alt="img" />
+                        <img width="100%" src="/imgs/vedadnya.jpg" className = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Vedadnya <br></br> Jadhav</p>
 
                     </div>
@@ -62,7 +62,7 @@ const About = () => {
       
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img hetight ="100%" width="100%" src="/imgs/venu.jpg" class = "avatarPic2" alt="img" />
+                        <img hetight ="100%" width="100%" src="/imgs/venu.jpg" className = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Venugopal <br></br> Balaji</p>
 
                     </div>
@@ -78,7 +78,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/rohan.jpg" class = "avatarPic2" alt="img" />
+                        <img width="100%" src="/imgs/rohan.jpg" className = "avatarPic2" alt="img" />
                         <p className="devName2"><br></br>Rohan <br></br> Shah</p>
 
                     </div>

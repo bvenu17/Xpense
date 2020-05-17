@@ -200,7 +200,7 @@ function Profile() {
 		return (
 			<div className="container container1">
 				{/* Profile picture part */}
-				<div class="row">
+				<div className="row">
 
 					{/* form to update account details */}
 
@@ -215,21 +215,21 @@ function Profile() {
 
 								<div className="text-center">
 
-									{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class="avatarPic avatarPic2" /></p>)}
+									{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' className="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' className="avatarPic avatarPic2" /></p>)}
 
 									{/* display user details from db */}
-									{user ? (<p class="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+									{user ? (<p className="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
 
 
 									{/* form to chang profile pic */}
 
 									<form onSubmit={handleUpload}>
-										<label for="profilepicfile" class="pp">Change Profile Picture</label>
+										<label htmlFor="profilepicfile" className="pp">Change Profile Picture</label>
 
 										<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 										<br></br>
 										{showUploadButton ? (
-											<button type="submit" className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></button>
+											<button type="submit" className="loginButt loginButt2 profileButt"> Accept<i className="fas fa-check-circle"></i></button>
 											) : (
 												<p></p>
 											)}
@@ -240,15 +240,15 @@ function Profile() {
 								</div>
 							</div>
 
-							<div class="post">
+							<div className="post">
 								<h2>Edit account info</h2>
 								{/* account form starts here */}
 								<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
-									<label for="firstName">First Name</label>
-									<input required type="text" id="firstName" class="form-control" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
+									<label htmlFor="firstName">First Name</label>
+									<input required type="text" id="firstName" className="form-control" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
 									<br></br>
-									<label for="lastName">Last Name</label>
-									<input required type="text" defaultValue={user.lastName} class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" />
+									<label htmlFor="lastName">Last Name</label>
+									<input required type="text" defaultValue={user.lastName} className="form-control" id="lastName" name="lastName" placeholder="Enter your last name" />
 									<br>
 									</br>
 									{/* material ui date picker for dob */}
@@ -317,11 +317,11 @@ function Profile() {
 									
 									<br></br>
 									<br></br>
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<div className="row">
+										<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<Button type='submit' className="loginButt loginButt2">Apply Changes</Button>
 										</div>
-										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+										<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt"> Cancel Changes</Button>
 										</div>
 									</div>
@@ -346,18 +346,18 @@ function Profile() {
 
 									<div className="text-center">
 
-										{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class="avatarPic avatarPic2" /></p>)}
+										{user && user.photoURL ? (<img className="align-self-center"  src={user.photoURL} alt='profilePic' className="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' className="avatarPic avatarPic2" /></p>)}
 
 										{/* display user details from db */}
-										{user ? (<p class="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+										{user ? (<p className="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
 										{/* form to chang profile pic */}
 
 										<form onSubmit={handleUpload}>
-											<label for="profilepicfile" class="pp">Change Profile Picture</label>
+											<label htmlFor="profilepicfile" className="pp">Change Profile Picture</label>
 											<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
 											<br></br><br></br>
 											{showUploadButton ? (
-											<button type="submit" class="loginButt loginButt2 profileButt">Accept<i class="fas fa-check-circle  "></i></button>
+											<button type="submit" className="loginButt loginButt2 profileButt">Accept<i className="fas fa-check-circle  "></i></button>
 											// <Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
 
 											): (<p></p>)}
@@ -398,7 +398,7 @@ function Profile() {
 
 
 					{/* Get user posts */}
-					<div class="col-lg-8 col-md-12 col-sm-12">
+					<div className="col-lg-8 col-md-12 col-sm-12">
 						<label>My posts</label>
 						{userPosts && userPosts.map((item) => {
 							return (
@@ -430,7 +430,7 @@ function Profile() {
                                                     })}
                                                 </Carousel>):(<div></div>)}
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -466,10 +466,10 @@ function Profile() {
 											{item.comments ? (
 												item.comments.map((comm) => {
 													return (
-														<div class="comments">
-															<div class="comment">
+														<div className="comments">
+															<div className="comment">
 
-																<span class="userName">{comm.username}</span>
+																<span className="userName">{comm.username}</span>
 																<br></br>
 																{comm.comment}
 															</div>
@@ -486,7 +486,7 @@ function Profile() {
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
 													<label for = "commentButt"></label>
 
-											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 									</div>

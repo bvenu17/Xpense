@@ -33,14 +33,14 @@ const NavigationAuth = () => {
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
 	  <NavLink exact to='/home' className = "nav-link">			
-			<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>
+			<span className="activeLink"><i className="fas fa-home" title = 'HOME'></i> Home</span>
 	  </NavLink>
       </li>
 
 	  <li className="nav-item active dropdown">
-        <item className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div  href="#" className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		<i className="fas fa-university" title = "universities"></i> Universities
-        </item>
+        </div>
 		<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			<a className="dropdown-item" href ="/university/1">Princeton University</a>
 			<a className="dropdown-item" href = "/university/2">Stevens Institute of Technology</a>
@@ -61,7 +61,7 @@ const NavigationAuth = () => {
       </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About Us</span>
+						<span className="activeLink"><i className="fas fa-info-circle" title = "About"></i> About Us</span>
 	  </NavLink>
       </li>
 
@@ -71,13 +71,13 @@ const NavigationAuth = () => {
 	
 	<li className="nav-item active">
 	  <NavLink exact to='/charts' className = "nav-link">
-	  				<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
+	  				<span className="activeLink"><i className="fas fa-chart-pie"></i> Insights </span>
 	  </NavLink>
       </li>
 
 	<li className="nav-item active">
 	  <NavLink exact to='/profile' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-user-circle" title = "Profile"></i> Profile</span>
+						<span className="activeLink"><i className="fas fa-user-circle" title = "Profile"></i> Profile</span>
 	  </NavLink>
       </li>
 		<li className = "nav-item">
@@ -104,7 +104,7 @@ const NavigationNonAuth = () => {
 
 		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
-			<img class = "logo"  src={logo} alt="img" />
+			<img className = "logo"  src={logo} alt="img" />
 			<a className="navbar-brand brand" href="/"> xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
@@ -115,14 +115,14 @@ const NavigationNonAuth = () => {
 				<li className="nav-item active">
 					<NavLink exact to='/' className = "nav-link">
 						
-						<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>	
+						<span className="activeLink"><i className="fas fa-home" title = 'HOME'></i> Home</span>	
 					</NavLink>
 				</li>
 
 				<li className="nav-item active dropdown">
-					<item className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div href="#" className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i className="fas fa-university" title = "universities"></i> Universities
-					</item>
+					</div>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a className="dropdown-item" href = "/university/1">Princeton University</a>
 					<a className="dropdown-item" href = "/university/2">Stevens Institute of Technology</a>
@@ -144,7 +144,7 @@ const NavigationNonAuth = () => {
 			
 				<li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About Us</span>
+						<span className="activeLink"><i className="fas fa-info-circle" title = "About"></i> About Us</span>
 	  </NavLink>
       </li>
 	  <li></li>
@@ -154,7 +154,7 @@ const NavigationNonAuth = () => {
 
 	  <li className="nav-item active">
 	  <NavLink exact to='/charts' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
+						<span className="activeLink"><i className="fas fa-chart-pie"></i> Insights </span>
 	  </NavLink>
       </li>
 

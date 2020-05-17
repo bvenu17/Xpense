@@ -110,7 +110,7 @@ const Chat = () => {
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '100%', height: '100px' }}>
                         {allmsg && allmsg.chatMessage.map((item, i) => {
                             return (
-                                <div className="comments">
+                                <div key={i} className="comments">
                                     <div className="comment chat">
                                         <span className="userName"> {item.name} </span> 
 
@@ -146,12 +146,12 @@ const Chat = () => {
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div className="chat-control">
-                    <label for="addComm"></label>
+                    <label htmlFor="addComm"></label>
                     <input name="addComm" id="addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
                     <label htmlFor = "chatButt"></label>
-                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} className="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
                 </div>) : (
                         <div className="chat-control">
