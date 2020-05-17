@@ -5,7 +5,9 @@ import { AuthContext } from '../firebase/Auth';
 import SignOutButton from './SignOut';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import '../App.css';
+import '../App.css'
+const logo = require('../assets/xPense.png')
+
 
 const Navigation = () => {
 	const { currentUser } = useContext(AuthContext);
@@ -21,7 +23,8 @@ const NavigationAuth = () => {
 
 <nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
   <div className = "container">
-  <a className="navbar-brand brand" href="/home">xPense</a>
+  <img class = "logo"  src={logo} alt="img" />
+  <a className="navbar-brand brand" href="/home"> xPense</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -29,8 +32,7 @@ const NavigationAuth = () => {
   <div className="collapse navbar-collapse collapse w-100" id="navbarTogglerDemo02">
   <ul className="navbar-nav mr-auto mt-2 mt-lg-0 w-100 justify-content-center">
       <li className="nav-item active">
-	  <NavLink exact to='/home' className = "nav-link">
-	  			
+	  <NavLink exact to='/home' className = "nav-link">			
 			<span className="activeLink"><i class="fas fa-home" title = 'HOME'></i> Home</span>
 	  </NavLink>
       </li>
@@ -59,19 +61,25 @@ const NavigationAuth = () => {
       </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About Us</span>
 	  </NavLink>
       </li>
 
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
-		<li className = "nav-item active">
-		<NavLink exact to='/profile' class="nav-link">
 	
-		<span className="activeLink"> <i class="fas fa-user-circle" title = "profile"></i> Profile</span>
-		</NavLink>
-		</li>
+	<li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+	  				<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
+	  </NavLink>
+      </li>
+
+	<li className="nav-item active">
+	  <NavLink exact to='/profile' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-user-circle" title = "Profile"></i> Profile</span>
+	  </NavLink>
+      </li>
 		<li className = "nav-item">
 		<SignOutButton />
 		</li>
@@ -96,7 +104,8 @@ const NavigationNonAuth = () => {
 
 		<nav className="navbar fixed-top navbar-expand-lg navbar-light navStyle">
 			<div className = "container">
-			<a className="navbar-brand brand" href="/">xPense</a>
+			<img class = "logo"  src={logo} alt="img" />
+			<a className="navbar-brand brand" href="/"> xPense</a>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
@@ -135,26 +144,32 @@ const NavigationNonAuth = () => {
 			
 				<li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About Us</span>
 	  </NavLink>
       </li>
 	  <li></li>
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
+
+	  <li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
+	  </NavLink>
+      </li>
+
 								<li className="nav-item">
 					<Button variant="primary" className="loginButt" onClick={handleShow}>
-						Login/SignUp
+					<i class="fas fa-sign-in-alt"></i> Login/SignUp
 					</Button>
 
 					<Modal className="loginForm" show={show} onHide={handleClose} >
-							
+					<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
+    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
+							</Button>
 							<div className = "modalContent">
 							{logSign === "Login"?<SignUp></SignUp> : <SignIn></SignIn>}
 							</div>
-							<Button variant="primary" className = "modalHeader" onClick={logSign==="Login"? setSignup : setLogin}>
-    {logSign==="Login"? "Have an account? Login here" : "Don't have an account? Signup Now"}
-							</Button>
 					</Modal>
 				</li>
 			</ul>

@@ -2,7 +2,7 @@
 import React from 'react';
 //css imports
 import '../App.css';
-import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 //components imports
 import Profile from './Profile';
 import Home from './Home';
@@ -13,7 +13,7 @@ import { AuthProvider } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
 import ErrorPage from './ErrorPage';
 import About from './About';
-import Chat from './Chat';
+import Charts from './Charts'
 
 //component code
 function App() {
@@ -27,12 +27,11 @@ function App() {
 					<Switch>
 						<Route exact path='/' component={Landing} />
 						<Route exact path = '/about' component = {About}/>
+						<Route exact path = '/charts' component = {Charts}/>
 						<Route path='/university/:id' exact component={University} />
 						<PrivateRoute path='/home' component={Home} />
 						<PrivateRoute path='/profile' component={Profile} />
-						<Route exact path = '/chat' component = {Chat}/>
 						<Route path="*" status={404} exact component={ErrorPage} />
-						
 						{/* <Route path='/signin' component={SignIn} /> */}
 						{/* <Route path='/signup' component={SignUp} /> */}
 					</Switch>

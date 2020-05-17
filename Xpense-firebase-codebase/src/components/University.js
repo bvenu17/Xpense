@@ -1,21 +1,27 @@
 //basic imports
 import React, { useState, useEffect, useContext } from 'react';
 import Chat from './Chat';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 //css imports
 import '../App.css';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
+import { Button, Modal } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
-import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
+import { getUser, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
 const University = (props) => {
     //user states
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState();
-    //state for college id fomr url
-    const [id, setId] = useState(undefined);
-    //state for all colleges present in the db
-    const [collegeList, setCollegeList] = useState();
+    //login for comments
+    const [logSign, setlogSign] = useState("Signup");
+    const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const setLogin = () => setlogSign("Login")
+	const setSignup = () => setlogSign("SignUp")
     //state for college details from the db
     const [details, setDetails] = useState(undefined);
     //state for all posts linked to the university
@@ -29,7 +35,6 @@ const University = (props) => {
 
     //lifecycle method
     useEffect(() => {
-        setId(parseInt(props.match.params.id));
         async function getData() {
             try {
                 console.log("Enter use effect func")
@@ -41,7 +46,6 @@ const University = (props) => {
                 }
                 //get all colleges from the db   
                 let clist = await getAllColleges();
-                setCollegeList(clist);
                 console.log("fetched all colleges from db", clist);
 
                 //retreive the details of selected college from the list
@@ -80,7 +84,7 @@ const University = (props) => {
             }
         }
         getData();
-    }, [formSubmit, currentUser]
+    }, [formSubmit, currentUser , props.match.params.id]
     )
 
     //submit form for comments
@@ -109,7 +113,7 @@ const University = (props) => {
 
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-12">
-                                <img src="/static/media/college-logo.09e9da4c.jpg" alt="defaultpic" className="univLogo"></img><br />
+                                <img src={details.logoUrl} alt="defaultpic" className="univLogo"></img><br />
                             </div>
                             <div className="col-lg-10 col-md-10 col-sm-12">
 
@@ -137,7 +141,9 @@ const University = (props) => {
                                 <br />
                             </div>
                         </div>
-                    ) : (<p status={404}> COLLEGE ERROR</p>)}
+                    ) : <div className="container container1 ">
+                    <img className="loadingGIF" width="5%" src="/imgs/loading.gif" alt="img" />
+                </div>}
                 </div>
             </div>
 
@@ -147,9 +153,9 @@ const University = (props) => {
                 <div className="row">
                     <div className="col-lg-8 col-md-12 col-sm-12">
                     {posts && posts ? (
-                            posts.map((item) => {
+                            posts.map((item,k) => {
                                 return (
-                                    <div className="post">
+                                    <div className="post" key={k}>
                                         	<div className="headerPost">
 											<div className="avatarSide">
 												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
@@ -161,27 +167,27 @@ const University = (props) => {
 												<div className="time">{item.time}, {item.date}</div><br>
 												</br>
 											</div>
+                                            <div className="postContent">
+                                            <br></br>
+                                            {item.postPicture.length !== 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item key={photo}>
+                                                        <img className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
+                                                <br></br>
+                                                <p class="postTitle">
+                                                    {item.title}
+                                                </p>
+                                            </div>
 										</div>
 									<div className="postContent" id = "module">
-					
-									<p class = "postTitle">
-								    {item.title}
-									</p>
 									<p className="collapse" id="collapseExample" aria-expanded="false">
-								
 									{item.description}
-									<br></br>
-									<Carousel>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-											<Carousel.Item>
-											<img width="100%" src={item.postPicture} alt="img-post" />
-											</Carousel.Item>
-										</Carousel>
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -193,19 +199,20 @@ const University = (props) => {
 											<br></br>
 									
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
     
                                             <div className="comments">
     
                                                 <br></br>
-                                                <h2>COMMENTS GO HERE</h2>
+                                                <label>COMMENTS</label>
+                                                <br></br>
                                                 <div>
 												{item.comments ? (
-													item.comments.map((comm) => {
+													item.comments.map((comm,i) => {
 														return (
-															<div class = "comments">
+															<div class = "comments" key={i}>
 																<div class = "comment">
 																
 																	<span class = "userName">{comm.username}</span> 
@@ -221,13 +228,32 @@ const University = (props) => {
 
                         		<form onSubmit={handleCommentSubmit}>
 											
+                                <label for = "comment"></label>
                                 <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
                             
-                                <button onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                                <label for = "commentButt"></label>
+                                <button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
             
                         </form>
                                                 ): (
-                                                    <p>You need to login to comment</p>
+                                                <div>
+                                                    {/* <p>You need to login to comment</p> */}
+                                                    <form>
+                                                    <label for = "comment"></label>
+                                                        <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+                                                        <label for = "commentButt"></label>
+                                                        <button class="commentButt" name = "commentButt" id = "commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                                            <Modal className="loginForm" show={show} onHide={handleClose} >
+                                                                <div className = "modalContent">
+                                                                    {/* <h3> Please Provide College Details To Post !</h3> */}
+                                                                <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+												                    {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+											                    </Button>
+                                                                    {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
+                                                                </div>
+                                                            </Modal>
+                                                    </form>
+                                                </div>
                                                 )}
 
                                             </div>
@@ -242,8 +268,9 @@ const University = (props) => {
                     </div>
 
                     <div class = "col-lg-4 col-md-12 col-sm-12">
-                    <div className="post">
-							<h2>GLOBAL CHAT</h2>
+                    <div className="post chatBox">
+                    <span class = "h2">GLOBAL CHAT</span>
+							<br></br><br></br>
 							<Chat></Chat>
 						</div>
                     </div>
