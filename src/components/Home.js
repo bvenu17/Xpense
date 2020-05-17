@@ -233,7 +233,20 @@ function Home() {
 				}
 			});
 		});
-		setPostFilter(posts_filter);
+		// posts_filter.sort(function(a,b) {
+		// 	let k1 = a.createdAt
+		// })
+		// console.log('b4 filter',posts_filter)
+		posts_filter.sort(function(a,b){
+			let k1 = a.createdAt
+			let k2 = b.createdAt
+			if (k1 < k2) return -1;
+			if (k1 > k2) return 1;
+			return 0;
+		});
+		// console.log('after filter', posts_filter)
+		// console.log('filter by latest post', posts_filter.reverse())
+		setPostFilter(posts_filter)
 	}
 	//component code
 	if (loading === false) {
