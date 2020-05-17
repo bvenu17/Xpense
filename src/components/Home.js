@@ -4,6 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -12,23 +13,34 @@ import "firebase/storage";
 import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
 //import other components
 import Chat from './Chat';
+//static files import
+const defcollogo = require('../assets/college-logo.jpg')
 
 
 function Home() {
 	//user states
 	const { currentUser } = useContext(AuthContext)
 	const [user, setUser] = useState();
+	//college states
+	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
 	//post states
 	const [postList, setPostList] = useState();
 	const [postPic, setPostPic] = useState([]);
 	const [postId, setPostId] = useState();
+	const [postPicUrl, setPostPicUrl] = useState();
+	//post allow/disallow
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	//loading data state
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 	//filter posts
 	const [options, setOptions] = useState();
 	const [postFilter, setPostFilter] = useState();
+	//post filter rent range
+	const [rentValue, setRentValue] = useState(0);
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
 	const [uploadedImgsFileName, setUploadedImgsFileName] = useState([])
@@ -39,6 +51,7 @@ function Home() {
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
+		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -46,19 +59,17 @@ function Home() {
 				let u = await getUser(currentUser.uid);
 				setUser(u);
 				console.log("fetched user details", u)
+				//fetch college name of the user
+				if (u.collegeId) {
+					let cname = await getCollege(u.collegeId);
+					setCollegeName(cname.name);
+				}
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
 				console.log("fetched college list", allColleges)
 				//fetch all posts from db
 				let p = await getAllPosts();
-				// let sortedp;
-				// if(p){
-				// 	sortedp = p.sort((a, b) => b.createdAt - a.createdAt)
-				// } else {
-				// 	   sortedp = p;
-				// }
-				// setPostList(sortedp);
 				setPostList(p);
 				console.log("fetched all posts from db", p);
 				//filter for dropdown
@@ -158,7 +169,8 @@ function Home() {
 			groceries: groceries.value,
 			transport: transport.value,
 			utilities: utilities.value,
-			userProfilePic: user.photoURL
+			userProfilePic: user.photoURL,
+			collegeName: collegeName
 		};
 		try {
 			//add the post to the db
@@ -221,9 +233,6 @@ function Home() {
 				}
 			});
 		});
-
-		posts_filter = posts_filter.sort((a,b) => b.createdAt - a.createdAt)
-
 		setPostFilter(posts_filter);
 	}
 	//component code
@@ -273,16 +282,17 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											{item.postPicture.length !== 0 ?
-                                                (<Carousel>
-                                                    {item.postPicture.map((photo) => {
-                                                    return(
-                                                        <Carousel.Item>
-                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
-                                                        </Carousel.Item>
-                                                    )
-                                                    })}
-                                                </Carousel>):(<div></div>)}
+											<Carousel>
+												{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
+														</Carousel.Item>
+													)
+												})}
+											</Carousel>
 											<br></br>
 											<p class="postTitle">
 												{item.title}
@@ -359,16 +369,15 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											{item.postPicture.length !== 0 ?
-                                                (<Carousel>
-                                                    {item.postPicture.map((photo) => {
-                                                    return(
-                                                        <Carousel.Item>
-                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
-                                                        </Carousel.Item>
-                                                    )
-                                                    })}
-                                                </Carousel>):(<div></div>)}
+											<Carousel>
+												{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
+												})}
+											</Carousel>
 											<br></br>
 											<p class="postTitle">
 												{item.title}
@@ -426,6 +435,13 @@ function Home() {
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
 												<label for ="commentButt"></label>
 											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+
+
+
+
+
+
+
 										</form>
 									</div>
 								</div>

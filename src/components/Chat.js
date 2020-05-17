@@ -87,7 +87,7 @@ const Chat = () => {
             let day = d.getDate();
             let chatDate = day + ' ' + month;
 
-            let chatData = { name: user.firstName, message: message ,time:chatTime,date:chatDate}
+            let chatData = { name: user.firstName, message: message, time: chatTime, date: chatDate }
             socket.emit('input', chatData, () => setMessage(''))
 
             try {
@@ -106,15 +106,15 @@ const Chat = () => {
             <div>
                 <div className='cardMsg' style={{ width: "100% ", overflow: "auto", height: '25.0rem' }}>
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '100%', height: '100px' }}>
-                        {allmsg && allmsg.chatMessage.map((item) => {
+                        {allmsg && allmsg.chatMessage.map((item, i) => {
                             return (
-                                <div class="comments">
+                                <div class="comments" key={i}>
                                     <div class="comment chat">
-                                        <span class="userName"> {item.name} </span> 
+                                        <span class="userName"> {item.name} </span>
                                         <br></br>
                                         {item.message}
                                         <br></br>
-                                        <span className = "time">{item.time}</span>
+                                        <span className="time">{item.time}</span>
                                     </div>
                                 </div>
                             )
@@ -126,15 +126,15 @@ const Chat = () => {
                                 <span>{msgSent.message}</span>
                             </div>
                         </div>) : (null)} */}
-                        {msgSent && msgSent.map((text) => {
+                        {msgSent && msgSent.map((text, i) => {
                             return (
-                                <div class="comments">
+                                <div class="comments" key={i}>
                                     <div class="comment chat">
-                            <span class="userName"> {text.name} </span>
+                                        <span class="userName"> {text.name} </span>
                                         <br></br>
                                         {text.message}
                                         <br></br>
-                                        <span className = "time">{text.time}</span>
+                                        <span className="time">{text.time}</span>
                                     </div>
                                 </div>
                             )
@@ -142,30 +142,30 @@ const Chat = () => {
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div className="chat-control">
-                    <label for = "addComm"></label>
-                    <input name = "addComm" id = "addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
+                    <label for="addComm"></label>
+                    <input name="addComm" id="addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
-                    <label for = "chatButt"></label>
-                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                    <label for="chatButt"></label>
+                    <button name="chatButt" id="chatButt" onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
                 </div>) : (
                         <div className="chat-control">
                             {/* <p>SignUp to chat!</p> */}
 
-                                <label for ="comment"></label>
-                                <br></br><br></br>
-                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Enter message..." onClick={handleShow} />
+                            <label for="comment"></label>
+                            <br></br><br></br>
+                            <input name="comment" className='comment2' id="comment" type="text" placeholder="Enter message..." onClick={handleShow} />
 
-                                <label for = "chatButt"></label>
-                                <button name = "chatButt" id = "chatButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
-                                <Modal className="loginForm" show={show} onHide={handleClose} >
-                                    <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
-                                        {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
-                                    </Button>
-                                    <div className="modalContent">
-                                        {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
-                                    </div>
-                                </Modal>
+                            <label for="chatButt"></label>
+                            <button name="chatButt" id="chatButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                            <Modal className="loginForm" show={show} onHide={handleClose} >
+                                <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
+                                    {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}
+                                </Button>
+                                <div className="modalContent">
+                                    {logSign === "Login" ? <SignUp></SignUp> : <SignIn></SignIn>}
+                                </div>
+                            </Modal>
                         </div>
                     )}
 

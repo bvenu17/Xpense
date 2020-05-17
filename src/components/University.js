@@ -153,9 +153,9 @@ const University = (props) => {
                 <div className="row">
                     <div className="col-lg-8 col-md-12 col-sm-12">
                     {posts && posts ? (
-                            posts.map((item) => {
+                            posts.map((item,k) => {
                                 return (
-                                    <div className="post">
+                                    <div className="post" key={k}>
                                         	<div className="headerPost">
 											<div className="avatarSide">
 												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
@@ -173,8 +173,8 @@ const University = (props) => {
                                                 (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(
-                                                        <Carousel.Item>
-                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        <Carousel.Item key={photo}>
+                                                        <img className="postImg" src={photo} alt="img-post" />
                                                         </Carousel.Item>
                                                     )
                                                     })}
@@ -210,9 +210,9 @@ const University = (props) => {
                                                 <br></br>
                                                 <div>
 												{item.comments ? (
-													item.comments.map((comm) => {
+													item.comments.map((comm,i) => {
 														return (
-															<div class = "comments">
+															<div class = "comments" key={i}>
 																<div class = "comment">
 																
 																	<span class = "userName">{comm.username}</span> 
