@@ -10,10 +10,12 @@ async function addPosts(uid, postObject) {
   //func to add post to db
   const timestamp = firebase.firestore.FieldValue.serverTimestamp;
   postObject.createdAt = timestamp();
+  console.log("incoming post object is",postObject);
   await db.collection("posts").add(postObject)
     .then(function (docRef) {
       postObject.postId = docRef.id;
       console.log("Post written with ID: ", docRef.id);
+      console.log("Post object written in firebase is ", postObject)
     })
     .catch(function (error) {
       console.error("Error adding document: ", error);

@@ -185,6 +185,8 @@ function Home() {
 		setPostPic([]);
 		setPostImgsUrl([]);
 		setUploadedImgsFileName([]);
+
+
 	};
 
 
@@ -275,16 +277,16 @@ function Home() {
 											</br>
 										</div>
 										<div className="postContent">
-										<br></br>
+											<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
-												return(
-													<Carousel.Item>
-													<img key={photo} className="postImg" src={photo} alt="img-post" />
-													<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
-													<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
-													</Carousel.Item>
-												)
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
+														</Carousel.Item>
+													)
 												})}
 											</Carousel>
 											<br></br>
@@ -362,14 +364,14 @@ function Home() {
 											</br>
 										</div>
 										<div className="postContent">
-										<br></br>
+											<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
-												return(
-													<Carousel.Item>
-													<img key={photo} className="postImg" src={photo} alt="img-post" />
-													</Carousel.Item>
-												)
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
 												})}
 											</Carousel>
 											<br></br>
@@ -382,6 +384,7 @@ function Home() {
 										<p className="collapse" id="collapseExample" aria-expanded="false">
 											{item.description}
 											<br></br>
+
 
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
@@ -454,12 +457,12 @@ function Home() {
 								<div className='form-group'>
 									<label htmlFor="title">Title</label>
 									{user.currentStudent ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />) :
-															(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />)}
+										(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />)}
 									<br></br>
 
 									<label for="description">Description</label>
 									{user.currentStudent ? (<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />) :
-															(<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' disabled required />)}
+										(<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' disabled required />)}
 									<br></br>
 
 
@@ -474,23 +477,24 @@ function Home() {
 
 									<label for="rent">Rent</label>
 									{user.currentStudent ? (<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />) :
-															(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />)}
+										(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
 									<label for="transport">Transport</label>
 									{user.currentStudent ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />) :
-															(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />)}
+										(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />)}
 									<br></br>
 
 									<label for="utilities">Utilities</label>
 									{user.currentStudent ? (<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />) :
-															(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />)}
+										(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
 									<label for="groceries">Grocery Stores</label>
-									{user.currentStudent ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />) : 
-															(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />)}
+									{user.currentStudent ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />) :
+										(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />)}
 									<br></br>
+
 
 									
 										{uploadedImgsFileName && uploadedImgsFileName.map((item) => {
