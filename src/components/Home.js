@@ -233,20 +233,7 @@ function Home() {
 				}
 			});
 		});
-		// posts_filter.sort(function(a,b) {
-		// 	let k1 = a.createdAt
-		// })
-		// console.log('b4 filter',posts_filter)
-		posts_filter.sort(function(a,b){
-			let k1 = a.createdAt
-			let k2 = b.createdAt
-			if (k1 < k2) return -1;
-			if (k1 > k2) return 1;
-			return 0;
-		});
-		// console.log('after filter', posts_filter)
-		// console.log('filter by latest post', posts_filter.reverse())
-		setPostFilter(posts_filter)
+		setPostFilter(posts_filter);
 	}
 	//component code
 	if (loading === false) {
@@ -295,17 +282,16 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											<Carousel>
-												{item.postPicture.map((photo) => {
-													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
-															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
-															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
-														</Carousel.Item>
-													)
-												})}
-											</Carousel>
+											{item.postPicture.length != 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
 											<br></br>
 											<p class="postTitle">
 												{item.title}
@@ -382,15 +368,16 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											<Carousel>
-												{item.postPicture.map((photo) => {
-													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
-														</Carousel.Item>
-													)
-												})}
-											</Carousel>
+											{item.postPicture.length != 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
 											<br></br>
 											<p class="postTitle">
 												{item.title}
