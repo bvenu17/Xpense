@@ -481,8 +481,6 @@ function Profile() {
 
 											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
-
-
 										</form>
 									</div>
 								</div>
