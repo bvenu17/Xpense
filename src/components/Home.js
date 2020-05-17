@@ -1,6 +1,5 @@
 //basic imports
 import React, { useContext, useState, useEffect } from 'react';
-import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -312,7 +311,7 @@ function Home() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 									<div className="comments">
@@ -337,10 +336,10 @@ function Home() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-
+												<label for = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label for = "commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -397,7 +396,7 @@ function Home() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
@@ -428,10 +427,10 @@ function Home() {
 										<form onSubmit={handleCommentSubmit}>
 
 
-
+											<label for = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label for ="commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 
 
@@ -452,7 +451,8 @@ function Home() {
 					</div>
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
-							<h2>Share your experience living in the US</h2>
+							<span class = "h2">Share your experience living in the US</span>
+							<br></br>
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
 									<label htmlFor="title">Title</label>
@@ -496,32 +496,20 @@ function Home() {
 									<br></br>
 
 
-									{uploadedImgsFileName && uploadedImgsFileName.map((item) => {
-										return <p>{item}</p>
-									})}
-
-									<label for="postImage">Upload Media</label>
-									<div className="multiImg">
-										<input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-										<button  onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+									
+										{uploadedImgsFileName && uploadedImgsFileName.map((item) => {
+											return <p>{item}</p>
+										})}
+										
+										<label for="postImage">Upload Media</label>
+										<div className="multiImg">
+										{user.currentStudent ? (<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button></div>) : 
+																(<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
+																	<button onClick={uploadMultipleImages} class="commentButt" disabled ><i class="fas fa-check-circle icons"></i></button></div>)}
 									</div>
 								</div>
-
-								{/* <div className="logSignButt">
-									{user.collegeId && user.collegeId ? collegeList.map((item) => {
-										if (item.id === user.collegeId)
-											return (
-												<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>
-											)
-									}) : ( 
-										<Button variant="primary" className="loginButt loginButt2" onClick={redirect}  >
-											POST
-										</Button>
-										
 								
-									)}
-								</div> */}
-
 								<div className="logSignButt">
 									{user.currentStudent ? (<Button variant="primary" type='submit' className="loginButt loginButt2"> POST </Button>) : (<p>You cannot Post... You have not provided your college details</p>)}
 								</div>
@@ -532,7 +520,8 @@ function Home() {
 						<br></br>
 
 						<div className="post chatBox">
-							<h2>GLOBAL CHAT</h2>
+						<span class = "h2">GLOBAL CHAT</span>
+							<br></br><br></br>
 							<Chat></Chat>
 						</div>
 					</div>

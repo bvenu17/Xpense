@@ -13,6 +13,7 @@ import { AuthProvider } from '../firebase/Auth';
 import PrivateRoute from './PrivateRoute';
 import ErrorPage from './ErrorPage';
 import About from './About';
+import Charts from './Charts'
 
 //component code
 function App() {
@@ -26,6 +27,7 @@ function App() {
 					<Switch>
 						<Route exact path='/' component={Landing} />
 						<Route exact path = '/about' component = {About}/>
+						<Route exact path = '/charts' component = {Charts}/>
 						<Route path='/university/:id' exact component={University} />
 						<PrivateRoute path='/home' component={Home} />
 						<PrivateRoute path='/profile' component={Profile} />

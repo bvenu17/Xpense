@@ -110,9 +110,11 @@ const Chat = () => {
                             return (
                                 <div class="comments">
                                     <div class="comment chat">
-                                        <span class="userName"> {item.name} </span> <span>{item.time}</span>
+                                        <span class="userName"> {item.name} </span> 
                                         <br></br>
                                         {item.message}
+                                        <br></br>
+                                        <span className = "time">{item.time}</span>
                                     </div>
                                 </div>
                             )
@@ -128,9 +130,11 @@ const Chat = () => {
                             return (
                                 <div class="comments">
                                     <div class="comment chat">
-                            <span class="userName"> {text.name} </span><span>{text.time}</span>
+                            <span class="userName"> {text.name} </span>
                                         <br></br>
                                         {text.message}
+                                        <br></br>
+                                        <span className = "time">{text.time}</span>
                                     </div>
                                 </div>
                             )
@@ -138,15 +142,22 @@ const Chat = () => {
                     </div>
                 </div>
                 {currentUser && currentUser ? (<div className="chat-control">
-                    <input className="form-control" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
+                    <label for = "addComm"></label>
+                    <input name = "addComm" id = "addComm" className="comment2" value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Enter message..."
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
-                    <button onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                    <label for = "chatButt"></label>
+                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
                 </div>) : (
                         <div className="chat-control">
                             {/* <p>SignUp to chat!</p> */}
-                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
-                                <button class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+
+                                <label for ="comment"></label>
+                                <br></br><br></br>
+                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Enter message..." onClick={handleShow} />
+
+                                <label for = "chatButt"></label>
+                                <button name = "chatButt" id = "chatButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                 <Modal className="loginForm" show={show} onHide={handleClose} >
                                     <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
                                         {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}

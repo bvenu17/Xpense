@@ -61,12 +61,19 @@ const NavigationAuth = () => {
       </li>
 	  <li className="nav-item active">
 	  <NavLink exact to='/about' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About</span>
+						<span className="activeLink"><i class="fas fa-info-circle" title = "About"></i> About </span>
 	  </NavLink>
       </li>
 
     </ul>
 	<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
+
+	
+	<li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+	  				<span className="activeLink"><i class="fas fa-chart-pie"></i> Charts </span>
+	  </NavLink>
+      </li>
 
 	<li className="nav-item active">
 	  <NavLink exact to='/profile' className = "nav-link">
@@ -144,9 +151,16 @@ const NavigationNonAuth = () => {
 				</ul>
 				<ul className="navbar-nav mt-2 mt-lg-0  ml-auto w-100 justify-content-end ">
 
+
+	  <li className="nav-item active">
+	  <NavLink exact to='/charts' className = "nav-link">
+						<span className="activeLink"><i class="fas fa-chart-pie"></i> Charts </span>
+	  </NavLink>
+      </li>
+
 								<li className="nav-item">
 					<Button variant="primary" className="loginButt" onClick={handleShow}>
-						Login/SignUp
+					<i class="fas fa-sign-in-alt"></i> Login/SignUp
 					</Button>
 
 					<Modal className="loginForm" show={show} onHide={handleClose} >
