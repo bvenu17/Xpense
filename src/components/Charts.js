@@ -12,13 +12,72 @@ const Charts = () => {
 
     const [chartInstance, setChartInstance] = useState(null);
     const chartContainer = useRef(null);
+    const [change, setChange] = useState(false);
+    const [chartChange, setChartChange] = useState(
+        {
+            type: 'bar',
+            data : {
+                // labels : utilityLabel,
+                // labels: [...Object.keys(utilityList)],
+                datasets : [{
+                    barPercentage: 0.5,
+                    barThickness: 6,
+                    maxBarThickness: 8,
+                    minBarLength: 2,
+                    data: null
+                    // data : utilityDatapoints
+                }]
+                // data : utilityValue
+                // data : utilityDatapoints
+            }
+            // data : utilityDatapoints
+        }
+    );
 
     const [loading, setLoading] = useState(false);
+
+
+    // let config = (ulab=null, uval=null) => {
+    //     // let canvas = document.getElementById("utilityChart").getContext("2d");
+    //     console.log('uval', uval)
+    //     // let utilityLabel = [];
+    //     // clist.map((item) => {
+    //     //     utilityLabel.push(item.name)
+    //     //     utilityValue.push(uList[item.name])
+    //     // });
+
+    //     let chartConfig = {
+    //     type: 'bar',
+    //     data : {
+    //         // labels : utilityLabel,
+    //         // labels: [...Object.keys(utilityList)],
+    //         datasets : [{
+    //             barPercentage: 0.5,
+    //             barThickness: 6,
+    //             maxBarThickness: 8,
+    //             minBarLength: 2,
+    //             data: uval
+    //             // data : utilityDatapoints
+    //         }]
+    //         // data : utilityValue
+    //         // data : utilityDatapoints
+    //     }
+    //     // data : utilityDatapoints
+    // };
+
+    
+    // // let newChartInstance = new Chartjs(chartContainer.current, chartConfig)
+
+    // // let newChartInstance = new Chartjs(canvas, chartConfig)
+    // // setChartInstance(newChartInstance)
+    // return chartConfig
+    // }
 
     
     useEffect(() => {
         let utilityLabel = [];
         let utilityValue = [];
+        let utilityDatapoints=[];
 
         async function getData() {
             try {
@@ -34,7 +93,7 @@ const Charts = () => {
                 let totalList = {};
 
                 
-                let utilityDatapoints=[];
+                // let utilityDatapoints=[];
                 // let utilityLabel = [];
                 // let utilityValue = [];
 
@@ -67,21 +126,42 @@ const Charts = () => {
                             utilityList[item.name]= sumUtilities/count
                             utilityLabel.push(item.name)
                             utilityValue.push(utilityList[item.name])
-                            // utilityDatapoints.push({x:item.name, y:utilityList[item.name]})
+                            utilityDatapoints.push({x:item.name, y:utilityList[item.name]})
 
                             totalList[item.name]= sumTotal/count
                     }
                     else{
                         utilityLabel.push(item.name)
                         utilityValue.push(0)
-                        // utilityDatapoints.push({x: item.name, y: 0})
+                        utilityDatapoints.push({x: item.name, y: 0})
                     }
                 }
                 );
 
 
-                    // config(utilityLabel, utilityValue);
+                    // let chartConfig = config(utilityLabel, utilityValue);
 
+                    
+                    let chartConfig = {
+                        type: 'bar',
+                        data : {
+                            // labels : utilityLabel,
+                            // labels: [...Object.keys(utilityList)],
+                            datasets : [{
+                                barPercentage: 0.5,
+                                barThickness: 6,
+                                maxBarThickness: 8,
+                                minBarLength: 2,
+                                // data: utilityValue
+                                data : utilityDatapoints
+                            }]
+                            // data : utilityValue
+                            // data : utilityDatapoints
+                        }
+                        // data : utilityDatapoints
+                    };
+                    
+                    setChartChange(chartConfig);
 
                     // let canvas = document.getElementById("utilityChart").getContext("2d");
                     // console.log("ulist",utilityList)
@@ -129,12 +209,13 @@ const Charts = () => {
                     //     // data : utilityDatapoints
                     // };
 
-                //     if(chartContainer && chartContainer.current){
-                //         console.log("here")
-                //     let newChartInstance = new Chartjs(chartContainer.current, chartConfig)
-                //     // let newChartInstance = new Chartjs(canvas, chartConfig)
-                //     setChartInstance(newChartInstance)
-                // }
+                    if(chartContainer && chartContainer.current){
+                        // console.log('here', chartContainer.current)
+                    let newChartInstance = new Chartjs(chartContainer.current, chartConfig)
+                    // let newChartInstance = new Chartjs(canvas, chartConfig)
+                    console.log(newChartInstance)
+                    setChartInstance(newChartInstance)
+                }
                 // let newChartInstance = new Chartjs(canvas, chartConfig)
                 // setChartInstance(newChartInstance)
 
@@ -160,44 +241,48 @@ const Charts = () => {
             }
         }
         getData();
-        config(utilityLabel, utilityValue)
-    }, []
+        // config(utilityLabel, utilityValue)
+        // console.log('val',utilityValue)
+        console.log('val',utilityDatapoints)
+
+    }, [chartContainer, change]
     )
 
-    const config = (ulab, uval) => {
-        // let canvas = document.getElementById("utilityChart").getContext("2d");
-        console.log(uval)
-        // let utilityLabel = [];
-        // clist.map((item) => {
-        //     utilityLabel.push(item.name)
-        //     utilityValue.push(uList[item.name])
-        // });
 
-        let chartConfig = {
-        type: 'bar',
-        data : {
-            // labels : utilityLabel,
-            // labels: [...Object.keys(utilityList)],
-            datasets : [{
-                barPercentage: 0.5,
-                barThickness: 6,
-                maxBarThickness: 8,
-                minBarLength: 2,
-                data: uval
-                // data : utilityDatapoints
-            }]
-            // data : utilityValue
-            // data : utilityDatapoints
-        }
-        // data : utilityDatapoints
-    };
+    // let config = (ulab, uval) => {
+    //     // let canvas = document.getElementById("utilityChart").getContext("2d");
+    //     console.log(uval)
+    //     // let utilityLabel = [];
+    //     // clist.map((item) => {
+    //     //     utilityLabel.push(item.name)
+    //     //     utilityValue.push(uList[item.name])
+    //     // });
+
+    //     let chartConfig = {
+    //     type: 'bar',
+    //     data : {
+    //         // labels : utilityLabel,
+    //         // labels: [...Object.keys(utilityList)],
+    //         datasets : [{
+    //             barPercentage: 0.5,
+    //             barThickness: 6,
+    //             maxBarThickness: 8,
+    //             minBarLength: 2,
+    //             data: uval
+    //             // data : utilityDatapoints
+    //         }]
+    //         // data : utilityValue
+    //         // data : utilityDatapoints
+    //     }
+    //     // data : utilityDatapoints
+    // };
 
     
-    let newChartInstance = new Chartjs(chartContainer.current, chartConfig)
+    // let newChartInstance = new Chartjs(chartContainer.current, chartConfig)
 
-    // let newChartInstance = new Chartjs(canvas, chartConfig)
-    setChartInstance(newChartInstance)
-    }
+    // // let newChartInstance = new Chartjs(canvas, chartConfig)
+    // setChartInstance(newChartInstance)
+    // }
 
 
 
@@ -213,7 +298,7 @@ const Charts = () => {
         <div>
          <canvas ref={chartContainer} />
         {/* <canvas id="utilityChart" height="500" width="500"></canvas> */}
-        <button onClick={config} > CLICK ME !</button>
+        <button onClick={e => setChange(!change)} > CLICK ME !</button>
         </div>
 
 
