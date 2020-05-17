@@ -37,13 +37,18 @@ async function addPosts(uid, postObject) {
 
     //func to add avg expense to college db
     let sumTot = parseInt(postObject.rent) + parseInt(postObject.utilities);
+    let sumRent = parseInt(postObject.rent)
+    let sumUtilities = parseInt(postObject.utilities)
     const countPosts =firebase.firestore.FieldValue.increment(1);
     const increment = firebase.firestore.FieldValue.increment(sumTot);
+    const incrementRent = firebase.firestore.FieldValue.increment(sumRent);
+    const incrementUtilities = firebase.firestore.FieldValue.increment(sumUtilities);
     await db.collection('colleges').doc(postObject.collegeId).update({
+      sumRent : incrementRent,
+      sumUtilities : incrementUtilities,
       sum:increment,
       posts: firebase.firestore.FieldValue.arrayUnion({ postId: postObject.postId }),
       count: countPosts
-
     })
     .then(function () {
       console.log("sum in college db successfully updated!");
