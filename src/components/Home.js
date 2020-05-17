@@ -212,9 +212,12 @@ function Home() {
 				if (id === post.collegeId) {
 					posts_filter.push(post);
 				}
+				
 			});
 		});
+
 		posts_filter = posts_filter.sort((a,b) => b.createdAt - a.createdAt)
+
 		setPostFilter(posts_filter);
 	}
 	//component code
@@ -325,7 +328,7 @@ function Home() {
 												<label htmlFor = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
 												<label htmlFor = "commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -334,10 +337,10 @@ function Home() {
 
 
 							)
-						}) : (postList.map((item) => {
+						}) : (postList.map((item,i) => {
 							return (
 
-								<div className="post">
+								<div key={i} className="post">
 									<div className="headerPost">
 										<div className="avatarSide">
 											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -354,14 +357,14 @@ function Home() {
 											<Carousel>
 												{item.postPicture.map((photo) => {
 													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
+														<Carousel.Item key={photo}>
+															<img  className="postImg" src={photo} alt="img-post" />
 														</Carousel.Item>
 													)
 												})}
 											</Carousel>
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -396,9 +399,9 @@ function Home() {
 										<label>COMMENTS</label>
 										<div>
 											{item.comments ? (
-												item.comments.map((comm) => {
+												item.comments.map((comm,i) => {
 													return (
-														<div className="comments">
+														<div key={i} className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>
@@ -456,7 +459,7 @@ function Home() {
 									{user.collegeId ? (collegeList.map((item) => {
 										if (user.collegeId === item.id) {
 											return (
-												<p>{item.name}</p>
+												<p key={item.id}>{item.name}</p>
 											)
 										}
 									})) : (<p>Please provide your college name !</p>)}

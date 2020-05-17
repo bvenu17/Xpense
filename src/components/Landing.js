@@ -199,7 +199,7 @@ function Landing() {
 												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 												<label htmlFor="submitButt"></label>
-												<button name="submitButt" id="submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+												<button name="submitButt" id="submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 											</form>
 										</div>
 									</div>
@@ -284,7 +284,7 @@ function Landing() {
 												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 												<label htmlFor="submitButt"></label>
-												<button name="submitButt" id="submitButt" class="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+												<button name="submitButt" id="submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 
 
 											</form>
@@ -326,32 +326,32 @@ function Landing() {
 											(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
 										<br></br>
 
-										<label for="description">Description</label>
+										<label htmlFor="description">Description</label>
 										{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
 											(<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />)}
 										<br></br>
 
-										<label for="rent">Rent</label>
+										<label htmlFor="rent">Rent</label>
 										{show ? (<input className='form-control' name='rent' id='rent' placeholder='$' disabled required />) :
 											(<input className='form-control' name='rent' id='rent' placeholder='$' required />)}
 										<br></br>
 
-										<label for="transport">Transport</label>
+										<label htmlFor="transport">Transport</label>
 										{show ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' disabled required />) :
 											(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' required />)}
 										<br></br>
 
-										<label for="house">Houses</label>
+										<label htmlFor="house">Houses</label>
 										{show ? (<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' disabled required />) :
 											(<input className='form-control' name='house' id='house' placeholder='Eg: 2BHK with utilitites, 3BHK only females...' required />)}
 										<br></br>
 
-										<label for="groceries">Groceries</label>
+										<label htmlFor="groceries">Groceries</label>
 										{show ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' disabled required />) :
 											(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' required />)}
 										<br></br>
 
-										<label for="post-image">Upload Media</label>
+										<label htmlFor="post-image">Upload Media</label>
 										{show ? (<div><input required type="file" id="post-image" disabled /> <br></br></div>) :
 											(<div><input required type="file" id="post-image" /> <br></br></div>)}
 

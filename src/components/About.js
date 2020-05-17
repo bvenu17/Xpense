@@ -26,12 +26,12 @@ const About = () => {
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
-                    <img width="100%" src="/imgs/newjersey.jpg" alt="img" />
+                    <img className= "aboutImg" src="/imgs/newjersey.jpg" alt="img" />
                 </div>
             </div>
             <div className="row locationCardRow post">
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
-                    <img width="100%" src="/imgs/newyork.jpg" alt="img" />
+                    <img className= "aboutImg" src="/imgs/newyork.jpg" alt="img" />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
                     <div className="locationDes">
@@ -53,7 +53,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-4 col-sm-4">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/vedadnya.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/vedadnya.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Vedadnya <br></br> Jadhav</p>
 
                     </div>
@@ -62,7 +62,7 @@ const About = () => {
       
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img hetight ="100%" width="100%" src="/imgs/venu.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/venu.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Venugopal <br></br> Balaji</p>
 
                     </div>
@@ -70,7 +70,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/chirag.jpg" className = "avatarPic2" alt="img" />
+                        <img src="/imgs/chirag.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Chirag <br></br> Kamble</p>
 
                     </div>
@@ -78,7 +78,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/rohan.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/rohan.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Rohan <br></br> Shah</p>
 
                     </div>
@@ -86,7 +86,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%"  src="/imgs/harish.jpg" className = "avatarPic2" alt="img" />
+                        <img src="/imgs/harish.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Harish <br></br> Nair</p>
 
                     </div>
