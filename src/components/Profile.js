@@ -71,9 +71,11 @@ function Profile() {
 				setDob(u.dob);
 				console.log("fetched user details", u)
 				//fetch college name of user 
+				if(u.collegeId) {
 				let cname = await getCollege(u.collegeId);
 				setUserCollegeName(cname.name);
 				console.log("college name is"+ cname.name);
+				}
 				// fetch college list from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges);
