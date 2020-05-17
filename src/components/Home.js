@@ -282,17 +282,16 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											<Carousel>
-												{item.postPicture.map((photo) => {
-													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
-															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
-															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
-														</Carousel.Item>
-													)
-												})}
-											</Carousel>
+											{item.postPicture.length != 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
 											<br></br>
 											<p class="postTitle">
 												{item.title}
@@ -369,15 +368,16 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											<Carousel>
-												{item.postPicture.map((photo) => {
-													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
-														</Carousel.Item>
-													)
-												})}
-											</Carousel>
+											{item.postPicture.length != 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
 											<br></br>
 											<p class="postTitle">
 												{item.title}

@@ -175,7 +175,8 @@ const University = (props) => {
 											</div>
                                             <div className="postContent">
                                             <br></br>
-                                                <Carousel>
+                                            {item.postPicture.length != 0 ?
+                                                (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(
                                                         <Carousel.Item>
@@ -183,7 +184,7 @@ const University = (props) => {
                                                         </Carousel.Item>
                                                     )
                                                     })}
-                                                </Carousel>
+                                                </Carousel>):(<div></div>)}
                                                 <br></br>
                                                 <p class="postTitle">
                                                     {item.title}

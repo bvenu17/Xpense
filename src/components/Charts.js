@@ -16,7 +16,6 @@ function Charts() {
     const [displayTitle, setDisplayTitle] = useState(true);
     const [displayLegend, setDisplayLegend] = useState(true);
     const [legendPosition, setLegendPosition] = useState('right');
-    const [location, setLocation] = useState('City');
 
 
     useEffect(() => {
@@ -84,7 +83,18 @@ getData();
 
 
 return (
+
     <div className=" container container1 chart">
+        <div className="container container1">
+                <h1>What are our Insights?</h1>
+                <br></br>
+                <div class="devName post">
+                Every year  when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our Insights comes into play!
+                <br></br><br></br>
+                Our application is designed to give incoming students the realtime data from students that have actually studied in these universities. The monthly expenses including rent and utilities are displayed in the insights for every university.
+                <br></br>
+                </div>
+            </div>
         {/* <Pie
             data={chartData}
             options={{
@@ -105,7 +115,8 @@ return (
             options={{
                 title: {
                     display: displayTitle,
-                    text: 'Average Expenses of colleges',
+
+                    text: 'Average Expenses of Universities',
                     fontSize: 25
                 },
                 legend: {
