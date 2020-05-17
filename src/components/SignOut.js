@@ -1,6 +1,6 @@
 import React from 'react';
 import { doSignOut } from '../firebase/FirebaseFunctions';
-import {Button, Modal} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 const SignOutButton = () => {
 	return (

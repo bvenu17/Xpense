@@ -9,7 +9,7 @@ import '../App.css';
 import { AuthContext } from "../firebase/Auth";
 import { Button, Modal } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
-import { getUser, getPost, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
+import { getUser, addCommentToPost, getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
 
 const University = (props) => {
     //user states
@@ -22,10 +22,6 @@ const University = (props) => {
     const handleShow = () => setShow(true);
     const setLogin = () => setlogSign("Login")
 	const setSignup = () => setlogSign("SignUp")
-    //state for college id fomr url
-    const [id, setId] = useState(undefined);
-    //state for all colleges present in the db
-    const [collegeList, setCollegeList] = useState();
     //state for college details from the db
     const [details, setDetails] = useState(undefined);
     //state for all posts linked to the university
@@ -39,7 +35,6 @@ const University = (props) => {
 
     //lifecycle method
     useEffect(() => {
-        setId(parseInt(props.match.params.id));
         async function getData() {
             try {
                 console.log("Enter use effect func")
@@ -51,7 +46,6 @@ const University = (props) => {
                 }
                 //get all colleges from the db   
                 let clist = await getAllColleges();
-                setCollegeList(clist);
                 console.log("fetched all colleges from db", clist);
 
                 //retreive the details of selected college from the list
@@ -90,7 +84,7 @@ const University = (props) => {
             }
         }
         getData();
-    }, [formSubmit, currentUser]
+    }, [formSubmit, currentUser , props.match.params.id]
     )
 
     //submit form for comments
@@ -175,7 +169,7 @@ const University = (props) => {
 											</div>
                                             <div className="postContent">
                                             <br></br>
-                                            {item.postPicture.length != 0 ?
+                                            {item.postPicture.length !== 0 ?
                                                 (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(

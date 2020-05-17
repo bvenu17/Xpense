@@ -73,7 +73,7 @@ const Chat = () => {
         outMsg();
 
 
-    }, []);
+    }, [currentUser]);
 
 
 

@@ -62,33 +62,27 @@ function Profile() {
 	useEffect(() => {
 		async function getData() {
 			try {
-				console.log("enter use effect func")
 				//fetch user details from db
 				let u = await getUser(currentUser.uid);
 				setLoading(false)
 				setUser(u);
 				setCurrentStudent(u.currentStudent)
 				setDob(u.dob);
-				console.log("fetched user details", u)
 				//fetch college name of user 
 				if(u.collegeId) {
 				let cname = await getCollege(u.collegeId);
 				setUserCollegeName(cname.name);
-				console.log("college name is"+ cname.name);
 				}
 				// fetch college list from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges);
-				console.log('fetched college list', allColleges);
 				//fetch user posts from db
 				let allPostsOfUser = await getUserPosts(currentUser.uid);
-				console.log("lenght is " + allPostsOfUser.length)
 				//sort user posts
 				if (allPostsOfUser) {
 					const sortedUserPosts = allPostsOfUser.sort((a, b) => b.createdAt - a.createdAt)
 					setUserPosts(sortedUserPosts);
 				}
-				console.log("fetched user posts from db", allPostsOfUser)
 			} catch (e) {
 				console.log(e)
 			}
@@ -117,7 +111,6 @@ function Profile() {
 		const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
 
 		const uploadTask = storage.ref(`/profilePics/${imageName}`).put(profPic);
-		console.log('img uploaded');
 
 		// Listen for state changes, errors, and completion of the upload.
 		uploadTask.on('state_changed',
@@ -143,7 +136,6 @@ function Profile() {
 						} catch (error) {
 							alert(error);
 						}
-						console.log('firebase url is' + fireBaseUrl);
 						profilepicfile.value = "";
 					})
 			})
@@ -164,7 +156,6 @@ function Profile() {
 	const handleCommentSubmit = async (event) => {
 		event.preventDefault();
 		const { comment } = event.target.elements;
-		console.log("post id is" + postId + " comment value is " + comment.value + user.firstName)
 		try {
 			//add comment to the post db
 			await addCommentToPost(postId, user.firstName + " " + user.lastName, comment.value)
@@ -178,7 +169,6 @@ function Profile() {
 	//function to update account details of the user
 	const handleAccountUpdate = async (event) => {
 		event.preventDefault();
-		console.log('entering update acc func');
 		let { firstName, lastName, dob, collegeSelect } = event.target.elements;
 		const first = firstName.value;
 		const last = lastName.value;
@@ -190,7 +180,6 @@ function Profile() {
 			selectedCollegeId = collegeSelect.value
 		}
 		let status = currentStudent;
-		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
 		try {
 			await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
 			await updateAccountDetailsPost(currentUser.uid, first, last);

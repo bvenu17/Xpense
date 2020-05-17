@@ -129,7 +129,7 @@ function Landing() {
 											</div>
 											<div className="postContent">
 										<br></br>
-										{item.postPicture.length != 0 ?
+										{item.postPicture.length !== 0 ?
                                                 (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(
@@ -161,7 +161,7 @@ function Landing() {
 											<br></br>
 									
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
@@ -214,7 +214,7 @@ function Landing() {
 									</div>
 									<div className="postContent">
 										<br></br>
-										{item.postPicture.length != 0 ?
+										{item.postPicture.length !== 0 ?
                                                 (<Carousel>
                                                     {item.postPicture.map((photo) => {
                                                     return(

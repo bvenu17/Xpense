@@ -1,5 +1,5 @@
 //basic imports
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 //css import
 import '../App.css';
 
