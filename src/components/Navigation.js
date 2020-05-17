@@ -71,7 +71,7 @@ const NavigationAuth = () => {
 	
 	<li className="nav-item active">
 	  <NavLink exact to='/charts' className = "nav-link">
-	  				<span className="activeLink"><i class="fas fa-chart-pie"></i> Charts </span>
+	  				<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
 	  </NavLink>
       </li>
 
@@ -154,7 +154,7 @@ const NavigationNonAuth = () => {
 
 	  <li className="nav-item active">
 	  <NavLink exact to='/charts' className = "nav-link">
-						<span className="activeLink"><i class="fas fa-chart-pie"></i> Charts </span>
+						<span className="activeLink"><i class="fas fa-chart-pie"></i> Insights </span>
 	  </NavLink>
       </li>
 
