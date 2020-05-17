@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, updateProfilePicturePost, updateAccountDetailsPost, getUserPosts, addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, updateProfilePicturePost,getCollege, updateAccountDetailsPost, getUserPosts, addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -54,6 +54,8 @@ function Profile() {
 	const [postId, setPostId] = useState();
 	//state for profile pic upload btn
 	const [showUploadButton, setShowUploadButton] = useState(false);
+	//state for college name
+	const [userCollegeName,setUserCollegeName] =useState();
 
 	
 	//lifecycle method
@@ -68,6 +70,10 @@ function Profile() {
 				setCurrentStudent(u.currentStudent)
 				setDob(u.dob);
 				console.log("fetched user details", u)
+				//fetch college name of user 
+				let cname = await getCollege(u.collegeId);
+				setUserCollegeName(cname.name);
+				console.log("college name is"+ cname.name);
 				// fetch college list from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges);
@@ -272,7 +278,7 @@ function Profile() {
 									<br></br>
 									{/*input field for college name if user is a current student */}
 									{user.currentStudent ? (
-											<p>You have already selected college</p>
+											<p><b>{userCollegeName}</b></p>
 									) : (
 										<div>
 										{currentStudent ? (
