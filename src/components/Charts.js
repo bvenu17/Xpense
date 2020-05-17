@@ -83,13 +83,24 @@ getData();
 
 
 return (
+
     <div className=" container container1 chart">
+        <div className="container container1">
+                <h1>What are our Insights?</h1>
+                <br></br>
+                <div class="devName post">
+                Every year  when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our Insights comes into play!
+                <br></br><br></br>
+                Our application is designed to give incoming students the realtime data from students that have actually studied in these universities. The monthly expenses including rent and utilities are displayed in the insights for every university.
+                <br></br>
+                </div>
+            </div>
         {/* <Pie
             data={chartData}
             options={{
                 title: {
                     display: displayTitle,
-                    text: 'Heighest Average Expenses ',
+                    text: 'Heighest Average Expenses ' + location,
                     fontSize: 25
                 },
                 legend: {
@@ -98,17 +109,6 @@ return (
                 }
             }}
         /> */}
-
-            <div className="container container1">
-                <h1>What are our Insights?</h1>
-                <br></br>
-                <div class="devName post">
-                Every year  when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our Insights comes into play!
-                <br></br><br></br>
-                Our application is designed to give incoming students data from students that have actually studied in these universities. The monthly expenses including rent and utilities .
-                <br></br>
-                </div>
-            </div>
 
         <Bar
             data={chartData}
@@ -141,7 +141,6 @@ return (
                 }
             }}
         /> */}
-
     </div>
 )
 
