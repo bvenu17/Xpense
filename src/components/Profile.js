@@ -412,15 +412,16 @@ function Profile() {
 
 										<div className="postContent">
 											<br></br>
-											<Carousel>
-												{item.postPicture.map((photo) => {
-													return (
-														<Carousel.Item>
-															<img key={photo} className="postImg" src={photo} alt="img-post" />
-														</Carousel.Item>
-													)
-												})}
-											</Carousel>
+											{item.postPicture.length != 0 ?
+                                                (<Carousel>
+                                                    {item.postPicture.map((photo) => {
+                                                    return(
+                                                        <Carousel.Item>
+                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
+                                                        </Carousel.Item>
+                                                    )
+                                                    })}
+                                                </Carousel>):(<div></div>)}
 											<br></br>
 											<p class="postTitle">
 												{item.title}
@@ -479,8 +480,6 @@ function Profile() {
 													<label for = "commentButt"></label>
 
 											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-
-
 
 										</form>
 									</div>
