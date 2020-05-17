@@ -115,6 +115,7 @@ return (
             options={{
                 title: {
                     display: displayTitle,
+
                     text: 'Average Expenses of Universities',
                     fontSize: 25
                 },

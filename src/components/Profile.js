@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser, updateProfilePicturePost, updateAccountDetailsPost, getUserPosts, addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, updateProfilePicturePost,getCollege, updateAccountDetailsPost, getUserPosts, addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -54,6 +54,8 @@ function Profile() {
 	const [postId, setPostId] = useState();
 	//state for profile pic upload btn
 	const [showUploadButton, setShowUploadButton] = useState(false);
+	//state for college name
+	const [userCollegeName,setUserCollegeName] =useState();
 
 	
 	//lifecycle method
@@ -68,6 +70,12 @@ function Profile() {
 				setCurrentStudent(u.currentStudent)
 				setDob(u.dob);
 				console.log("fetched user details", u)
+				//fetch college name of user 
+				if(u.collegeId) {
+				let cname = await getCollege(u.collegeId);
+				setUserCollegeName(cname.name);
+				console.log("college name is"+ cname.name);
+				}
 				// fetch college list from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges);
@@ -271,43 +279,50 @@ function Profile() {
 									</MuiPickersUtilsProvider>
 									<br></br>
 									{/*input field for college name if user is a current student */}
-									{currentStudent ? (
-										<div>
-											<FormControl component="fieldset">
-												<FormLabel component="legend">Are you a current student</FormLabel>
-
-												<FormGroup row>
-													<FormControlLabel
-														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-														label="Yes" labelPlacement="end"
-													/>
-												</FormGroup>
-											</FormControl>
-											<br></br>
-											<select
-												className='text-center '
-												name='collegeSelect'
-												id='collegeSelect'>
-												{collegeList && collegeList.map((item) => {
-													return (
-														<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
-
-													)
-												})}
-
-											</select>
-										</div>
+									{user.currentStudent ? (
+											<p><b>{userCollegeName}</b></p>
 									) : (
-											<FormControl component="fieldset">
-												<FormLabel component="legend">Are you a current student</FormLabel>
-
-												<FormGroup row>
-													<FormControlLabel
-														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-														label="Yes" labelPlacement="end"
-													/>
-												</FormGroup>
-											</FormControl>)}
+										<div>
+										{currentStudent ? (
+											<div>
+												<FormControl component="fieldset">
+													<FormLabel component="legend">Are you a current student</FormLabel>
+	
+													<FormGroup row>
+														<FormControlLabel
+															control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+															label="Yes" labelPlacement="end"
+														/>
+													</FormGroup>
+												</FormControl>
+												<br></br>
+												<select
+													className='text-center '
+													name='collegeSelect'
+													id='collegeSelect'>
+													{collegeList && collegeList.map((item) => {
+														return (
+															<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
+	
+														)
+													})}
+	
+												</select>
+											</div>
+										) : (
+												<FormControl component="fieldset">
+													<FormLabel component="legend">Are you a current student</FormLabel>
+	
+													<FormGroup row>
+														<FormControlLabel
+															control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+															label="Yes" labelPlacement="end"
+														/>
+													</FormGroup>
+												</FormControl>)}
+												</div>
+									)}
+									
 									<br></br>
 									<br></br>
 									<div class="row">
@@ -479,7 +494,7 @@ function Profile() {
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
 													<label for = "commentButt"></label>
 
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 										</form>
 									</div>
