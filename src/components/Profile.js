@@ -8,7 +8,7 @@ import SignOutButton from './SignOut';
 import ChangePassword from './ChangePassword';
 //databse functions import
 import { AuthContext } from "../firebase/Auth";
-import { getUser,updateProfilePicturePost,updateAccountDetailsPost, getUserPosts,addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
+import { getUser, updateProfilePicturePost, updateAccountDetailsPost, getUserPosts, addCommentToPost, updateProfilePic, updateAccountInfo, getAllColleges } from '../firebase/FirestoreFunctions';
 //css import
 import '../App.css';
 import Button from 'react-bootstrap/Button';
@@ -26,14 +26,11 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 //import for dropdown material ui
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { FormLabel } from 'react-bootstrap';
 //static file init
 const defpic = require('../assets/default-avatar.png')
+
 
 function Profile() {
 	//user states
@@ -54,8 +51,11 @@ function Profile() {
 	const [collegeSelected, setCollegeSelected] = useState();
 	//user posts state
 	const [userPosts, setUserPosts] = useState();
-	const [postId,setPostId]= useState();
+	const [postId, setPostId] = useState();
+	//state for profile pic upload btn
+	const [showUploadButton, setShowUploadButton] = useState(false);
 
+	
 	//lifecycle method
 	useEffect(() => {
 		async function getData() {
@@ -74,11 +74,11 @@ function Profile() {
 				console.log('fetched college list', allColleges);
 				//fetch user posts from db
 				let allPostsOfUser = await getUserPosts(currentUser.uid);
-				console.log("lenght is "+allPostsOfUser.length)
+				console.log("lenght is " + allPostsOfUser.length)
 				//sort user posts
-				if(allPostsOfUser){
-				const sortedUserPosts = allPostsOfUser.sort((a, b) => b.createdAt - a.createdAt)
-				setUserPosts(sortedUserPosts);
+				if (allPostsOfUser) {
+					const sortedUserPosts = allPostsOfUser.sort((a, b) => b.createdAt - a.createdAt)
+					setUserPosts(sortedUserPosts);
 				}
 				console.log("fetched user posts from db", allPostsOfUser)
 			} catch (e) {
@@ -86,7 +86,7 @@ function Profile() {
 			}
 		}
 		getData();
-	}, [currentUser, profPicUrl, formSubmit]);
+	}, [currentUser, formSubmit]);
 
 	//onChange handler for input field of profile picture
 	const handleChange = async (event) => {
@@ -94,6 +94,7 @@ function Profile() {
 		if (event.target.files[0]) {
 			const profilePicture = event.target.files[0];
 			setProfPic(profilePicture);
+			setShowUploadButton(!showUploadButton);
 		}
 	}
 
@@ -103,9 +104,9 @@ function Profile() {
 		var metadata = {
 			contentType: 'image/jpeg'
 		};
-		const {profilepicfile} = event.target.elements;
+		const { profilepicfile } = event.target.elements;
 		const storage = firebase.storage();
-		const imageName =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
+		const imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + profPic.name;
 
 		const uploadTask = storage.ref(`/profilePics/${imageName}`).put(profPic);
 		console.log('img uploaded');
@@ -127,13 +128,15 @@ function Profile() {
 						setProfPicUrl(fireBaseUrl);
 						try {
 							updateProfilePic(currentUser.uid, fireBaseUrl);
-							updateProfilePicturePost(currentUser.uid,fireBaseUrl);
+							updateProfilePicturePost(currentUser.uid, fireBaseUrl);
+							setShowUploadButton(!showUploadButton);
+							setFormSubmit(!formSubmit);
 
 						} catch (error) {
 							alert(error);
 						}
 						console.log('firebase url is' + fireBaseUrl);
-						profilepicfile.value="";
+						profilepicfile.value = "";
 					})
 			})
 	}
@@ -161,7 +164,7 @@ function Profile() {
 		} catch (error) {
 			alert(error);
 		}
-		comment.value=""
+		comment.value = ""
 	}
 
 	//function to update account details of the user
@@ -180,15 +183,15 @@ function Profile() {
 		}
 		let status = currentStudent;
 		console.log("form data " + first + "  " + last + dateOfBirth + " " + selectedCollegeId + status);
-			try {
-				await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
-				await updateAccountDetailsPost(currentUser.uid,first,last);
-				setFormSubmit(!formSubmit);
+		try {
+			await updateAccountInfo(currentUser.uid, first, last, dateOfBirth, selectedCollegeId, status);
+			await updateAccountDetailsPost(currentUser.uid, first, last);
+			setFormSubmit(!formSubmit);
 
-			} catch (error) {
-				alert(error);
-			}
-			setTemp(!temp);
+		} catch (error) {
+			alert(error);
+		}
+		setTemp(!temp);
 
 	};
 
@@ -197,215 +200,225 @@ function Profile() {
 		return (
 			<div className="container container1">
 				{/* Profile picture part */}
-				<div class = "row">
+				<div class="row">
 
-				{/* form to update account details */}
+					{/* form to update account details */}
 
-				
 
-				{temp ? (
 
-						
+					{temp ? (
+
+
 						<div className="col-lg-4 col-md-12 col-sm-12">
-						<br></br>  
-									<div className="post">
-									
-										<div className="text-center">
+							<br></br>
+							<div className="post">
 
-											{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic'  class = "avatarPic avatarPic2" /></p>)}
+								<div className="text-center">
 
-												{/* display user details from db */}
-												{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+									{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class="avatarPic avatarPic2" /></p>)}
+
+									{/* display user details from db */}
+									{user ? (<p class="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
 
 
-											{/* form to chang profile pic */}
+									{/* form to chang profile pic */}
 
-											<form onSubmit={handleUpload}>
-												<label for="profilepicfile" class = "pp">Change Profile Picture</label>
+									<form onSubmit={handleUpload}>
+										<label for="profilepicfile" class="pp">Change Profile Picture</label>
 
-												<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
-										
-												<Button class = "commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
-											</form>
-										
+										<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+										<br></br>
+										{showUploadButton ? (
+											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
+											) : (
+												<p></p>
+											)}
+											<br></br><br></br>
+									</form>
 
+
+								</div>
+							</div>
+
+							<div class="post">
+								<h2>Edit account info</h2>
+								{/* account form starts here */}
+								<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
+									<label for="firstName">First Name</label>
+									<input required type="text" id="firstName" class="form-control" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
+									<br></br>
+									<label for="lastName">Last Name</label>
+									<input required type="text" defaultValue={user.lastName} class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" />
+									<br>
+									</br>
+									{/* material ui date picker for dob */}
+									<label>Date of birth</label>
+									<MuiPickersUtilsProvider utils={DateFnsUtils}>
+										<Grid container justify="left">
+											<KeyboardDatePicker
+												margin="0"
+												id="dob"
+												name="dob"
+												format="MM/dd/yyyy"
+												value={dob}
+												required
+												onChange={handleDateChange}
+												KeyboardButtonProps={{
+													'aria-label': 'change date',
+												}}
+											/>
+										</Grid>
+									</MuiPickersUtilsProvider>
+									<br></br>
+									{/*input field for college name if user is a current student */}
+									{currentStudent ? (
+										<div>
+											<FormControl component="fieldset">
+												<FormLabel component="legend">Are you a current student</FormLabel>
+
+												<FormGroup row>
+													<FormControlLabel
+														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+														label="Yes" labelPlacement="end"
+													/>
+												</FormGroup>
+											</FormControl>
+											<br></br>
+											<select
+												className='text-center '
+												name='collegeSelect'
+												id='collegeSelect'>
+												{collegeList && collegeList.map((item) => {
+													return (
+														<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
+
+													)
+												})}
+
+											</select>
+										</div>
+									) : (
+											<FormControl component="fieldset">
+												<FormLabel component="legend">Are you a current student</FormLabel>
+
+												<FormGroup row>
+													<FormControlLabel
+														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+														label="Yes" labelPlacement="end"
+													/>
+												</FormGroup>
+											</FormControl>)}
+									<br></br>
+									<br></br>
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<Button type='submit' className="loginButt loginButt2">Apply Changes</Button>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt"> Cancel Changes</Button>
 										</div>
 									</div>
 
-									<div class = "post">
-						<h2>Edit account info</h2>
-						{/* account form starts here */}
-						<form id="accountInfoForm" name="accountInfoForm" onSubmit={handleAccountUpdate}>
-							<label for="firstName">First Name</label>
-							<input required type="text" id="firstName" class = "form-control" defaultValue={user.firstName} name="firstName" placeholder="Enter your first name" />
-							<br></br>
-							<label for="lastName">Last Name</label>
-							<input required type="text" defaultValue={user.lastName} class = "form-control" id="lastName" name="lastName" placeholder="Enter your last name" />
-							<br>
-							</br>
-							{/* material ui date picker for dob */}
-							<label>Date of birth</label>
-							<MuiPickersUtilsProvider utils={DateFnsUtils}>
-								<Grid container justify="left">
-									<KeyboardDatePicker
-										margin="0"
-										id="dob"
-										name="dob"
-										format="MM/dd/yyyy"
-										value={dob}
-										required
-										onChange={handleDateChange}
-										KeyboardButtonProps={{
-											'aria-label': 'change date',
-										}}
-									/>
-								</Grid>
-							</MuiPickersUtilsProvider>
-							<br></br>
-							{/*input field for college name if user is a current student */}
-							{currentStudent ? (
-								<div>
-									<FormControl component="fieldset">
-										<FormLabel component="legend">Are you a current student</FormLabel>
+								</form>
+								{/* form to change account details ends */}
+								<br></br>
 
-										<FormGroup row>
-											<FormControlLabel
-												control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-												label="Yes" labelPlacement="end"
-											/>
-										</FormGroup>
-									</FormControl>
-									<br></br>
-									<select
-										className='text-center '
-										name='collegeSelect'
-										id='collegeSelect'>
-										{collegeList && collegeList.map((item) => {
-											return (
-												<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
 
-											)
-										})}
 
-									</select>
-								</div>
-							) : (
-									<FormControl component="fieldset">
-										<FormLabel component="legend">Are you a current student</FormLabel>
-
-										<FormGroup row>
-											<FormControlLabel
-												control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-												label="Yes" labelPlacement="end"
-											/>
-										</FormGroup>
-									</FormControl>)}
-							<br></br>
-							<br></br>
-							<div class = "row">
-								<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6">
-								<Button type='submit' className="loginButt loginButt2">Apply Changes</Button>
-								</div>
-								<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6">
-								<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt"> Cancel Changes</Button>
-								</div>
 							</div>
-							
-						</form>
-						{/* form to change account details ends */}
-						<br></br>
-
-					
-
-					</div>
 
 
 
 						</div>
 
-				) : (
+					) : (
 
-					<div className="col-lg-4 col-md-12 col-sm-12">
-							<br></br> 
-					<div className="post">
+							<div className="col-lg-4 col-md-12 col-sm-12">
+								<br></br>
+								<div className="post">
 
-						<div className="text-center">
+									<div className="text-center">
 
-							{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class = "avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class = "avatarPic avatarPic2" /></p>)}
+										{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' class="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' class="avatarPic avatarPic2" /></p>)}
 
-								{/* display user details from db */}
-								{user ? (<p class = "profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
-							{/* form to chang profile pic */}
+										{/* display user details from db */}
+										{user ? (<p class="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
+										{/* form to chang profile pic */}
 
-							<form onSubmit={handleUpload}>
-								<label for="profilepicfile" class = "pp">Change Profile Picture</label>
-								<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
-										
-												<button class = "commentButt"> <i class="fas fa-check-circle icons"></i></button>
-							</form>
-				
+										<form onSubmit={handleUpload}>
+											<label for="profilepicfile" class="pp">Change Profile Picture</label>
+											<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+											<br></br><br></br>
+											{showUploadButton ? (
+											// <button class="commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
+											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
 
-						</div>
-
-					
-					
-
-						<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2 profileButt"> Edit Profile </Button>
-							<br></br><br></br>
-								{/* change password part */}
-				{change ? <div><ChangePassword /> <Button className = "loginButt" onClick={() => setChange(!change)}>Hide</Button></div> : <Button className="loginButt loginButt2" onClick={() => setChange(!change)}>Change Password</Button>} <br />
-				<br></br> 
-								
-								<SignOutButton />
-							
-							
-
-					<br></br>
-				<br></br>
-		
-					</div>
-					<br></br>
-					
-					</div>
-					
-
-							
-					
-								
-					)
-				}
-				
-				
-
-				{/* Get user posts */}
-				<div class = "col-lg-8 col-md-12 col-sm-12">
-				<label>My posts</label>
-				{userPosts && userPosts.map((item) => {
-					return (
-						<div className="post">
+											): (<p></p>)}
+											<br></br><br></br>
+										</form>
 
 
-										<div className="headerPost">
-											<div className="avatarSide">
-												<img src={item.userProfilePic?item.userProfilePic:'/imgs/profile.png'}  className="avatarPic" alt = "profilePic"></img>
-											</div>
-											<div className="personal">
-												<div className="author"> {item.authorName} </div>
+									</div>
 
-												<div className="college">{item.collegeName}</div>
-												<div className="time">{item.time}, {item.date}</div><br>
-												</br>
-											</div>
 
-											<div className="postContent">
-										<br></br>
+
+
+									<Button variant="primary" onClick={() => setTemp(!temp)} type='submit' className="loginButt loginButt2 profileButt"> Edit Profile </Button>
+									<br></br><br></br>
+									{/* change password part */}
+									{change ? <div><ChangePassword /> <Button className="loginButt" onClick={() => setChange(!change)}>Hide</Button></div> : <Button className="loginButt loginButt2" onClick={() => setChange(!change)}>Change Password</Button>} <br />
+									<br></br>
+
+									<SignOutButton />
+
+
+
+									<br></br>
+									<br></br>
+
+								</div>
+								<br></br>
+
+							</div>
+
+
+
+
+
+						)
+					}
+
+
+
+					{/* Get user posts */}
+					<div class="col-lg-8 col-md-12 col-sm-12">
+						<label>My posts</label>
+						{userPosts && userPosts.map((item) => {
+							return (
+								<div className="post">
+
+
+									<div className="headerPost">
+										<div className="avatarSide">
+											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
+										</div>
+										<div className="personal">
+											<div className="author"> {item.authorName} </div>
+
+											<div className="college">{item.collegeName}</div>
+											<div className="time">{item.time}, {item.date}</div><br>
+											</br>
+										</div>
+
+										<div className="postContent">
+											<br></br>
 											<Carousel>
 												{item.postPicture.map((photo) => {
-												return(
-													<Carousel.Item>
-													<img key={photo} className="postImg" src={photo} alt="img-post" />
-													</Carousel.Item>
-												)
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
 												})}
 											</Carousel>
 											<br></br>
@@ -433,56 +446,58 @@ function Profile() {
 
 									</div>
 
-											
-											
-									
 
-										<div className="comments">
 
-											<br></br>
-											<label>COMMENTS</label>
-											<div>
-												{item.comments ? (
-													item.comments.map((comm) => {
-														return (
-															<div class = "comments">
-																<div class = "comment">
-																
-																	<span class = "userName">{comm.username}</span> 
-																	<br></br>
-																	{comm.comment}
-																</div>
+
+
+									<div className="comments">
+
+										<br></br>
+										<label>COMMENTS</label>
+										<div>
+											{item.comments ? (
+												item.comments.map((comm) => {
+													return (
+														<div class="comments">
+															<div class="comment">
+
+																<span class="userName">{comm.username}</span>
+																<br></br>
+																{comm.comment}
 															</div>
-														)
-													})
-												) : (<p>No comments to display</p>)}
-											</div>
-											<form onSubmit={handleCommentSubmit}>
-												
-											        <label for = "comment"></label>
-													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
-												
-													<label for = "commentButt"></label>
-													<button name = "commentButt" id = "commentButt" onClick={() => setPostId(item.id)} class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
-														
-											
-												
-											</form>
+														</div>
+													)
+												})
+											) : (<p>No comments to display</p>)}
+
 										</div>
+										<form onSubmit={handleCommentSubmit}>
+
+											        <label for = "comment"></label>
+
+											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
+													<label for = "commentButt"></label>
+
+											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+
+
+
+										</form>
 									</div>
+								</div>
 
-					)
-				}
-				)}
-					<br></br>
+							)
+						}
+						)}
+						<br></br>
 
+					</div>
+				</div>
 			</div>
-			</div>
-</div>
 		);
-	} 
-	
-	
+	}
+
+
 	else {
 		return (
 			<div className="container container1">
