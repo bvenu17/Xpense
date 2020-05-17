@@ -6,7 +6,7 @@ const About = () => {
         <div className="container container1">
             <h1>What do we do?</h1>
             <br></br>
-            <div class="devName post">
+            <div className="devName post">
             Every year, hundreds of thousands of international students come to the United States for their education. Information regarding courses, tuition fees, university facilities, etc is available in abundance on every school’s website. But when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our application comes into play!
             <br></br><br></br>
             Our application is designed to give incoming students data from students that have actually studied in these universities. The data would mainly include their monthly expenses, rent according to particular locations, pictures of the houses you get for the rent you pay, the grocery resources . It is a social media approach where current or existing students can post all the above information. It will also allow incoming students to comment on posts, filter by location or university. Currently, our focus will be on universities in the states of  New Jersey and New York.
@@ -18,7 +18,7 @@ const About = () => {
             <div className="row locationCardRow post">
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
                     <div className="locationDes">
-                        <h1 class = "loc">New Jersey</h1>
+                        <h1 className = "loc">New Jersey</h1>
                         <br></br>
 
                     
@@ -26,16 +26,16 @@ const About = () => {
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
-                    <img width="100%" src="/imgs/newjersey.jpg" alt="img" />
+                    <img className= "aboutImg" src="/imgs/newjersey.jpg" alt="img" />
                 </div>
             </div>
             <div className="row locationCardRow post">
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
-                    <img width="100%" src="/imgs/newyork.jpg" alt="img" />
+                    <img className= "aboutImg" src="/imgs/newyork.jpg" alt="img" />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 locationCard">
                     <div className="locationDes">
-                        <h1 class = "loc">New York</h1>
+                        <h1 className = "loc">New York</h1>
                         <br></br>
 
                       
@@ -53,7 +53,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-4 col-sm-4">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/vedadnya.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/vedadnya.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Vedadnya <br></br> Jadhav</p>
 
                     </div>
@@ -62,7 +62,7 @@ const About = () => {
       
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img hetight ="100%" width="100%" src="/imgs/venu.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/venu.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Venugopal <br></br> Balaji</p>
 
                     </div>
@@ -70,7 +70,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/chirag.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/chirag.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Chirag <br></br> Kamble</p>
 
                     </div>
@@ -78,7 +78,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%" src="/imgs/rohan.jpg" class = "avatarPic2" alt="img" />
+                        <img src="/imgs/rohan.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Rohan <br></br> Shah</p>
 
                     </div>
@@ -86,7 +86,7 @@ const About = () => {
 
                 <div className="col-lg-2 col-md-6 col-sm-6">
                     <div className="devCard post">
-                        <img width="100%"  src="/imgs/harish.jpg"class = "avatarPic2" alt="img" />
+                        <img src="/imgs/harish.jpg" className = "avatarPic2 aboutImg" alt="img" />
                         <p className="devName2"><br></br>Harish <br></br> Nair</p>
 
                     </div>

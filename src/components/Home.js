@@ -4,7 +4,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
-import { Modal } from 'react-bootstrap';
 //firebase functions import
 import { AuthContext } from "../firebase/Auth";
 import 'firebase/firestore';
@@ -13,34 +12,23 @@ import "firebase/storage";
 import { addPosts, getUser, getCollege, getAllColleges, getAllPosts, addCommentToPost } from '../firebase/FirestoreFunctions';
 //import other components
 import Chat from './Chat';
-//static files import
-const defcollogo = require('../assets/college-logo.jpg')
 
 
 function Home() {
 	//user states
 	const { currentUser } = useContext(AuthContext)
 	const [user, setUser] = useState();
-	//college states
-	const [collegeName, setCollegeName] = useState();
 	const [collegeList, setCollegeList] = useState();
 	//post states
 	const [postList, setPostList] = useState();
 	const [postPic, setPostPic] = useState([]);
 	const [postId, setPostId] = useState();
-	const [postPicUrl, setPostPicUrl] = useState();
-	//post allow/disallow
-	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
 	//loading data state
 	const [loading, setLoading] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 	//filter posts
 	const [options, setOptions] = useState();
 	const [postFilter, setPostFilter] = useState();
-	//post filter rent range
-	const [rentValue, setRentValue] = useState(0);
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
 	const [uploadedImgsFileName, setUploadedImgsFileName] = useState([])
@@ -51,7 +39,6 @@ function Home() {
 	//lifecycle method
 	useEffect(() => {
 		let optionFilter = new Set();
-		let rentList = [];
 		async function getData() {
 			try {
 				console.log("Entering use effect at home")
@@ -59,24 +46,12 @@ function Home() {
 				let u = await getUser(currentUser.uid);
 				setUser(u);
 				console.log("fetched user details", u)
-				//fetch college name of the user
-				if (u.collegeId) {
-					let cname = await getCollege(u.collegeId);
-					setCollegeName(cname.name);
-				}
 				//fetch college details from db
 				let allColleges = await getAllColleges();
 				setCollegeList(allColleges)
 				console.log("fetched college list", allColleges)
 				//fetch all posts from db
 				let p = await getAllPosts();
-				// let sortedp;
-				// if(p){
-				// 	sortedp = p.sort((a, b) => b.createdAt - a.createdAt)
-				// } else {
-				// 	   sortedp = p;
-				// }
-				// setPostList(sortedp);
 				setPostList(p);
 				console.log("fetched all posts from db", p);
 				//filter for dropdown
@@ -176,8 +151,7 @@ function Home() {
 			groceries: groceries.value,
 			transport: transport.value,
 			utilities: utilities.value,
-			userProfilePic: user.photoURL,
-			collegeName: collegeName
+			userProfilePic: user.photoURL
 		};
 		try {
 			//add the post to the db
@@ -238,6 +212,7 @@ function Home() {
 				if (id === post.collegeId) {
 					posts_filter.push(post);
 				}
+				
 			});
 		});
 
@@ -251,11 +226,11 @@ function Home() {
 			<div className='container container1'>
 				{/* Rohan Static Content */}
 				<div className="row">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-3 col-xs-3">
+					<div className="row">
+						<div className="col-lg-6 col-md-6 col-sm-3 col-xs-3">
 							<label> FILTER BY LOCATION </label>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-9 col-xs-9">
+						<div className="col-lg-6 col-md-6 col-sm-9 col-xs-9">
 							<form id='locationFilter'>
 								<select className="form-control" id='filterPost' form='locationFilter' onChange={filterPost}>
 									<option key='default' defaultValue='None'>NONE</option>
@@ -292,18 +267,19 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											{item.postPicture.length != 0 ?
-                                                (<Carousel>
-                                                    {item.postPicture.map((photo) => {
-                                                    return(
-                                                        <Carousel.Item>
-                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
-                                                        </Carousel.Item>
-                                                    )
-                                                    })}
-                                                </Carousel>):(<div></div>)}
+											<Carousel>
+												{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item>
+															<img key={photo} className="postImg" src={photo} alt="img-post" />
+															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
+															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
+														</Carousel.Item>
+													)
+												})}
+											</Carousel>
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -335,10 +311,10 @@ function Home() {
 											{item.comments ? (
 												item.comments.map((comm) => {
 													return (
-														<div class="comments">
-															<div class="comment">
+														<div className="comments">
+															<div className="comment">
 
-																<span class="userName">{comm.username}</span>
+																<span className="userName">{comm.username}</span>
 																<br></br>
 																{comm.comment}
 															</div>
@@ -349,10 +325,10 @@ function Home() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-												<label for = "comment"></label>
+												<label htmlFor = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-												<label for = "commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label htmlFor = "commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -361,10 +337,10 @@ function Home() {
 
 
 							)
-						}) : (postList.map((item) => {
+						}) : (postList.map((item,i) => {
 							return (
 
-								<div className="post">
+								<div key={i} className="post">
 									<div className="headerPost">
 										<div className="avatarSide">
 											<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -378,18 +354,17 @@ function Home() {
 										</div>
 										<div className="postContent">
 											<br></br>
-											{item.postPicture.length != 0 ?
-                                                (<Carousel>
-                                                    {item.postPicture.map((photo) => {
-                                                    return(
-                                                        <Carousel.Item>
-                                                        <img key={photo} className="postImg" src={photo} alt="img-post" />
-                                                        </Carousel.Item>
-                                                    )
-                                                    })}
-                                                </Carousel>):(<div></div>)}
+											<Carousel>
+												{item.postPicture.map((photo) => {
+													return (
+														<Carousel.Item key={photo}>
+															<img  className="postImg" src={photo} alt="img-post" />
+														</Carousel.Item>
+													)
+												})}
+											</Carousel>
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -424,12 +399,12 @@ function Home() {
 										<label>COMMENTS</label>
 										<div>
 											{item.comments ? (
-												item.comments.map((comm) => {
+												item.comments.map((comm,i) => {
 													return (
-														<div class="comments">
-															<div class="comment">
+														<div key={i} className="comments">
+															<div className="comment">
 
-																<span class="userName">{comm.username}</span>
+																<span className="userName">{comm.username}</span>
 																<br></br>
 																{comm.comment}
 															</div>
@@ -441,10 +416,10 @@ function Home() {
 										<form onSubmit={handleCommentSubmit}>
 
 
-											<label for = "comment"></label>
+											<label htmlFor = "comment"></label>
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-												<label for ="commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+												<label htmlFor ="commentButt"></label>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 
 
@@ -465,7 +440,7 @@ function Home() {
 					</div>
 					<div className="col-lg-4 col-md-12 col-sm-12">
 						<div className="post">
-							<span class = "h2">Share your experience living in the US</span>
+							<span className = "h2">Share your experience living in the US</span>
 							<br></br>
 							<form onSubmit={handlePosts}>
 								<div className='form-group'>
@@ -474,37 +449,37 @@ function Home() {
 										(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />)}
 									<br></br>
 
-									<label for="description">Description</label>
+									<label htmlFor="description">Description</label>
 									{user.currentStudent ? (<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' required />) :
 										(<textarea className='form-control' name='description' id='description' type='textarea' rows="10" cols="5" placeholder='Description' disabled required />)}
 									<br></br>
 
 
-									<label for="college"> Your College</label>
+									<label htmlFor="college"> Your College</label>
 									{user.collegeId ? (collegeList.map((item) => {
 										if (user.collegeId === item.id) {
 											return (
-												<p>{item.name}</p>
+												<p key={item.id}>{item.name}</p>
 											)
 										}
 									})) : (<p>Please provide your college name !</p>)}
 
-									<label for="rent">Rent</label>
+									<label htmlFor="rent">Rent</label>
 									{user.currentStudent ? (<input className='form-control' name='rent' id='rent' placeholder='$' type='number' required />) :
 										(<input className='form-control' name='rent' id='rent' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
-									<label for="transport">Transport</label>
+									<label htmlFor="transport">Transport</label>
 									{user.currentStudent ? (<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' required />) :
 										(<input className='form-control' name='transport' id='transport' placeholder='Eg: NJ Transport, Port-Authority Bus...' type='text' disabled required />)}
 									<br></br>
 
-									<label for="utilities">Utilities</label>
+									<label htmlFor="utilities">Utilities</label>
 									{user.currentStudent ? (<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' required />) :
 										(<input className='form-control' name='utilities' id='utilities' placeholder='$' type='number' disabled required />)}
 									<br></br>
 
-									<label for="groceries">Grocery Stores</label>
+									<label htmlFor="groceries">Grocery Stores</label>
 									{user.currentStudent ? (<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' required />) :
 										(<input className='form-control' name='groceries' id='groceries' placeholder='Eg: Stop-N-Shop, Shop-rite...' type='text' disabled required />)}
 									<br></br>
@@ -515,12 +490,12 @@ function Home() {
 											return <p>{item}</p>
 										})}
 										
-										<label for="postImage">Upload Media</label>
+										<label htmlFor="postImage">Upload Media</label>
 										<div className="multiImg">
 										{user.currentStudent ? (
 										<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
 																	{uploadButton ? (
-																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i className="fas fa-check-circle"></i></Button>
 																	): (null)}
 																
 																	</div>
@@ -528,7 +503,7 @@ function Home() {
 																(
 																<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
 																	{uploadButton ? (
-																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i className="fas fa-check-circle"></i></Button>
 
 																	): (null)}
 																	
@@ -547,7 +522,7 @@ function Home() {
 						<br></br>
 
 						<div className="post chatBox">
-						<span class = "h2">GLOBAL CHAT</span>
+						<span className = "h2">GLOBAL CHAT</span>
 							<br></br><br></br>
 							<Chat></Chat>
 						</div>

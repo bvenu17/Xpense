@@ -78,7 +78,7 @@ function SignUp() {
 						/>
 					
 				</div>
-				<div class = " logSignButt">
+				<div className = " logSignButt">
 				<button id='submitButton' name='submitButton' className = "loginButt loginButt2" type='submit'>
 					SIGN UP
 				</button>

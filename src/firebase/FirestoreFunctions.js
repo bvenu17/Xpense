@@ -1,27 +1,20 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import firebaseApp from './Firebase'
-import { func } from 'prop-types';
 
 let db = firebaseApp.firestore();
-let flag = false
 
 async function addPosts(uid, postObject) {
   //func to add post to db
   const timestamp = firebase.firestore.FieldValue.serverTimestamp;
   postObject.createdAt = timestamp();
-  console.log("incoming post object is",postObject);
   await db.collection("posts").add(postObject)
     .then(function (docRef) {
       postObject.postId = docRef.id;
-      console.log("Post written with ID: ", docRef.id);
-      console.log("Post object written in firebase is ", postObject)
     })
     .catch(function (error) {
       console.error("Error adding document: ", error);
     });
-  console.log('post object which needs to be added to the user collection is');
-  console.log(postObject);
   //func to add the post to user db
   await db.collection('users').doc(uid).update({
     posts: firebase.firestore.FieldValue.arrayUnion({ postId: postObject.postId })
@@ -66,8 +59,6 @@ async function getUser(uid) {
       if (!doc.exists) {
         console.log('No such document!');
       } else {
-        //console.log('Document data:', doc.data());
-        console.log("Inside firestore functions: ", doc.data())
         return doc.data();
       }
     })
@@ -80,8 +71,7 @@ async function getUser(uid) {
 //function to add/update profile pic of the user
 async function updateProfilePic(uid, imageUrl) {
   // let userRef = await db.collection('users').doc(uid);
-  console.log('enter update profile pic');
-  let updatePic = await db.collection("users").doc(uid).update({
+  await db.collection("users").doc(uid).update({
     "photoURL": imageUrl,
   })
     .then(function () {
@@ -94,7 +84,8 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
 
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
-  let updateInfo = await db.collection("users").doc(uid).update({
+
+  await db.collection("users").doc(uid).update({
     "firstName": firstName,
     "lastName": lastName,
     "dob": dateOfBirth,
@@ -108,10 +99,9 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
 }
 
 async function updateProfilePicturePost(uid, picUrl) {
-  console.log("entering prof pic post now");
   let allPostId = [];
   let x;
-  let query = await db.collection("posts").where('authorId', '==', uid).get()
+  await db.collection("posts").where('authorId', '==', uid).get()
 
     .then(snapshot => {
       if (snapshot.empty) {
@@ -119,7 +109,6 @@ async function updateProfilePicturePost(uid, picUrl) {
         return;
       }
       snapshot.forEach(doc => {
-        //console.log(doc.id, '=>', doc.data());
         x = doc.data();
         x.id = doc.id;
         allPostId.push(x.id)
@@ -145,10 +134,9 @@ async function updateProfilePicturePost(uid, picUrl) {
 }
 
 async function updateAccountDetailsPost(uid, firstName,lastName) {
-  console.log("entering prof pic post now");
   let allPostId = [];
   let x;
-  let query = await db.collection("posts").where('authorId', '==', uid).get()
+  await db.collection("posts").where('authorId', '==', uid).get()
 
     .then(snapshot => {
       if (snapshot.empty) {
@@ -156,7 +144,6 @@ async function updateAccountDetailsPost(uid, firstName,lastName) {
         return;
       }
       snapshot.forEach(doc => {
-        //console.log(doc.id, '=>', doc.data());
         x = doc.data();
         x.id = doc.id;
         allPostId.push(x.id)
@@ -193,7 +180,6 @@ async function getAllPostsforCollege(collegeID) {
         return;
       }
       snapshot.forEach(doc => {
-        //console.log(doc.id, '=>', doc.data());
         x = doc.data();
         x.id = doc.id;
         allPosts.push(x)
@@ -234,7 +220,6 @@ async function getUserPosts(uid) {
         return;
       }
       snapshot.forEach(doc => {
-        //console.log(doc.id, '=>', doc.data());
         x = doc.data();
         x.id = doc.id;
         allPosts.push(x)
@@ -248,7 +233,6 @@ async function getUserPosts(uid) {
 };
 
 async function getAllColleges() {
-  console.log("getting all colleges");
   const snapshot = await firebase.firestore().collection('colleges').get()
   return snapshot.docs.map(doc => doc.data());
 };
@@ -279,7 +263,6 @@ async function addCommentToPost(postId, userName, commentText) {
   //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
   let commentObj = { username: userName, comment: commentText };
   commentObj.createdAt = new Date();
-  console.log("comment is", commentObj);
   await db.collection('posts').doc(postId).update({
     comments: firebase.firestore.FieldValue.arrayUnion(commentObj)
   })
@@ -293,113 +276,30 @@ async function addCommentToPost(postId, userName, commentText) {
 
 };
 
-// //harish add messages to chat db
-// async function addChat(chatObject) {
-//   //func to add post to db
-//   // let chatData = { name: userName, message: chatObject }
-//   // const timestamp = firebase.firestore.FieldValue.serverTimestamp;
-//   // chatObject.createdAt = timestamp();
-
-//   // await db.collection("chats").add(chatObject)
-//   //   .then(function (docRef) {
-//   //     // chatObject.postId = docRef.id;
-//   //     console.log("Post written with ID: ", docRef.id);
-//   //   })
-//   //   .catch(function (error) {
-//   //     console.error("Error adding document: ", error);
-//   //   });
-//   // console.log('chat object which needs to be added to the user collection is');
-//   // console.log(chatObject);
-//   // //func to add the post to user db
-
-
-//   async function addChat(chatObject) {
-//   //func to add post to db
-//   // let chatData = { name: userName, message: chatObject }
-//   //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
-//   chatObject.createdAt = new Date();
-// //  await db.collection("chats").add(chatObject)
-//     await db.collection("chats").doc('allChats').update({
-//       chatMessage:firebase.firestore.FieldValue.arrayUnion(chatObject)
-//     })
-//     .then(function () {
-//       // chatObject.postId = docRef.id;
-//       console.log("Chat message written with ID: ");
-//     })
-//     .catch(function (error) {
-//       console.error("Error adding chat message: ", error);
-//     });
-//   console.log('chat object which needs to be added to the user collection is');
-//   console.log(chatObject);
-//   //func to add the post to user db
-// };
-
-// async function getAllChats() {
-//   console.log("getting all chats");
-//   // const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
-//   // return snapshot.docs.map(doc => doc.data());
-//   let chatRef = await db.collection('chats').doc('allChats');
-//   let getDoc = chatRef.get()
-//     .then(doc => {
-//       if (!doc.exists) {
-//         console.log('No such document!');
-//       } else {
-//         //console.log('Document data:', doc.data());
-//         console.log("Inside firestore chat collection: ", doc.data())
-//         return doc.data();
-//       }
-//     })
-//     .catch(err => {
-//       console.log('Error getting document', err);
-//     });
-//   return getDoc
-// };
-
-
-// };
-
-// async function getAllChats() {
-//   console.log("getting all chats");
-//   const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
-//   return snapshot.docs.map(doc => doc.data());
-// };
 
 async function addChat(chatObject) {
-  //func to add post to db
-  // let chatData = { name: userName, message: chatObject }
-  //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
   chatObject.createdAt = new Date();
-
-  //  await db.collection("chats").add(chatObject)
   await db.collection("chats").doc('allChats').update({
     chatMessage: firebase.firestore.FieldValue.arrayUnion(chatObject)
   })
     .then(function () {
-      // chatObject.postId = docRef.id;
       console.log("Chat message written with ID: ");
     })
     .catch(function (error) {
       console.error("Error adding chat message: ", error);
     });
-
-  console.log('chat object which needs to be added to the user collection is');
-  console.log(chatObject);
-  //func to add the post to user db
 };
 
 async function getAllChats() {
-  console.log("getting all chats");
   // const snapshot = await firebase.firestore().collection('chats').orderBy("createdAt", "asc").get()
   // return snapshot.docs.map(doc => doc.data());
   let chatRef = await db.collection('chats').doc('allChats');
   let getDoc = chatRef.get()
     .then(doc => {
       if (!doc.exists) {
-        flag=false;
         console.log('No such document!');
       } else {
-        //console.log('Document data:', doc.data());
         console.log("Inside firestore chat collection: ", doc.data())
         return doc.data();
       }

@@ -1,29 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bar, Line, Pie } from 'react-chartjs-2';
-import { getAllPostsforCollege, getAllColleges } from '../firebase/FirestoreFunctions'
-import { cpus } from 'os';
+import { Bar } from 'react-chartjs-2';
+import { getAllColleges } from '../firebase/FirestoreFunctions'
 
 
 function Charts() {
 
-    const [collegeList, setCollegeList] = useState();
-    const [utilities, setUtilities] = useState();
-    const [rent, setRent] = useState();
-    const [total, setTotal] = useState();
-
     const [chartData, setChartData] = useState();
-    const [displayTitle, setDisplayTitle] = useState(true);
-    const [displayLegend, setDisplayLegend] = useState(true);
-    const [legendPosition, setLegendPosition] = useState('right');
 
 
     useEffect(() => {
         async function getData() {
             try {
-                console.log("Entering use effect at home")
                 let clist = await getAllColleges();
-                setCollegeList(clist);
 
                 let collegeNames = [];
                 let collegeAvgs = [];
@@ -88,60 +77,29 @@ return (
         <div className="container container1">
                 <h1>What are our Insights?</h1>
                 <br></br>
-                <div class="devName post">
+                <div className="devName post">
                 Every year  when it comes to living expenses and resources , the figures are always an average assumption of numbers rather than actual data. Here is where our Insights comes into play!
                 <br></br><br></br>
                 Our application is designed to give incoming students the realtime data from students that have actually studied in these universities. The monthly expenses including rent and utilities are displayed in the insights for every university.
                 <br></br>
                 </div>
             </div>
-        {/* <Pie
-            data={chartData}
-            options={{
-                title: {
-                    display: displayTitle,
-                    text: 'Heighest Average Expenses ' + location,
-                    fontSize: 25
-                },
-                legend: {
-                    display: displayLegend,
-                    position: legendPosition
-                }
-            }}
-        /> */}
 
         <Bar
             data={chartData}
             options={{
                 title: {
-                    display: displayTitle,
+                    display: true,
 
-                    text: 'Average Expenses of Universities',
+                    text: 'Average Expenses of Universities($)',
                     fontSize: 25
                 },
                 legend: {
-                    display: displayLegend,
-                    position: legendPosition
+                    display: true,
+                    position: 'right'
                 }
             }}
         />
-
-        {/* <Line
-            data={chartData}
-            
-            options={{
-                fill:false,
-                title: {
-                    display: displayTitle,
-                    text: 'Largest Cities In ' + location,
-                    fontSize: 25
-                },
-                legend: {
-                    display: displayLegend,
-                    position: legendPosition
-                }
-            }}
-        /> */}
     </div>
 )
 
