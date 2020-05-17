@@ -33,6 +33,25 @@ async function addPosts(uid, postObject) {
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
     });
+
+
+    //func to add avg expense to college db
+    let sumTot = parseInt(postObject.rent) + parseInt(postObject.utilities);
+    const countPosts =firebase.firestore.FieldValue.increment(1);
+    const increment = firebase.firestore.FieldValue.increment(sumTot);
+    await db.collection('colleges').doc(postObject.collegeId).update({
+      sum:increment,
+      posts: firebase.firestore.FieldValue.arrayUnion({ postId: postObject.postId }),
+      count: countPosts
+
+    })
+    .then(function () {
+      console.log("sum in college db successfully updated!");
+    })
+    .catch(function (error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
 };
 
 async function getUser(uid) {

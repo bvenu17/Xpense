@@ -26,11 +26,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 //import for dropdown material ui
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { FormLabel } from 'react-bootstrap';
 //static file init
 const defpic = require('../assets/default-avatar.png')
@@ -231,11 +227,13 @@ function Profile() {
 										<label for="profilepicfile" class="pp">Change Profile Picture</label>
 
 										<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+										<br></br>
 										{showUploadButton ? (
-											<button  class="commentButt"><i class="fas fa-check-circle icons"></i></button>
+											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
 											) : (
 												<p></p>
 											)}
+											<br></br><br></br>
 									</form>
 
 
@@ -350,11 +348,13 @@ function Profile() {
 										<form onSubmit={handleUpload}>
 											<label for="profilepicfile" class="pp">Change Profile Picture</label>
 											<input type='file' accept="image/*" className='comment2 upload' name="profilepicfile" id="profilepicfile" onChange={handleChange} />
+											<br></br><br></br>
 											{showUploadButton ? (
 											// <button class="commentButt loginButt2"><i class="fas fa-check-circle icons loginButt2"></i></Button>
-											<button class="commentButt"> <i class="fas fa-check-circle icons"></i></button>
+											<Button  className="loginButt loginButt2 profileButt"> Accept<i class="fas fa-check-circle"></i></Button>
 
 											): (<p></p>)}
+											<br></br><br></br>
 										</form>
 
 
