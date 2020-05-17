@@ -44,6 +44,8 @@ function Home() {
 	//state for storing multiple imgs url
 	const [postImgsUrl, setPostImgsUrl] = useState([]);
 	const [uploadedImgsFileName, setUploadedImgsFileName] = useState([])
+	//state to show upload button
+	const [uploadButton,setUploadButton] = useState(false);
 
 
 	//lifecycle method
@@ -98,6 +100,7 @@ function Home() {
 			test.push(imageFile);
 		}
 		setPostPic(test);
+		setUploadButton(!uploadButton);
 
 
 	}
@@ -126,6 +129,7 @@ function Home() {
 					// do something with the url
 					setPostImgsUrl(prevState => [...prevState, downloadURL]);
 					setUploadedImgsFileName(prevState => [...prevState, file.name])
+					setUploadButton(!uploadButton);
 				}
 			);
 		});
@@ -503,10 +507,23 @@ function Home() {
 										
 										<label for="postImage">Upload Media</label>
 										<div className="multiImg">
-										{user.currentStudent ? (<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
-																	<button onClick={uploadMultipleImages} class="commentButt"><i class="fas fa-check-circle icons"></i></button></div>) : 
-																(<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
-																	<button onClick={uploadMultipleImages} class="commentButt" disabled ><i class="fas fa-check-circle icons"></i></button></div>)}
+										{user.currentStudent ? (
+										<div><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} /> <br></br>
+																	{uploadButton ? (
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+																	): (null)}
+																
+																	</div>
+																	) : 
+																(
+																<div disabled ><input multiple required type="file" accept="image/*" className="form-control-file" name="postImage" id="postImage" onChange={handleImageChange} disabled /> <br></br>
+																	{uploadButton ? (
+																	<Button onClick={uploadMultipleImages}  className="loginButt loginButt2 profileButt"> Upload<i class="fas fa-check-circle"></i></Button>
+
+																	): (null)}
+																	
+																	</div>
+																	)}
 									</div>
 								</div>
 								
