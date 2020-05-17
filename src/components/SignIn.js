@@ -35,7 +35,7 @@ function SignIn() {
 			<h1 className = "loginRegHeader">Log in</h1>
 			<form onSubmit={handleLogin}>
 			<div className='form-group'>
-					<label for = "email" name = "email">
+					<label for = "email">
 						Email
 						</label>
 						<input
@@ -49,12 +49,13 @@ function SignIn() {
 					
 				</div>
 				<div className='form-group'>
-					<label for = "password" name = "password">
+					<label for = "password">
 						Password
 						</label>
 						<input
 							className='form-control'
 							name='password'
+							id = "password"
 							type='password'
 							placeholder='Password'
 							required

@@ -34,21 +34,21 @@ function SignUp() {
 					<label for = "firstName">
 						First Name
 						</label>
-						<input className='form-control' required name='firstName' type='text' placeholder='Tell us your first name' />
+						<input className='form-control' id = "firstName" required name='firstName' type='text' placeholder='Tell us your first name' />
 				
 				</div>
 				<div className='form-group'>
 					<label for = "lastName">
 						Last Name
 						</label>
-						<input className='form-control' required name='lastName' type='text' placeholder='Tell us your last name' />
+						<input className='form-control' id = "lastName" required name='lastName' type='text' placeholder='Tell us your last name' />
 					
 				</div>
 				<div className='form-group'>
 					<label for = "email">
 						Email
 						</label>
-						<input className='form-control' required name='email' type='email' placeholder='What is your email id?' />
+						<input className='form-control' id = "email" required name='email' type='email' placeholder='What is your email id?' />
 				
 				</div>
 				<div className='form-group'>
@@ -72,6 +72,7 @@ function SignUp() {
 						<input
 							className='form-control'
 							name='passwordTwo'
+							id = "passwordTwo"
 							type='password'
 							placeholder='Confirm Password (just to be sure!)'
 							required
