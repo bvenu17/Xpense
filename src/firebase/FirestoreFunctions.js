@@ -94,6 +94,7 @@ async function updateAccountInfo(uid, firstName, lastName, dateOfBirth, selected
 
   // let userRef = await db.collection('users').doc(uid);
   console.log('enter update account info ');
+  console.log("status is " + status);
   let updateInfo = await db.collection("users").doc(uid).update({
     "firstName": firstName,
     "lastName": lastName,

@@ -37,10 +37,12 @@ const Chat = () => {
             try {
                 console.log("enter use effect func")
                 //fetch user details from db
+                if(currentUser) {
                 let u = await getUser(currentUser.uid);
                 //setLoading(false)
                 setUser(u);
                 console.log("fetched user details", u);
+                }
             } catch (e) {
                 console.log(e)
             }
@@ -108,9 +110,9 @@ const Chat = () => {
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '100%', height: '100px' }}>
                         {allmsg && allmsg.chatMessage.map((item) => {
                             return (
-                                <div class="comments">
-                                    <div class="comment chat">
-                                        <span class="userName"> {item.name} </span> 
+                                <div className="comments">
+                                    <div className="comment chat">
+                                        <span className="userName"> {item.name} </span> 
                                         <br></br>
                                         {item.message}
                                         <br></br>
@@ -128,9 +130,9 @@ const Chat = () => {
                         </div>) : (null)} */}
                         {msgSent && msgSent.map((text) => {
                             return (
-                                <div class="comments">
-                                    <div class="comment chat">
-                            <span class="userName"> {text.name} </span>
+                                <div className="comments">
+                                    <div className="comment chat">
+                            <span className="userName"> {text.name} </span>
                                         <br></br>
                                         {text.message}
                                         <br></br>
@@ -147,17 +149,17 @@ const Chat = () => {
                         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                     />
                     <label for = "chatButt"></label>
-                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                    <button name = "chatButt" id = "chatButt" onClick={(event) => sendMessage(event)} className="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
                 </div>) : (
                         <div className="chat-control">
                             {/* <p>SignUp to chat!</p> */}
 
-                                <label for ="comment"></label>
+                                <label htmlFor ="comment"></label>
                                 <br></br><br></br>
                                 <input name="comment" className='comment2' id="comment" type="text" placeholder="Enter message..." onClick={handleShow} />
 
-                                <label for = "chatButt"></label>
-                                <button name = "chatButt" id = "chatButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                <label htmlFor = "chatButt"></label>
+                                <button name = "chatButt" id = "chatButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                 <Modal className="loginForm" show={show} onHide={handleClose} >
                                     <Button variant="primary" className="modalHeader" onClick={logSign === "Login" ? setSignup : setLogin}>
                                         {logSign === "Login" ? "Have an account? Login here" : "Don't have an account? Signup Now"}

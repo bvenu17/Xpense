@@ -91,11 +91,11 @@ function Landing() {
 				<div className='container container1'>
 					{/* Rohan Static Content */}
 					<div className="row">
-					<div class = "row">
-							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div className = "row">
+							<div className = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 							<label> FILTER BY LOCATION </label>
 							</div>
-							<div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div className = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						
 							<form id='locationFilter'>
 								<select className="form-control filter" id='filterPost' form='locationFilter' onChange={filterPost}>
@@ -140,7 +140,7 @@ function Landing() {
                                                     })}
                                                 </Carousel>):(<div></div>)}
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -174,10 +174,10 @@ function Landing() {
 												{item.comments ? (
 													item.comments.map((comm) => {
 														return (
-															<div class = "comments">
-																<div class = "comment">
+															<div className = "comments">
+																<div className = "comment">
 																
-																	<span class = "userName">{comm.username}</span> 
+																	<span className = "userName">{comm.username}</span> 
 																	<br></br>
 																	{comm.comment}
 																</div>
@@ -192,7 +192,7 @@ function Landing() {
 													<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 													<label for = "submitButt"></label>
-													<button name = "submitButt" id = "submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+													<button name = "submitButt" id = "submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 												</form>
 											</div>
 										</div>
@@ -225,7 +225,7 @@ function Landing() {
                                                     })}
                                                 </Carousel>):(<div></div>)}
 											<br></br>
-											<p class="postTitle">
+											<p className="postTitle">
 												{item.title}
 											</p>
 										</div>
@@ -258,17 +258,17 @@ function Landing() {
 										{item.comments ? (
 											item.comments.map((comm) => {
 												return (
-													<div class = "comments">
-														<div class = "comment">
+													<div className = "comments">
+														<div className = "comment">
 														
-															<span class = "userName">{comm.username}</span> 
+															<span className = "userName">{comm.username}</span> 
 															<br></br>
 															{comm.comment}
 														</div>
 													</div>
 												)
 											})
-										) : (<div class = "comments">No comments to display</div>)}
+										) : (<div className = "comments">No comments to display</div>)}
 									</div>
 										{/* <p>You need to Login to Comment</p> */}
 										<form>
@@ -276,7 +276,7 @@ function Landing() {
 										<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 										<label for = "submitButt"></label>
-										<button name = "submitButt" id = "submitButt" class="commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+										<button name = "submitButt" id = "submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 											
 											
 										</form>
@@ -291,7 +291,7 @@ function Landing() {
 
 						<div className="col-lg-4 col-md-12 col-sm-12">
 							<div className="post">
-							<span class = "h2">Share your experience living in the US</span>
+							<span className = "h2">Share your experience living in the US</span>
 							<br></br><br></br>
 
 								{/* Currently this form is disabled */}
