@@ -52,6 +52,13 @@ function Home() {
 				console.log("fetched college list", allColleges)
 				//fetch all posts from db
 				let p = await getAllPosts();
+				// let sortedp;
+				// if(p){
+				// 	sortedp = p.sort((a, b) => b.createdAt - a.createdAt)
+				// } else {
+				// 	   sortedp = p;
+				// }
+				// setPostList(sortedp);
 				setPostList(p);
 				console.log("fetched all posts from db", p);
 				//filter for dropdown
@@ -214,6 +221,9 @@ function Home() {
 				}
 			});
 		});
+
+		posts_filter = posts_filter.sort((a,b) => b.createdAt - a.createdAt)
+
 		setPostFilter(posts_filter);
 	}
 	//component code
