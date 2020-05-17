@@ -105,7 +105,7 @@ return (
             options={{
                 title: {
                     display: displayTitle,
-                    text: 'Average Expenses of colleges' + location,
+                    text: 'Average Expenses of colleges',
                     fontSize: 25
                 },
                 legend: {

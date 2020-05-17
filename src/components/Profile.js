@@ -271,43 +271,50 @@ function Profile() {
 									</MuiPickersUtilsProvider>
 									<br></br>
 									{/*input field for college name if user is a current student */}
-									{currentStudent ? (
-										<div>
-											<FormControl component="fieldset">
-												<FormLabel component="legend">Are you a current student</FormLabel>
-
-												<FormGroup row>
-													<FormControlLabel
-														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-														label="Yes" labelPlacement="end"
-													/>
-												</FormGroup>
-											</FormControl>
-											<br></br>
-											<select
-												className='text-center '
-												name='collegeSelect'
-												id='collegeSelect'>
-												{collegeList && collegeList.map((item) => {
-													return (
-														<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
-
-													)
-												})}
-
-											</select>
-										</div>
+									{user.currentStudent ? (
+											<p>You have already selected college</p>
 									) : (
-											<FormControl component="fieldset">
-												<FormLabel component="legend">Are you a current student</FormLabel>
-
-												<FormGroup row>
-													<FormControlLabel
-														control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
-														label="Yes" labelPlacement="end"
-													/>
-												</FormGroup>
-											</FormControl>)}
+										<div>
+										{currentStudent ? (
+											<div>
+												<FormControl component="fieldset">
+													<FormLabel component="legend">Are you a current student</FormLabel>
+	
+													<FormGroup row>
+														<FormControlLabel
+															control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+															label="Yes" labelPlacement="end"
+														/>
+													</FormGroup>
+												</FormControl>
+												<br></br>
+												<select
+													className='text-center '
+													name='collegeSelect'
+													id='collegeSelect'>
+													{collegeList && collegeList.map((item) => {
+														return (
+															<option selected={item.id == user.collegeId ? (true) : (false)} value={item.id}>{item.name}</option>
+	
+														)
+													})}
+	
+												</select>
+											</div>
+										) : (
+												<FormControl component="fieldset">
+													<FormLabel component="legend">Are you a current student</FormLabel>
+	
+													<FormGroup row>
+														<FormControlLabel
+															control={<Switch checked={currentStudent} onChange={handleToggleChange} name="yes" />}
+															label="Yes" labelPlacement="end"
+														/>
+													</FormGroup>
+												</FormControl>)}
+												</div>
+									)}
+									
 									<br></br>
 									<br></br>
 									<div class="row">
@@ -478,7 +485,7 @@ function Profile() {
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
 													<label for = "commentButt"></label>
 
-											<button onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} class="commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
 
 
 
