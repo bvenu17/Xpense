@@ -62,8 +62,8 @@ const Chat = () => {
             socket.off('output').on('output', chatData => {
 
                 setMsgSent(msgSent => [...msgSent, chatData]);
-                var box = document.getElementById('messagesList');
-                box.scrollTo(0, box.scrollHeight);
+                //  s;
+                // box.scrollTo(0, box.scrollHeight);
                 // var message = document.createElement('div');
                 // message.textContent = chatData.name + " : " + chatData.message;
                 // var messages = document.getElementById('messagesList')
@@ -131,7 +131,7 @@ const Chat = () => {
                         </div>) : (null)} */}
                         {msgSent && msgSent.map((text, i) => {
                             return (
-                                <div className="comments">
+                                <div key={i} className="comments">
                                     <div className="comment chat">
                             <span className="userName"> {text.name} </span>
 

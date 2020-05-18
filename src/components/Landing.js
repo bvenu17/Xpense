@@ -117,9 +117,9 @@ function Landing() {
 						</div>
 						<div className="col-lg-8 col-md-12 col-sm-12">
 
-							{postFilter ? postFilter.map((item, i) => {
+							{postFilter ? postFilter.map((item, j) => {
 								return (
-									<div className="post" key={i}>
+									<div className="post" key={j}>
 										<div className="headerPost">
 											<div className="avatarSide">
 												<img src={item.userProfilePic ? item.userProfilePic : '/imgs/profile.png'} className="avatarPic" alt="profilePic"></img>
@@ -196,10 +196,10 @@ function Landing() {
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
 												<label htmlFor="comment"></label>
-												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 												<label htmlFor="submitButt"></label>
-												<button name="submitButt" id="submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 											</form>
 										</div>
 									</div>
@@ -224,9 +224,9 @@ function Landing() {
 												<br></br>
 												{item.postPicture.length !== 0 ?
 													(<Carousel>
-														{item.postPicture.map((photo) => {
+														{item.postPicture.map((photo , i) => {
 															return (
-																<Carousel.Item key={photo}>
+																<Carousel.Item key={i}>
 																	<img className="postImg" src={photo} alt="img-post" />
 																</Carousel.Item>
 															)
@@ -281,10 +281,10 @@ function Landing() {
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
 												<label htmlFor="comment"></label>
-												<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
+												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
 												<label htmlFor="submitButt"></label>
-												<button name="submitButt" id="submitButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
+												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 
 
 											</form>

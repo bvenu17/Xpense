@@ -1,4 +1,3 @@
-//basic imports
 import React, { useState, useEffect, useContext } from 'react';
 import Chat from './Chat';
 import SignIn from './SignIn';
@@ -180,7 +179,7 @@ const University = (props) => {
                                                     })}
                                                 </Carousel>):(<div></div>)}
                                                 <br></br>
-                                                <p class="postTitle">
+                                                <p className ="postTitle">
                                                     {item.title}
                                                 </p>
                                             </div>
@@ -229,21 +228,21 @@ const University = (props) => {
 
                         		<form onSubmit={handleCommentSubmit}>
 											
-                                <label for = "comment"></label>
-                                <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />	
+                                <label htmlFor = "comment"></label>
+                                <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." />	
                             
-                                <label for = "commentButt"></label>
-                                <button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" class = "commentButt" type="submit"><i class="fas fa-paper-plane icons"></i></button>
+                                <label htmlFor = "commentButt"></label>
+                                <button onClick={() => setPostId(item.id)} name = "commentButt" id = {k} className= "commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
             
                         </form>
                                                 ): (
                                                 <div>
                                                     {/* <p>You need to login to comment</p> */}
                                                     <form>
-                                                    <label for = "comment"></label>
-                                                        <input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." onClick={handleShow} />
-                                                        <label for = "commentButt"></label>
-                                                        <button class="commentButt" name = "commentButt" id = "commentButt" type="submit"><i class="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
+                                                    <label htmlFor = "comment"></label>
+                                                        <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." onClick={handleShow} />
+                                                        <label htmlFor = "commentButt"></label>
+                                                        <button className="commentButt" name = "commentButt" id = {k} type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                                             <Modal className="loginForm" show={show} onHide={handleClose} >
                                                                 <div className = "modalContent">
                                                                     {/* <h3> Please Provide College Details To Post !</h3> */}
