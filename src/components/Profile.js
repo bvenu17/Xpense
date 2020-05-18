@@ -175,9 +175,11 @@ function Profile() {
 		const last = lastName.value;
 		const dateOfBirth = dob.value;
 		let selectedCollegeId;
-		if (!currentStudent) {
-			selectedCollegeId = '';
-		} else {
+		if (user.currentStudent) {
+			selectedCollegeId = user.collegeId;
+		} else if(!currentStudent){
+			selectedCollegeId = ''
+		}	else {
 			selectedCollegeId = collegeSelect.value
 		}
 		
