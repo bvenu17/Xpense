@@ -435,7 +435,7 @@ function Profile() {
 											</p>
 										</div>
 									</div>
-									<div className="postContent" >
+									<div className="postContent module" >
 										<p role = "main" className="collapse" id={item.j+j+j} aria-expanded="false">
 											{item.description}
 											<br></br>

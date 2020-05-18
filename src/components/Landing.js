@@ -150,7 +150,7 @@ function Landing() {
 												</p>
 											</div>
 										</div>
-										<div className="postContent" >
+										<div className="postContent module" >
 
 											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
@@ -238,7 +238,7 @@ function Landing() {
 												</p>
 											</div>
 										</div>
-										<div className="postContent">
+										<div className="postContent module">
 											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
 												{item.description}
