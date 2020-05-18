@@ -272,8 +272,6 @@ function Home() {
 													return (
 														<Carousel.Item>
 															<img key={photo} className="postImg" src={photo} alt="img-post" />
-															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
-															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
 														</Carousel.Item>
 													)
 												})}

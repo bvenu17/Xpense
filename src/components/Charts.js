@@ -73,7 +73,7 @@ getData();
 
 return (
 
-    <div className=" container container1 chart">
+    <div key = "chart" className=" container container1 chart">
         <div className="container container1">
                 <h1>What are our Insights?</h1>
                 <br></br>
