@@ -62,8 +62,8 @@ const Chat = () => {
             socket.off('output').on('output', chatData => {
 
                 setMsgSent(msgSent => [...msgSent, chatData]);
-                var box = document.getElementById('messagesList');
-                box.scrollTo(0, box.scrollHeight);
+                //  s;
+                // box.scrollTo(0, box.scrollHeight);
                 // var message = document.createElement('div');
                 // message.textContent = chatData.name + " : " + chatData.message;
                 // var messages = document.getElementById('messagesList')
