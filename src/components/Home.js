@@ -325,7 +325,7 @@ function Home() {
 
 												<label htmlFor = {i}></label>
 											<input name="comment" className='comment2' id = {i} type="text" placeholder="Add a comment..." />
-												<label htmlFor = "commentButt"></label>
+												<label htmlFor = {item.id}></label>
 											<button onClick={() => setPostId(item.id)} name = "commentButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
@@ -371,8 +371,6 @@ function Home() {
 										<p  role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 											{item.description}
 											<br></br>
-
-
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
 											<br></br>
 											<i className="fas fa-home icons" title="rent"></i>  ${item.rent} per month Rent
@@ -381,7 +379,6 @@ function Home() {
 											<br></br>
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
-
 										</p>
 										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
 

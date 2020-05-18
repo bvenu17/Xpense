@@ -185,7 +185,7 @@ const University = (props) => {
                                             </div>
 										</div>
 									<div className="postContent" id = "module">
-									<p className="collapse" id="collapseExample" aria-expanded="false">
+									<p role= "main" className="collapse" id="collapseExample" aria-expanded="false">
 									{item.description}
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}

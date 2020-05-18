@@ -152,7 +152,7 @@ function Landing() {
 										</div>
 										<div className="postContent" id="module">
 
-											<p className="collapse" id="collapseExample" aria-expanded="false">
+											<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -239,7 +239,7 @@ function Landing() {
 											</div>
 										</div>
 										<div className="postContent" id="module">
-											<p className="collapse" id="collapseExample" aria-expanded="false">
+											<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -322,13 +322,13 @@ function Landing() {
 
 
 										<label htmlFor="title">Title</label>
-										{show ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />) :
-											(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
+										{show ? (<input className='form-control' name='title' id='title'  placeholder='Title' disabled required />) :
+											(<input className='form-control' name='title' id='title'  placeholder='Title' required />)}
 										<br></br>
 
 										<label htmlFor="description">Description</label>
-										{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
-											(<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />)}
+										{show ? (<textarea className='form-control' name='description' id='description'  rows="10" cols="5" placeholder='Description' required />) :
+										(<textarea className='form-control' name='description' id='description'  rows="10" cols="5" placeholder='Description' disabled required />)}
 										<br></br>
 
 										<label htmlFor="rent">Rent</label>
