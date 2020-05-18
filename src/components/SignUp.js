@@ -31,7 +31,7 @@ function SignUp() {
 			{pwMatch && <h4 className='error'>{pwMatch}</h4>}
 			<form onSubmit={handleSignUp}>
 			<div className='form-group'>
-					<label for = "firstName">
+					<label htmlFor = "firstName">
 						First Name
 						</label>
 						<input className='form-control' required name='firstName' type='text' placeholder='Tell us your first name' />
@@ -71,6 +71,7 @@ function SignUp() {
 						</label>
 						<input
 							className='form-control'
+							id = 'passwordTwo'
 							name='passwordTwo'
 							type='password'
 							placeholder='Confirm Password (just to be sure!)'

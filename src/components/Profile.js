@@ -466,7 +466,7 @@ function Profile() {
 											{item.comments ? (
 												item.comments.map((comm  ,i ) => {
 													return (
-														<div key={i} className="comments">
+														<div key={item.id+i}  className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>

@@ -180,7 +180,7 @@ function Landing() {
 													item.comments.map((comm, k) => {
 														return (
 
-															<div className="comments" key={k}>
+															<div key={item.id+k} className="comments">
 																<div className="comment">
 
 																	<span className="userName">{comm.username}</span>
@@ -266,7 +266,7 @@ function Landing() {
 												{item.comments ? (
 													item.comments.map((comm,l) => {
 														return (
-															<div className="comments" key={l}>
+															<div key={item.id+l}  className="comments">
 																<div className="comment">
 
 																	<span className="userName">{comm.username}</span>

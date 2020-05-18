@@ -283,7 +283,7 @@ function Home() {
 										</div>
 									</div>
 									<div className="postContent" id="module">
-										<p className="collapse" id="collapseExample" aria-expanded="false">
+										<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 
 											{item.description}
 											<br></br>
@@ -309,7 +309,7 @@ function Home() {
 											{item.comments ? (
 												item.comments.map((comm , i) => {
 													return (
-														<div key={i} className="comments">
+														<div key={item.id+i} className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>
@@ -368,7 +368,7 @@ function Home() {
 										</div>
 									</div>
 									<div className="postContent" id="module">
-										<p className="collapse" id="collapseExample" aria-expanded="false">
+										<p  role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 											{item.description}
 											<br></br>
 
@@ -399,7 +399,7 @@ function Home() {
 											{item.comments ? (
 												item.comments.map((comm,i) => {
 													return (
-														<div key={i} className="comments">
+														<div key={item.id+i} className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>

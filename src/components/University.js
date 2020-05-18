@@ -212,7 +212,7 @@ const University = (props) => {
 													item.comments.map((comm,i) => {
 														return (
 
-															<div className = "comments" key={i}>
+															<div className = "comments" key={item.id+i} >
 																<div className = "comment">
 																
 																	<span className = "userName">{comm.username}</span> 

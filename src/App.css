@@ -253,6 +253,11 @@ label
 	margin-bottom: 0em;
 }
 
+.aboutImg
+  {
+	  width: 100%;
+  }
+
 .form-control{
 	border-radius: 1.0rem;
 	width: 20.0rem;
@@ -653,13 +658,17 @@ a
 	margin-right: auto;
 
 }
+
 .filter 
 {
 	margin: 0 auto;
 }
 
 }
-
+.comment2 
+{
+	width: 80%;
+}
 @media (min-width: 768px) 
 { 
 
