@@ -185,7 +185,7 @@ const University = (props) => {
                                             </div>
 										</div>
 									<div className="postContent" id = "module">
-									<p role= "main" className="collapse" id="collapseExample" aria-expanded="false">
+									<p role= "main"className="collapse" id={item.id+k+k} aria-expanded="false">
 									{item.description}
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
@@ -198,7 +198,7 @@ const University = (props) => {
 											<br></br>
 									
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+k+k} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
     

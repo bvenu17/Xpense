@@ -152,7 +152,7 @@ function Landing() {
 										</div>
 										<div className="postContent" >
 
-											<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
+											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -166,7 +166,7 @@ function Landing() {
 												<br></br>
 
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+j+j} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 										</div>
 
@@ -239,7 +239,7 @@ function Landing() {
 											</div>
 										</div>
 										<div className="postContent">
-											<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
+											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -253,7 +253,7 @@ function Landing() {
 												<br></br>
 
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+j+j} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 										</div>
 
