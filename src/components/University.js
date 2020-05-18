@@ -184,7 +184,7 @@ const University = (props) => {
                                                 </p>
                                             </div>
 										</div>
-									<div className="postContent module" id = "module">
+									<div className="postContent module">
 									<p role= "main"className="collapse" id={item.id+k+k} aria-expanded="false">
 									{item.description}
 									<br></br>

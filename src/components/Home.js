@@ -450,7 +450,7 @@ function Home() {
 									<br></br>
 
 
-									<label htmlFor="college"> Your College</label>
+									<label> Your College</label>
 									{user.collegeId ? (collegeList.map((item) => {
 										if (user.collegeId === item.id) {
 											return (
