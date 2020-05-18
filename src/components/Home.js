@@ -298,7 +298,7 @@ function Home() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+										<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+i+i} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 									<div className="comments">
@@ -380,7 +380,7 @@ function Home() {
 											<i className="fas fa-subway icons" title="transport"></i>  {item.transport}
 											<br></br>
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+										<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+i+i} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
