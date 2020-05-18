@@ -643,6 +643,18 @@ a
 
 @media (max-width: 576px) 
 { 
+
+.aboutImg
+{
+	width: 100%;
+}
+.loc 
+{
+	font-weight: 900;
+	font-size: 4.0rem;
+	line-height: 4.0rem;
+	text-transform: uppercase;
+}
 .personal
 {
 	padding-left: 2.0rem;

@@ -228,10 +228,10 @@ const University = (props) => {
 
                         		<form onSubmit={handleCommentSubmit}>
 											
-                                <label htmlFor = "comment"></label>
+                                <label htmlFor = {item.id}></label>
                                 <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." />	
                             
-                                <label htmlFor = "commentButt"></label>
+                                <label htmlFor = {item.id}></label>
                                 <button onClick={() => setPostId(item.id)} name = "commentButt" id = {k} className= "commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
             
                         </form>
@@ -239,9 +239,9 @@ const University = (props) => {
                                                 <div>
                                                     {/* <p>You need to login to comment</p> */}
                                                     <form>
-                                                    <label htmlFor = "comment"></label>
+                                                    <label htmlFor = {item.id}></label>
                                                         <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." onClick={handleShow} />
-                                                        <label htmlFor = "commentButt"></label>
+                                                        <label htmlFor = {k}></label>
                                                         <button className="commentButt" name = "commentButt" id = {k} type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                                             <Modal className="loginForm" show={show} onHide={handleClose} >
                                                                 <div className = "modalContent">

@@ -400,7 +400,7 @@ function Profile() {
 					{/* Get user posts */}
 					<div className="col-lg-8 col-md-12 col-sm-12">
 						<label>My posts</label>
-						{userPosts && userPosts.map((item) => {
+						{userPosts && userPosts.map((item , j) => {
 							return (
 								<div key={item.id} className="post">
 
@@ -481,12 +481,12 @@ function Profile() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-											        <label htmlFor = "comment"></label>
+											        <label htmlFor = {j}></label>
 
-											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-													<label htmlFor = "commentButt"></label>
+											<input name="comment" className='comment2' id={j} type="text" placeholder="Add a comment..." />
+													<label htmlFor = {item.id}></label>
 
-											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
+											<button name="commentButt" id= {item.id} onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 									</div>

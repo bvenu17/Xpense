@@ -195,10 +195,10 @@ function Landing() {
 
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label htmlFor="comment"></label>
+												<label htmlFor = {j}></label>
 												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label htmlFor="submitButt"></label>
+												<label htmlFor = {item.id}></label>
 												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 											</form>
 										</div>
@@ -280,10 +280,10 @@ function Landing() {
 											</div>
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label htmlFor="comment"></label>
+												<label htmlFor = {j}></label>
 												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label htmlFor="submitButt"></label>
+												<label htmlFor = {item.id}></label>
 												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 
 
