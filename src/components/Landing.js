@@ -150,9 +150,9 @@ function Landing() {
 												</p>
 											</div>
 										</div>
-										<div className="postContent" id="module">
+										<div className="postContent" >
 
-											<p className="collapse" id="collapseExample" aria-expanded="false">
+											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -166,7 +166,7 @@ function Landing() {
 												<br></br>
 
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+j+j} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 										</div>
 
@@ -180,7 +180,7 @@ function Landing() {
 													item.comments.map((comm, k) => {
 														return (
 
-															<div className="comments" key={k}>
+															<div key={item.id+k} className="comments">
 																<div className="comment">
 
 																	<span className="userName">{comm.username}</span>
@@ -195,10 +195,10 @@ function Landing() {
 
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label htmlFor="comment"></label>
+												<label htmlFor = {j}></label>
 												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label htmlFor="submitButt"></label>
+												<label htmlFor = {item.id}></label>
 												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
 											</form>
 										</div>
@@ -238,8 +238,8 @@ function Landing() {
 												</p>
 											</div>
 										</div>
-										<div className="postContent" id="module">
-											<p className="collapse" id="collapseExample" aria-expanded="false">
+										<div className="postContent">
+											<p role = "main" className="collapse" id={item.id+j+j} aria-expanded="false">
 
 												{item.description}
 												<br></br>
@@ -253,7 +253,7 @@ function Landing() {
 												<br></br>
 
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+j+j} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 										</div>
 
@@ -266,7 +266,7 @@ function Landing() {
 												{item.comments ? (
 													item.comments.map((comm,l) => {
 														return (
-															<div className="comments" key={l}>
+															<div key={item.id+l}  className="comments">
 																<div className="comment">
 
 																	<span className="userName">{comm.username}</span>
@@ -280,10 +280,10 @@ function Landing() {
 											</div>
 											{/* <p>You need to Login to Comment</p> */}
 											<form>
-												<label htmlFor="comment"></label>
+												<label htmlFor = {j}></label>
 												<input name="comment" className='comment2' id = {j} type="text" placeholder="Add a comment..." onClick={handleShow} />
 
-												<label htmlFor="submitButt"></label>
+												<label htmlFor = {item.id}></label>
 												<button name="submitButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow}></i></button>
 
 
@@ -322,13 +322,13 @@ function Landing() {
 
 
 										<label htmlFor="title">Title</label>
-										{show ? (<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' disabled required />) :
-											(<input className='form-control' name='title' id='title' type='textarea' placeholder='Title' required />)}
+										{show ? (<input className='form-control' name='title' id='title'  placeholder='Title' disabled required />) :
+											(<input className='form-control' name='title' id='title'  placeholder='Title' required />)}
 										<br></br>
 
 										<label htmlFor="description">Description</label>
-										{show ? (<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' disabled required />) :
-											(<input className='form-control' name='description' id='description' type='textarea' placeholder='Description' required />)}
+										{show ? (<textarea className='form-control' name='description' id='description'  rows="10" cols="5" placeholder='Description' required />) :
+										(<textarea className='form-control' name='description' id='description'  rows="10" cols="5" placeholder='Description' disabled required />)}
 										<br></br>
 
 										<label htmlFor="rent">Rent</label>

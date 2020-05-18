@@ -253,6 +253,11 @@ label
 	margin-bottom: 0em;
 }
 
+.aboutImg
+  {
+	  width: 100%;
+  }
+
 .form-control{
 	border-radius: 1.0rem;
 	width: 20.0rem;
@@ -638,6 +643,18 @@ a
 
 @media (max-width: 576px) 
 { 
+
+.aboutImg
+{
+	width: 100%;
+}
+.loc 
+{
+	font-weight: 900;
+	font-size: 4.0rem;
+	line-height: 4.0rem;
+	text-transform: uppercase;
+}
 .personal
 {
 	padding-left: 2.0rem;
@@ -653,13 +670,17 @@ a
 	margin-right: auto;
 
 }
+
 .filter 
 {
 	margin: 0 auto;
 }
 
 }
-
+.comment2 
+{
+	width: 80%;
+}
 @media (min-width: 768px) 
 { 
 

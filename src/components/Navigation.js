@@ -38,7 +38,7 @@ const NavigationAuth = () => {
       </li>
 
 	  <li className="nav-item active dropdown">
-        <div  href="#" className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div  role = "main" className="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		<i className="fas fa-university" title = "universities"></i> Universities
         </div>
 		<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -120,7 +120,7 @@ const NavigationNonAuth = () => {
 				</li>
 
 				<li className="nav-item active dropdown">
-					<div href="#" className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div role = "main" className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i className="fas fa-university" title = "universities"></i> Universities
 					</div>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

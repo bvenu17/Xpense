@@ -215,7 +215,7 @@ function Profile() {
 
 								<div className="text-center">
 
-									{user && user.photoURL ? (<img className="align-self-center" c src={user.photoURL} alt='profilePic' className="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' className="avatarPic avatarPic2" /></p>)}
+									{user && user.photoURL ? (<img className="align-self-center" src={user.photoURL} alt='profilePic' className="avatarPic avatarPic2" />) : (<p>Default Picture<br /><img src={defpic} alt='defaultpic' className="avatarPic avatarPic2" /></p>)}
 
 									{/* display user details from db */}
 									{user ? (<p className="profileName">{user.firstName} {user.lastName}</p>) : (<p>NOT GETTING USER DATA</p>)}
@@ -400,7 +400,7 @@ function Profile() {
 					{/* Get user posts */}
 					<div className="col-lg-8 col-md-12 col-sm-12">
 						<label>My posts</label>
-						{userPosts && userPosts.map((item) => {
+						{userPosts && userPosts.map((item , j) => {
 							return (
 								<div key={item.id} className="post">
 
@@ -435,8 +435,8 @@ function Profile() {
 											</p>
 										</div>
 									</div>
-									<div className="postContent" id="module">
-										<p className="collapse" id="collapseExample" aria-expanded="false">
+									<div className="postContent" >
+										<p role = "main" className="collapse" id={item.j+j+j} aria-expanded="false">
 											{item.description}
 											<br></br>
 
@@ -450,7 +450,7 @@ function Profile() {
 											<br></br>
 
 										</p>
-										<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+										<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+j+j} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
 
@@ -466,7 +466,7 @@ function Profile() {
 											{item.comments ? (
 												item.comments.map((comm  ,i ) => {
 													return (
-														<div key={i} className="comments">
+														<div key={item.id+i}  className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>
@@ -481,12 +481,12 @@ function Profile() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-											        <label htmlFor = "comment"></label>
+											        <label htmlFor = {j}></label>
 
-											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-													<label htmlFor = "commentButt"></label>
+											<input name="comment" className='comment2' id={j} type="text" placeholder="Add a comment..." />
+													<label htmlFor = {item.id}></label>
 
-											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
+											<button name="commentButt" id= {item.id} onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 									</div>

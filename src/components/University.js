@@ -185,7 +185,7 @@ const University = (props) => {
                                             </div>
 										</div>
 									<div className="postContent" id = "module">
-									<p className="collapse" id="collapseExample" aria-expanded="false">
+									<p role= "main"className="collapse" id={item.id+k+k} aria-expanded="false">
 									{item.description}
 									<br></br>
 											<i className="fas fa-shopping-cart icons" title="groceries"></i>  {item.groceries}
@@ -198,7 +198,7 @@ const University = (props) => {
 											<br></br>
 									
 											</p>
-											<a role="button" className="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show </a>
+											<a role="button" className="collapsed" data-toggle="collapse" href={'#'+item.id+k+k} aria-expanded="false" aria-controls="collapseExample">Show </a>
 
 									</div>
     
@@ -212,7 +212,7 @@ const University = (props) => {
 													item.comments.map((comm,i) => {
 														return (
 
-															<div className = "comments" key={i}>
+															<div className = "comments" key={item.id+i} >
 																<div className = "comment">
 																
 																	<span className = "userName">{comm.username}</span> 
@@ -228,10 +228,10 @@ const University = (props) => {
 
                         		<form onSubmit={handleCommentSubmit}>
 											
-                                <label htmlFor = "comment"></label>
+                                <label htmlFor = {item.id}></label>
                                 <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." />	
                             
-                                <label htmlFor = "commentButt"></label>
+                                <label htmlFor = {item.id}></label>
                                 <button onClick={() => setPostId(item.id)} name = "commentButt" id = {k} className= "commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
             
                         </form>
@@ -239,9 +239,9 @@ const University = (props) => {
                                                 <div>
                                                     {/* <p>You need to login to comment</p> */}
                                                     <form>
-                                                    <label htmlFor = "comment"></label>
+                                                    <label htmlFor = {item.id}></label>
                                                         <input name="comment" className='comment2' id = {item.id} type="text" placeholder="Add a comment..." onClick={handleShow} />
-                                                        <label htmlFor = "commentButt"></label>
+                                                        <label htmlFor = {k}></label>
                                                         <button className="commentButt" name = "commentButt" id = {k} type="submit"><i className="fas fa-paper-plane icons" onClick={handleShow} ></i></button>
                                                             <Modal className="loginForm" show={show} onHide={handleClose} >
                                                                 <div className = "modalContent">

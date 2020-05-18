@@ -48,9 +48,15 @@ const Chat = () => {
             }
             try {
                 //fetch user details from db
+                
                 let data = await getAllChats();
                 //setLoading(false)
-                setAllmsg(data);
+                if(data){
+                    setAllmsg(data);
+                }
+                else{
+                    setAllmsg([])
+                }
                 console.log("fetched user details", data);
             } catch (e) {
                 console.log(e)
@@ -108,7 +114,7 @@ const Chat = () => {
             <div>
                 <div className='cardMsg' style={{ width: "100% ", overflow: "auto", height: '25.0rem' }}>
                     <div id='messagesList' className='cardblock' style={{ display: "inline-block", width: '100%', height: '100px' }}>
-                        {allmsg && allmsg.chatMessage.map((item, i) => {
+                        {allmsg && allmsg ? (allmsg.chatMessage.map((item, i) => {
                             return (
                                 <div key={i} className="comments">
                                     <div className="comment chat">
@@ -121,7 +127,7 @@ const Chat = () => {
                                     </div>
                                 </div>
                             )
-                        })}
+                        })):(<p>No chat yet</p>)}
                         {/* {msgSent ? (<div class="comments">
                             <div class="comment chat">
                                 <span class="userName"> {msgSent.name} </span>
