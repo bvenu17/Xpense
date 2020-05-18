@@ -282,7 +282,7 @@ function Home() {
 											</p>
 										</div>
 									</div>
-									<div className="postContent" id="module">
+									<div className="postContent" >
 										<p role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 
 											{item.description}
@@ -367,7 +367,7 @@ function Home() {
 											</p>
 										</div>
 									</div>
-									<div className="postContent" id="module">
+									<div className="postContent" >
 										<p  role = "main" className="collapse" id="collapseExample" aria-expanded="false">
 											{item.description}
 											<br></br>
