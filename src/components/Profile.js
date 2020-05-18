@@ -402,7 +402,7 @@ function Profile() {
 						<label>My posts</label>
 						{userPosts && userPosts.map((item) => {
 							return (
-								<div className="post">
+								<div key={item.id} className="post">
 
 
 									<div className="headerPost">
@@ -421,9 +421,9 @@ function Profile() {
 											<br></br>
 											{item.postPicture.length !== 0 ?
                                                 (<Carousel>
-                                                    {item.postPicture.map((photo) => {
+                                                    {item.postPicture.map((photo,i) => {
                                                     return(
-                                                        <Carousel.Item>
+                                                        <Carousel.Item key={i}>
                                                         <img key={photo} className="postImg" src={photo} alt="img-post" />
                                                         </Carousel.Item>
                                                     )
@@ -464,9 +464,9 @@ function Profile() {
 										<label>COMMENTS</label>
 										<div>
 											{item.comments ? (
-												item.comments.map((comm) => {
+												item.comments.map((comm  ,i ) => {
 													return (
-														<div className="comments">
+														<div key={i} className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>
@@ -481,10 +481,10 @@ function Profile() {
 										</div>
 										<form onSubmit={handleCommentSubmit}>
 
-											        <label for = "comment"></label>
+											        <label htmlFor = "comment"></label>
 
 											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
-													<label for = "commentButt"></label>
+													<label htmlFor = "commentButt"></label>
 
 											<button name="commentButt" id= "commentButt" onClick={() => setPostId(item.id)} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 

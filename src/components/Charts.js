@@ -85,21 +85,25 @@ return (
                 </div>
             </div>
 
+            {chartData ? (
         <Bar
-            data={chartData}
-            options={{
-                title: {
-                    display: true,
+        data={chartData}
+        options={{
+            title: {
+                display: true,
 
-                    text: 'Average Expenses of Universities($)',
-                    fontSize: 25
-                },
-                legend: {
-                    display: true,
-                    position: 'right'
-                }
-            }}
-        />
+                text: 'Average Expenses of Universities($)',
+                fontSize: 25
+            },
+            legend: {
+                display: true,
+                position: 'right'
+            }
+        }}
+    />
+    ) : (
+        <p>Not enough data to display a graph </p>
+    )}
     </div>
 )
 

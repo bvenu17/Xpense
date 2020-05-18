@@ -250,7 +250,7 @@ function Home() {
 
 					<br></br>
 					<div className="col-lg-8 col-md-12 col-sm-12">
-						{postFilter ? postFilter.map((item) => {
+						{postFilter ? postFilter.map((item , i) => {
 							return (
 
 								<div className="post">
@@ -268,12 +268,10 @@ function Home() {
 										<div className="postContent">
 											<br></br>
 											<Carousel>
-												{item.postPicture.map((photo) => {
+												{item.postPicture.map((photo,i) => {
 													return (
-														<Carousel.Item>
+														<Carousel.Item key={i}>
 															<img key={photo} className="postImg" src={photo} alt="img-post" />
-															<span aria-hidden="true" className="carousel-control-prev-icon carousal-indicators"> </span>
-															<span aria-hidden="true" className="carousel-control-next-icon carousal-indicators" />
 														</Carousel.Item>
 													)
 												})}
@@ -309,9 +307,9 @@ function Home() {
 										<label>COMMENTS</label>
 										<div>
 											{item.comments ? (
-												item.comments.map((comm) => {
+												item.comments.map((comm , i) => {
 													return (
-														<div className="comments">
+														<div key={i} className="comments">
 															<div className="comment">
 
 																<span className="userName">{comm.username}</span>
@@ -326,9 +324,9 @@ function Home() {
 										<form onSubmit={handleCommentSubmit}>
 
 												<label htmlFor = "comment"></label>
-											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
+											<input name="comment" className='comment2' id = {i} type="text" placeholder="Add a comment..." />
 												<label htmlFor = "commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 										</form>
 
@@ -417,9 +415,9 @@ function Home() {
 
 
 											<label htmlFor = "comment"></label>
-											<input name="comment" className='comment2' id="comment" type="text" placeholder="Add a comment..." />
+											<input name="comment" className='comment2' id = {i} type="text" placeholder="Add a comment..." />
 												<label htmlFor ="commentButt"></label>
-											<button onClick={() => setPostId(item.id)} name = "commentButt" id = "commentButt" className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
+											<button onClick={() => setPostId(item.id)} name = "commentButt" id = {item.id} className="commentButt" type="submit"><i className="fas fa-paper-plane icons"></i></button>
 
 
 

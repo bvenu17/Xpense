@@ -131,7 +131,7 @@ const Chat = () => {
                         </div>) : (null)} */}
                         {msgSent && msgSent.map((text, i) => {
                             return (
-                                <div className="comments">
+                                <div key={i} className="comments">
                                     <div className="comment chat">
                             <span className="userName"> {text.name} </span>
 
