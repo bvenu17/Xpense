@@ -1,0 +1,697 @@
+.App {
+	text-align: center;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	height: 150px;
+	padding: 20px;
+	color: white;
+}
+.unidetails{
+	text-align:center;
+}
+
+
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.navigation {
+	background: #282c34;
+}
+
+.navigation ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.navigation a:link,
+.navigation a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.active {
+	font-weight: bold;
+	color: red !important;
+}
+
+.error {
+	font-weight: bold;
+	color: red !important;
+}
+
+.forgotPassword {
+	background: none !important;
+	border: none !important;
+	text-decoration: underline;
+	margin-left: 5px;
+	color: darkblue;
+}
+
+.forgotPassword:hover {
+	text-decoration: none;
+	color: red;
+}
+
+.landingPage{
+	text-align:center;
+}
+
+.unidetails{
+	text-align:center;
+}
+
+.home{
+	text-align: center;
+}
+
+/* .modalContent
+{
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+
+} */
+
+/* ROHAN STYLE */
+
+body 
+{
+	font-family: 'Montserrat', sans-serif;
+	background: #E9EBEE;
+}
+
+/* NAVIGATION */
+
+.navStyle
+{
+	background: #2ecc71;
+	padding: 0%;
+
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
+}
+
+li 
+{
+
+	margin-left: 1.5rem;
+}
+.brand 
+{
+	font-weight: 900;
+	font-size: 2.0rem;
+}
+
+.nav-item 
+{
+	font-weight: 700;
+	color: #232323;
+}
+
+.activeLink
+{
+	font-weight: 700;
+	color: #232323;
+}
+
+.ssign
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 0 auto;
+	padding-bottom: 10%;
+}
+
+.socialSign{
+	width: 3.0rem;
+}
+
+.logo 
+{
+width: 2.0rem;
+}
+
+.modalContent
+{
+margin: 0 auto;
+width: 20.0rem;
+
+
+}
+
+.modalHeader 
+{
+	background: #2ecc71;
+	color: #232323;
+	font-weight: 500;
+	border: none;
+	outline: none;
+}
+.modalHeader:hover
+{
+	color: #2ecc71;
+	background: white;
+}
+
+.loginButt
+{
+background: #232323;
+color: white;
+font-weight: 500;
+border-radius: 1.0rem;
+outline: none;
+border: none;
+}
+.loginButt:hover
+{
+background: white;
+color: #232323;
+outline: none;
+border: none;
+}
+
+
+.loginButt2{
+	background: #2ecc71;
+	color: black;
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
+	border-radius: 2.0rem;
+	font-weight: 700;
+}
+
+.loginRegHeader
+{
+	text-align: center;
+	font-weight: 700;
+	font-size: 3.0rem;
+	margin:1.0rem;
+}
+.logSignButt 
+{
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-align: center;
+	align-self: center;
+
+}
+
+
+
+.forgotPassword {
+	background: none !important;
+	border: none !important;
+	color: #069;
+	font-size: 0.8rem;
+	font-weight: 700;
+}
+
+.forgotPassword:hover {
+	text-decoration: none;
+	color: red;
+}
+
+.container1
+{
+	margin-top:5.0rem;
+}
+
+label
+{
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	line-height: 0.8rem;
+	letter-spacing: 0.2rem;
+	margin-bottom: 0em;
+}
+
+.aboutImg
+  {
+	  width: 100%;
+  }
+
+.form-control{
+	border-radius: 1.0rem;
+	width: 20.0rem;
+	outline-width: 0px;
+
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+.form-control:focus
+{
+	border: 1px solid #2ecc71;
+	outline: none !important;
+	outline-width: 0px;
+	
+}
+
+/* POSTS */
+.post 
+{
+	width: 100%;
+	background: white;
+	padding: 1.0rem;
+	box-shadow: 0px 12px 22px rgba(82, 87, 104, 0.1), 0px -12px 22px rgba(82, 87, 104, 0.05);
+
+	border-radius: 1.0rem;
+	text-align: left;
+	margin-bottom: 1.0rem;
+}
+
+.avatarSide 
+{
+	float: left;
+	width: 11%;
+
+}
+.personal
+{
+	float: left;
+	width: 88%;
+
+}
+.avatarPic
+{
+	width: 4.0rem;
+	height: 4.0rem;
+	border-radius: 50%;
+}
+.author
+{
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-bottom: 0%;
+	line-height: 1.3rem;
+	padding-top: 0.5rem;
+	color: #232323;
+}
+.college
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	font-weight: 400;
+}
+.time 
+{
+	margin: 0%;
+	padding: 0%;
+	font-size: 0.7rem;
+	font-weight: 400;	
+
+}
+.postTitle
+{
+	font-weight: 900;
+}
+
+
+.postImg 
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+	height: 20.0rem;
+}
+
+/* .carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+} */
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+/* 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+  outline: black;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-color: #000000;
+  color: #000000;
+  padding: 1.0rem;
+
+
+} */
+
+/* .carousel-control-next-icon:after
+{
+	display: inline-block;
+  content: '>';
+  font-size: 4.0rem;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 4.0rem;
+  color: black;
+} */
+.icons 
+{
+	color: #2ecc71;
+	width: 1.5rem;
+}
+.h2 
+{
+	font-size: 1.5rem;
+}
+.comments 
+{
+	background-color: white;
+}
+.comment
+{
+	background-color: #E9EBEE;
+	border-radius: 1.0rem;
+	margin-bottom: 1.0rem;
+	padding: 1.0rem;
+}
+.comment2 
+{
+	border-radius: 1.0rem;
+	padding: 1.0rem;
+	border: 1px solid #E9EBEE;
+	outline: none;
+	outline-width: 0px;
+	width: 90%;
+}
+.commentButt 
+{
+	background: none;
+	border: none;
+	font-size: 2.0rem;
+}
+.userName
+{
+	font-weight: 700;
+}
+
+
+
+
+.devName
+{
+	color: #000000;
+}
+
+
+.devName2
+{
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+}
+.locationDes{
+	padding: 10%;
+}
+
+.loginForm{
+	height : 100%;
+}
+
+.navLogo{
+	padding-bottom : 2%;
+}
+
+
+.devCard
+{
+	width: auto;
+	border-radius: 10%;
+  	height: 100%;
+	background: transparent;
+	padding: 0px;
+	box-shadow: 0px 12px 22px rgba(82, 87, 104, 0.1), 0px -12px 22px rgba(82, 87, 104, 0.05);
+	text-align: center;
+	border: transparent;
+	border-radius: 10%;
+}
+
+.locationCardRow{
+  	align-items: center;
+	width: 100%;
+}
+
+.locationCard{
+	width: auto;
+	height: 100%;
+	padding: 0%;
+}
+
+.locationCardRow:hover{
+	opacity: 0.8;
+	background :  #2ecc71;
+}
+
+.devCard:hover
+{
+	opacity: 0.8;
+	background :  #2ecc71;
+
+}
+.loc 
+{
+	font-weight: 900;
+	font-size: 6.0rem;
+	line-height: 6.0rem;
+	text-transform: uppercase;
+}
+.avatarPic2
+{
+	height: 10.0rem;
+	width: 10.0rem;
+
+}
+
+
+/*SEE MORE */
+a 
+{
+
+	color: darkblue;
+}
+module {
+	font-size: 1rem;
+	line-height: 1.5;
+  }
+  
+  
+  .module #collapseExample.collapse:not(.show) {
+	display: block;
+	height: 3rem;
+	overflow: hidden;
+  }
+  
+  .module #collapseExample.collapsing {
+	height: 3rem;
+  }
+  
+  .module a.collapsed::after {
+	content: 'More';
+
+  }
+  
+  .module a:not(.collapsed)::after {
+	content: 'Less';
+
+  }
+
+
+  /* UNIVERSITIES */
+
+  .univ{
+	  background: #2ecc71;
+	  margin-top: 0%;
+	  
+  }
+
+  .hRule
+  {
+	  margin-top:-2.0rem;
+
+  }
+
+  .univLogo
+  {
+	  width: 8.0rem;
+	  height: 8.0rem;
+	  border-radius: 10%;
+  }
+  .uniName
+  {
+	  font-size:3.0rem;
+	  font-weight: 800;
+	  line-height: 3.0rem;
+	  margin-bottom: 1.0rem;
+	  margin-top:0.5rem;
+  }
+  .icons2
+  {
+	  margin-right: 0.3rem;
+  }
+  .tut 
+  {
+	  font-weight: 700;
+  }
+
+ /*CHAT */
+
+  .chat 
+  {
+	  background: #2ecc71;
+	  padding: 0.5rem;
+
+  }
+
+  .chatBox
+  {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 10%;
+  }
+  .chat-control
+  {
+	  display: flex;
+	  flex-direction: row;
+  } 
+
+  /*Profile */
+
+  .upload 
+  {
+	  border: none;
+	  width: 85%;
+	  margin-top: 0%;
+  }
+  .profileName
+  {
+	  font-weight: 900;
+	  font-size: 1.5rem;
+  }
+  .pp 
+  {
+	  margin-bottom: 0%;
+	  line-height: 0.8rem;
+	  padding-bottom: 0%;
+	  text-align: left;
+  }
+  .profileButt 
+  {
+	  margin: 0 auto;
+	  text-align: center;
+  }
+
+  .check:hover
+  {
+	background-color: black;
+  }
+
+  .loadingGIF {
+	 
+	position: absolute; 
+  	top: 50%;
+  	left: 50%;
+
+  }
+
+  /* RESPONSIVENESS */
+
+
+@media (max-width: 576px) 
+{ 
+
+.aboutImg
+{
+	width: 100%;
+}
+.loc 
+{
+	font-weight: 900;
+	font-size: 4.0rem;
+	line-height: 4.0rem;
+	text-transform: uppercase;
+}
+.personal
+{
+	padding-left: 2.0rem;
+}
+.nav-item
+{
+	text-align: right;
+}
+.univLogo
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.filter 
+{
+	margin: 0 auto;
+}
+
+}
+.comment2 
+{
+	width: 80%;
+}
+@media (min-width: 768px) 
+{ 
+
+ }
+
+@media (min-width: 992px) 
+{ 
+
+ }
+
+
+@media (min-width: 1200px) { 
+	
+ }
